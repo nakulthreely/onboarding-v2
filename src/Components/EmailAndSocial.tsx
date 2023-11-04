@@ -2,14 +2,16 @@ import { useNavigate } from 'react-router-dom';
 import { useSocialLoginConnectors } from '../socialLogins/socialLoginConnectors';
 import { useEffect, useState, useContext } from 'react';
 import NavContext from '../NavContext';
-
+import axios from "axios"
+import Iframe from './Iframe';
 
 export default function EmailAndSocial(props: any) {
-  const navigate = useNavigate();
+
   //@ts-ignore
   const { setView } = useContext(NavContext)
   const socialLogins = useSocialLoginConnectors();
   const [authenticated, setAuthenticated] = useState(false)
+  const [openIframe, setOpenFrame] = useState(false)
 
   const baseUrl = 'https://staging.tria.so'
 
@@ -20,12 +22,55 @@ export default function EmailAndSocial(props: any) {
     localStorage.setItem('socialNetwork', socialNetwork);
     try {
       //window.open(`${baseUrl}/api/v1/auth/oauth/${socialNetwork}`, '_blank');
+      setOpenFrame(true)
       window.open(`${baseUrl}/api/v1/auth/oauth/${socialNetwork}`, "SSO", `width=${500},height=${600},left=${0},top=${top}`);
     } catch (err) {
       console.log(err);
     }
   };
 
+
+  // useEffect(() => {
+  //   async function submitData() {
+  //     const searchParams = new URLSearchParams(location.search);
+  //     const code = searchParams.get('code');
+  //     const scope = searchParams.get('scope');
+  //     const state = searchParams.get('state');
+  //     console.log('state', state);
+  //     if (code && scope && state === 'google') {
+  //       const {
+  //         data: { userId, isAccountExist, password, isPasswordRequired },
+  //       } = await axios.get(
+  //         `${baseUrl}/api/v1/auth/google/callback?code=${code}&scope=${scope}`
+  //       );
+  //       console.log(userId);
+  //       // setActiveSocialMedia('google');
+  //       // setId(userId);
+  //       // setPassword(password);
+  //       // setIsPasswordRequired(isPasswordRequired);
+  //       // setIsExist(isAccountExist);
+  //       // setFlag(false);
+  //       // navigate('/');
+  //     } else if (code && state === 'instagram') {
+  //       const { data } = await axios.get(
+  //         `${baseUrl}/api/v1/auth/instagram/callback?code=${code}`
+  //       );
+  //       console.log(data);
+  //       // setId(id);
+  //       // setActiveSocialMedia('instagram');
+  //       // setPassword(password);
+  //       // setIsPasswordRequired(isPasswordRequired);
+  //       // setIsExist(isAccountExist);
+  //       // setFlag(false);
+  //       // navigate('/');
+  //     }
+  //   }
+  //   try {
+  //     submitData();
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }, []);
   useEffect(() => {
     if (authenticated) {
       setTimeout(() => {
@@ -36,6 +81,7 @@ export default function EmailAndSocial(props: any) {
 
   return (
     <div>
+      {openIframe === true ? <Iframe /> : null}
       <button>
         <div className="w-[416px] h-[260px] px-5 py-4 rounded-2xl border border-violet-400 border-opacity-30 flex-col justify-center items-center gap-2 inline-flex">
           <div className="w-[376px] h-[54px] py-3 justify-center items-center gap-4 inline-flex">
