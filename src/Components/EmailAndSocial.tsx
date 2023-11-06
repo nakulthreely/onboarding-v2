@@ -4,12 +4,14 @@ import { useEffect, useState, useContext } from 'react';
 import NavContext from '../NavContext';
 
 
+
 export default function EmailAndSocial(props: any) {
   const navigate = useNavigate();
   //@ts-ignore
-  const { setView } = useContext(NavContext)
+  const { setView,authController } = useContext(NavContext)
   const socialLogins = useSocialLoginConnectors();
-  const [authenticated, setAuthenticated] = useState(false)
+  const [authenticated, setAuthenticated] = useState(false);
+  const [email,setEmail]=useState("");
 
   const baseUrl = 'https://staging.tria.so'
 
@@ -32,7 +34,11 @@ export default function EmailAndSocial(props: any) {
         setAuthenticated(false)
       }, 4000)
     }
-  }, [authenticated])
+  }, [authenticated]);
+
+  const checkEmailExists =async()=>{
+  //  const res=await authController.
+  }
 
   return (
     <div>
@@ -63,7 +69,7 @@ export default function EmailAndSocial(props: any) {
             </div>
           </div>
           <div className="self-stretch py-3 justify-center items-center gap-2 inline-flex">
-            <input className="grow shrink basis-0 h-10 px-5 py-3 font-Montserrat bg-stone-950 bg-opacity-5 rounded-[20px] justify-start items-center flex" type="email" placeholder='your@email.com' />
+            <input className="grow shrink basis-0 h-10 px-5 py-3 font-Montserrat bg-stone-950 bg-opacity-5 rounded-[20px] justify-start items-center flex" type="email" placeholder='your@email.com' value={email} onChange={(e)=>setEmail(e.target.value)} />
             {/* <div className="justify-start items-center flex">
                 <div className="text-center text-stone-950 text-opacity-30 text-base font-normal font-Montserrat leading-tight">your@email.com</div>
                 <input type='email' ></input>
@@ -71,7 +77,7 @@ export default function EmailAndSocial(props: any) {
             {/* </div> */}
             <div className="w-[99px] h-10 px-5 py-3 bg-stone-950 bg-opacity-90 rounded-[20px] justify-center items-center flex">
               <div className="justify-center items-center flex">
-                <button onClick={() => setView("Confirm Email")}><div className="text-center text-white text-base font-semibold font-Montserrat leading-tight">Log in</div></button>
+                <button onClick={() => setView("Confirm Email")}><div className="text-center text-white text-base font-semibold font-Montserrat leading-tight" onClick={checkEmailExists}>Log in</div></button>
               </div>
             </div>
           </div>
