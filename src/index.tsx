@@ -107,26 +107,49 @@ const createEncodedData=(data)=>{
     return encodedParams;
 }
 
+let iframeurl;
+const createWalletiframe =({appDomain,appLogo})=>{
+  const loginData=  { loginType: 'native', triaName:"dev@tria" , socialName: localStorage?.getItem("socialNetwork"), userId: '', input: '' }
+  const res=createEncodedData( {
+    triaName:loginData.triaName,
+    appName:'',
+    darkMode:true,
+    appDomain,
+    defaultChain:'',
+    allowedChains:[],
+    appLogo,
+    accessToken:'',
+    loginType:loginData.loginType,
+    socialName:loginData.socialName,
+    userId:loginData.userId
+  } );
+   const walletIframe=`https://reliable-semifreddo-e8e93e.netlify.app/${res}`;
+   iframeurl=walletIframe;
+
+}
+
 
 export const  triaSendTransaction = ({ appDomain, appLogo }) => {
   const sendTransaction = async (sendDataFromDapp) => {
   
-  const loginData=  { loginType: 'native', triaName:triaName , socialName: localStorage?.getItem("socialNetwork"), userId: '', input: '' }
+  const loginData=  { loginType: 'native', triaName:"dev@tria" , socialName: localStorage?.getItem("socialNetwork"), userId: '', input: '' }
 
     // const { from, to, chainName, tokenAddress, amount }=sendDataFromDapp;
     const iframeEncodedData=createEncodedData({...sendDataFromDapp,...loginData,appDomain,appLogo});
     const sendIframeUrl={authURL}/send/iframeEncodedData;
     setIframeURL(sendIframeUrl);
+    iframeurl=sendIframeUrl;
   };
 
 
   const signMessage = async (message) => {
-    const loginData=  { loginType: 'native', triaName:triaName , socialName: localStorage?.getItem("socialNetwork"), userId: '', input: '' }
+    const loginData=  { loginType: 'native', triaName:"dev@tria" , socialName: localStorage?.getItem("socialNetwork"), userId: '', input: '' }
 
       // const { message }=message;
       const iframeEncodedData=createEncodedData({...message,...loginData,appDomain,appLogo});
       const signIframeUrl={authURL}/signMessage/iframeEncodedData;
       setIframeURL(signIframeUrl);
+      iframeurl=signIframeUrl;
     };
 
   return {
@@ -144,9 +167,13 @@ const Application = ({ dappName, logo }) => {
   const [showWallet, setShowWallet] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [showOnboarding, setShowOnboarding] = useState(false);
-  const [iframeURL, setIframeURL]=useState("https://reliable-semifreddo-e8e93e.netlify.app/");
+  // const [iframeURL, setIframeURL]=useState("https://reliable-semifreddo-e8e93e.netlify.app/");
 
   const { account } = useAccount();
+
+  useEffect(()=>{
+   createWalletiframe({appDomain:dappName,appLogo:logo});
+  },[])
 
 
   useEffect(() => {
@@ -182,8 +209,8 @@ const Application = ({ dappName, logo }) => {
           <Router>
             {showWallet && (
               <div className="bg flex  justify-between bg-black">
-                <div className="mb-4 mr-2 fixed right-2 rounded-[20px] bottom-40 overflow-hidden">
-                  <iframe width="450" height="840" src="https://reliable-semifreddo-e8e93e.netlify.app/" />
+                <div className="mr-2 fixed right-2 bottom-16 rounded-[20px] overflow-hidden">
+                  <iframe width="314" height="588" className="" src={iframeurl} />
                 </div>
               </div>
 
