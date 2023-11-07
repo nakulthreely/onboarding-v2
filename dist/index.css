@@ -342,6 +342,9 @@ video {
 .bottom-0 {
   bottom: 0px;
 }
+.bottom-16 {
+  bottom: 4rem;
+}
 .bottom-4 {
   bottom: 1rem;
 }
@@ -374,6 +377,9 @@ video {
 }
 .right-0 {
   right: 0px;
+}
+.right-2 {
+  right: 0.5rem;
 }
 .right-8 {
   right: 2rem;
@@ -771,6 +777,9 @@ video {
 }
 .self-stretch {
   align-self: stretch;
+}
+.overflow-hidden {
+  overflow: hidden;
 }
 .overflow-y-scroll {
   overflow-y: scroll;

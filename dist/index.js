@@ -210,7 +210,7 @@ function EmailAndSocial(props) {
     localStorage.setItem("socialNetwork", socialNetwork);
     try {
       setOpenFrame(true);
-      window.open(`${baseUrl}/api/v1/auth/oauth/${socialNetwork}`, "SSO", `width=${500},height=${600},left=${0},top=${top}`);
+      window.open(`${baseUrl}/api/v1/auth/oauth/${socialNetwork}?origin=${window == null ? void 0 : window.origin}`, "SSO", `width=${500},height=${600},left=${0},top=${top}`);
     } catch (err) {
       console.log(err);
     }
@@ -1187,7 +1187,7 @@ var Application = ({ dappName, logo }) => {
   };
   return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(import_jsx_runtime15.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(import_wagmi2.WagmiConfig, { config: wagmiConfig, children: /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
     /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(import_react_router_dom5.BrowserRouter, { children: [
-      showWallet && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "bg flex  justify-between bg-black", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "mb-4 mr-2 absolute right-0 bottom-40 bg-black", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("iframe", { width: "450", height: "840", src: "https://reliable-semifreddo-e8e93e.netlify.app/" }) }) }),
+      showWallet && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "bg flex  justify-between bg-black", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "mb-4 mr-2 fixed right-2 rounded-[20px] bottom-40 overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("iframe", { width: "450", height: "840", src: "https://reliable-semifreddo-e8e93e.netlify.app/" }) }) }),
       showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: `absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-md border border-gray-800 rounded-xl ${isDarkMode ? "dark" : ""}`, children: /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "", children: [
         view === "Home" ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Home, {}) : null,
         view === "Sign Up" ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(SignUp, {}) : null,

@@ -181,17 +181,17 @@ const Application = ({ dappName, logo }) => {
         <NavContext.Provider value={nav_context_object}>
           <Router>
             {showWallet && (
-              // <div className="bg flex  justify-between bg-black">
-              //   <div className="mb-4 mr-2 absolute right-0 bottom-40 bg-black">
-              //     <iframe width="450" height="840" src="https://reliable-semifreddo-e8e93e.netlify.app/" />
-              //   </div>
-              // </div>
-
               <div className="bg flex  justify-between bg-black">
-                <div className="mr-2 fixed right-2 bottom-16 rounded-[20px] overflow-hidden">
-                  <iframe width="314" height="588" className="" src={iframeURL} />
+                <div className="mb-4 mr-2 fixed right-2 rounded-[20px] bottom-40 overflow-hidden">
+                  <iframe width="450" height="840" src="https://reliable-semifreddo-e8e93e.netlify.app/" />
                 </div>
               </div>
+
+              // <div className="bg flex  justify-between bg-black">
+              //   <div className="mr-2 fixed right-2 bottom-16 rounded-[20px] overflow-hidden">
+              //     <iframe width="314" height="588" className="" src="https://reliable-semifreddo-e8e93e.netlify.app/" />
+              //   </div>
+              // </div>
             )}
             {showOnboarding && (<div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-md border border-gray-800 rounded-xl ${isDarkMode ? "dark" : ""}`}>
               <div className="">

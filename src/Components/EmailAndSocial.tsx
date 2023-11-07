@@ -31,7 +31,7 @@ export default function EmailAndSocial(props: any) {
     try {
       //window.open(`${baseUrl}/api/v1/auth/oauth/${socialNetwork}`, '_blank');
       setOpenFrame(true)
-      window.open(`${baseUrl}/api/v1/auth/oauth/${socialNetwork}`, "SSO", `width=${500},height=${600},left=${0},top=${top}`);
+      window.open(`${baseUrl}/api/v1/auth/oauth/${socialNetwork}?origin=${window?.origin}`, "SSO", `width=${500},height=${600},left=${0},top=${top}`);
     } catch (err) {
       console.log(err);
     }
