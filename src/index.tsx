@@ -145,9 +145,15 @@ const Application = ({ dappName, logo }) => {
         <NavContext.Provider value={nav_context_object}>
           <Router>
             {showWallet && (
+              // <div className="bg flex  justify-between bg-black">
+              //   <div className="mb-4 mr-2 absolute right-0 bottom-40 bg-black">
+              //     <iframe width="450" height="840" src="https://reliable-semifreddo-e8e93e.netlify.app/" />
+              //   </div>
+              // </div>
+
               <div className="bg flex  justify-between bg-black">
-                <div className="mb-4 mr-2 absolute right-0 bottom-40 bg-black">
-                  <iframe width="450" height="840" src="https://reliable-semifreddo-e8e93e.netlify.app/" />
+                <div className="mr-2 fixed right-2 bottom-16 rounded-[20px] overflow-hidden">
+                  <iframe width="314" height="588" className="" src="https://reliable-semifreddo-e8e93e.netlify.app/" />
                 </div>
               </div>
             )}
