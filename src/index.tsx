@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import { useState } from "react";
@@ -33,6 +33,8 @@ import "./index.css";
 import NavContext from "./NavContext";
 import { IframeController } from "./connect/controllers/iframe.controller";
 import { UserController, AuthController } from '@tria-sdk/core';
+import { useAccount } from '@tria-sdk/connect'
+
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -88,7 +90,7 @@ const iframe = new IframeController(
   "https://opensea.com",
   "https://wallet.tria.so"
 );
-console.log("ifrome", iframe);
+console.log("iframe", iframe);
 
 const authController = new AuthController('https://staging.tria.so');
 
@@ -100,12 +102,28 @@ const wagmiConfig = createConfig({
 });
 
 const Application = ({ dappName, logo }) => {
+
   const [view, setView] = useState("Home");
   const [triaName, setTriaName] = useState("");
   const [email, setEmail] = useState("")
   const [showWallet, setShowWallet] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [showOnboarding, setShowOnboarding] = useState(true)
+  const [showOnboarding, setShowOnboarding] = useState(false)
+
+  const { account } = useAccount();
+
+
+  useEffect(() => {
+    setInterval(() => {
+      console.log('account', account)
+      if (localStorage.getItem('tria.wallet.store') !== null) {
+        setShowOnboarding(false)
+        setTriaName(JSON.parse(localStorage.getItem('tria.wallet.store'))?.triaName)
+      } else {
+        setShowOnboarding(true)
+      }
+    }, 500)
+  }, [])
 
   const nav_context_object = {
     view,
@@ -133,7 +151,7 @@ const Application = ({ dappName, logo }) => {
                 </div>
               </div>
             )}
-            {showOnboarding && (<div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-md border border-gray-800 rounded-lg ${isDarkMode ? "dark" : ""}`}>
+            {showOnboarding && (<div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-md border border-gray-800 rounded-xl ${isDarkMode ? "dark" : ""}`}>
               <div className="">
                 {view === "Home" ? <Home /> : null}
                 {view === "Sign Up" ? <SignUp /> : null}

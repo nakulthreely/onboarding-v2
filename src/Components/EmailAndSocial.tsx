@@ -15,6 +15,7 @@ export default function EmailAndSocial(props: any) {
   const [authenticated, setAuthenticated] = useState(false);
   // const [email, setEmail] = useState("");
   const [openIframe, setOpenFrame] = useState(false)
+  const [openLoginFrame, setOpenLoginFrame] = useState(false)
 
   //Wagmi Connector
   const { connect, connectors } = useConnect();
@@ -93,6 +94,11 @@ export default function EmailAndSocial(props: any) {
   return (
     <div>
       {openIframe === true ? <Iframe /> : null}
+      {openLoginFrame === true ?
+        <div className="mb-4 mr-2 absolute right-0 bottom-0 left-0 bg-black">
+          <iframe width="450" height="1000" src={`https://auth-7rin.vercel.app/signInPassword/${email}`} />
+        </div>
+        : null}
       <button>
         <div className="w-[416px] h-[260px] px-5 py-4 rounded-2xl border border-violet-400 border-opacity-30 flex-col justify-center items-center gap-2 inline-flex">
           <div className="w-[376px] h-[54px] py-3 justify-center items-center gap-4 inline-flex">
@@ -126,7 +132,7 @@ export default function EmailAndSocial(props: any) {
                 <input type='email' ></input>
               </div> */}
             {/* </div> */}
-            <div onClick={() => setView("Sign In Password")} className="w-[99px] h-10 px-5 py-3 bg-white rounded-[20px] justify-center items-center flex">
+            <div onClick={() => setOpenLoginFrame(true)} className="w-[99px] h-10 px-5 py-3 bg-white rounded-[20px] justify-center items-center flex">
               <div className="justify-center items-center flex">
                 <button><div className="text-center text-black text-base font-semibold font-Montserrat leading-tight" onClick={checkEmailExists}>Next</div></button>
               </div>
@@ -144,17 +150,16 @@ export default function EmailAndSocial(props: any) {
               {
                 socialLogins?.map((social, index) => {
                   return (
-                    <div key={index} className="w-10 h-10 bg-neutral-50 rounded-[28.33px] shadow flex justify-center items-center ">
-                      <div onClick={() => socialLoginClicked(index)} className="w-6 h-6"  >
-                        {social?.iconUrl}
-                      </div>
+                    <div onClick={() => socialLoginClicked(index)}>
+                      {social?.iconUrl}
                     </div>
                   )
                 })
               }
               {/* Metamask Login */}
-              <div className="w-10 h-10 bg-neutral-50 rounded-[28.33px] shadow flex justify-center items-center ">
-                <div onClick={() => { connect({ connector: connectors[2] }) }} className="w-6 h-6"  >
+
+              <div onClick={() => { connect({ connector: connectors[2] }) }}>
+                <div className='h-10 w-10 bg-white rounded-full flex center justify-center items-center'>
                   <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="28" height="28" fill="#1E1E1E" />
                     <g id="Email - sign up">
@@ -281,9 +286,19 @@ export default function EmailAndSocial(props: any) {
                       </clipPath>
                     </defs>
                   </svg>
-
                 </div>
               </div>
+
+              {/* Wallet Connect */}
+              <div onClick={() => { connect({ connector: connectors[1] }) }}>
+                <div className='h-10 w-10 bg-[#3B99FC] rounded-full flex center justify-center items-center'>
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="28" height="28" rx="6" fill="#3B99FC" />
+                    <path d="M8.38969 10.3737C11.4882 7.27518 16.5118 7.27518 19.6103 10.3737L19.9832 10.7466C20.1382 10.9015 20.1382 11.1527 19.9832 11.3076L18.7076 12.5833C18.6301 12.6607 18.5045 12.6607 18.4271 12.5833L17.9139 12.0701C15.7523 9.90851 12.2477 9.90851 10.0861 12.0701L9.53655 12.6197C9.45909 12.6971 9.3335 12.6971 9.25604 12.6197L7.98039 11.344C7.82547 11.1891 7.82547 10.9379 7.98039 10.783L8.38969 10.3737ZM22.2485 13.0118L23.3838 14.1472C23.5387 14.3021 23.5387 14.5533 23.3838 14.7082L18.2645 19.8275C18.1096 19.9825 17.8584 19.9825 17.7035 19.8276C17.7035 19.8276 17.7035 19.8276 17.7035 19.8276L14.0702 16.1942C14.0314 16.1555 13.9686 16.1555 13.9299 16.1942C13.9299 16.1942 13.9299 16.1942 13.9299 16.1942L10.2966 19.8275C10.1417 19.9825 9.89053 19.9825 9.73561 19.8276C9.7356 19.8276 9.7356 19.8276 9.7356 19.8276L4.61619 14.7081C4.46127 14.5532 4.46127 14.302 4.61619 14.1471L5.75152 13.0118C5.90645 12.8569 6.15763 12.8569 6.31255 13.0118L9.94595 16.6452C9.98468 16.6839 10.0475 16.6839 10.0862 16.6452C10.0862 16.6452 10.0862 16.6452 10.0862 16.6452L13.7194 13.0118C13.8743 12.8568 14.1255 12.8568 14.2805 13.0118C14.2805 13.0118 14.2805 13.0118 14.2805 13.0118L17.9139 16.6452C17.9526 16.6839 18.0154 16.6839 18.0541 16.6452L21.6874 13.0118C21.8424 12.8569 22.0936 12.8569 22.2485 13.0118Z" fill="white" />
+                  </svg>
+                </div>
+              </div>
+
             </div> :
               <div className='px-8 py-2 bg-green-400 text-green-700 font-bold font-Montserrat rounded-md'>
                 Authenticated

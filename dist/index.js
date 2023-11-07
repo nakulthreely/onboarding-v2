@@ -44,6 +44,7 @@ __export(src_exports, {
   getDefaultWallets: () => getDefaultWallets
 });
 module.exports = __toCommonJS(src_exports);
+var import_react8 = require("react");
 var import_react_router_dom5 = require("react-router-dom");
 
 // src/Pages/Home/index.tsx
@@ -60,7 +61,7 @@ var NavContext_default = NavContext;
 // src/Components/Nav.tsx
 var import_jsx_runtime = require("react/jsx-runtime");
 function Nav() {
-  const { dappName, logo } = (0, import_react2.useContext)(NavContext_default);
+  const { dappName, logo, setShowOnboarding } = (0, import_react2.useContext)(NavContext_default);
   return (
     // <div style={{ fontFamily: 'Montserrat' }}>
     //   <div className="w-[416px] justify-between items-start inline-flex">
@@ -95,9 +96,9 @@ function Nav() {
     //   </div>
     // </div>
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "dark:bg-fontLightColor", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "w-[416px] justify-between   items-start inline-flex", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "p-2 mix-blend-difference rounded-[39px] flex-col justify-center items-center gap-2 inline-flex", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: " relative", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", { width: "40", height: "40", viewBox: "0 0 40 40", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M17.5296 14.4697C17.8225 14.7626 17.8225 15.2374 17.5296 15.5303L13.8099 19.25L27.9993 19.25C28.4135 19.25 28.7493 19.5858 28.7493 20C28.7493 20.4142 28.4135 20.75 27.9993 20.75L13.8099 20.75L17.5296 24.4697C17.8225 24.7626 17.8225 25.2374 17.5296 25.5303C17.2367 25.8232 16.7618 25.8232 16.4689 25.5303L11.4689 20.5303C11.3283 20.3897 11.2493 20.1989 11.2493 20C11.2493 19.8011 11.3283 19.6103 11.4689 19.4697L16.4689 14.4697C16.7618 14.1768 17.2367 14.1768 17.5296 14.4697Z", fill: "white", "fill-opacity": "0.8" }) }) }) }) }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "p-3  rounded-[39px] flex-col justify-center  items-center gap-2 inline-flex", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "w-[416px] justify-between items-start inline-flex", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "p-2 mix-blend-difference rounded-[39px] flex-col justify-center items-center gap-2 inline-flex" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "p-3 cursor-pointer rounded-[39px] flex-col justify-center  items-center gap-2 inline-flex", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M0.719671 0.21967C1.01256 -0.0732233 1.48744 -0.0732233 1.78033 0.21967L15.7803 14.2197C16.0732 14.5126 16.0732 14.9874 15.7803 15.2803C15.4874 15.5732 15.0126 15.5732 14.7197 15.2803L0.719671 1.28033C0.426777 0.987437 0.426777 0.512563 0.719671 0.21967Z", fill: "white", "fill-opacity": "0.8" }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M15.7803 0.21967C15.4874 -0.0732233 15.0126 -0.0732233 14.7197 0.21967L0.71967 14.2197C0.426777 14.5126 0.426777 14.9874 0.71967 15.2803C1.01256 15.5732 1.48744 15.5732 1.78033 15.2803L15.7803 1.28033C16.0732 0.987437 16.0732 0.512563 15.7803 0.21967Z", fill: "white", "fill-opacity": "0.8" })
         ] }) })
@@ -116,12 +117,12 @@ function Nav() {
 // src/socialLogins/socialLoginConnectors.tsx
 var import_jsx_runtime2 = require("react/jsx-runtime");
 function googleIcon() {
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "h-10 w-10 bg-white rounded-full flex center justify-center items-center", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
     /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M22.5595 12.25C22.5595 11.47 22.4895 10.72 22.3595 10H11.9995V14.255H17.9195C17.6645 15.63 16.8895 16.795 15.7245 17.575V20.335H19.2795C21.3595 18.42 22.5595 15.6 22.5595 12.25Z", fill: "#4285F4" }),
     /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M11.9984 22.9998C14.9684 22.9998 17.4584 22.0148 19.2784 20.3348L15.7234 17.5748C14.7384 18.2348 13.4784 18.6248 11.9984 18.6248C9.13345 18.6248 6.70845 16.6898 5.84345 14.0898H2.16846V16.9398C3.97845 20.5348 7.69845 22.9998 11.9984 22.9998Z", fill: "#34A853" }),
     /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M5.84475 14.0901C5.62475 13.4301 5.49975 12.7251 5.49975 12.0001C5.49975 11.2751 5.62475 10.5701 5.84475 9.91006V7.06006H2.16976C1.39976 8.59292 0.999077 10.2847 0.999757 12.0001C0.999757 13.7751 1.42476 15.4551 2.16976 16.94L5.84475 14.0901Z", fill: "#FBBC05" }),
     /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M11.9984 5.375C13.6134 5.375 15.0634 5.92999 16.2034 7.01999L19.3584 3.865C17.4534 2.09 14.9634 1 11.9984 1C7.69845 1 3.97845 3.465 2.16846 7.05999L5.84345 9.90999C6.70845 7.30999 9.13345 5.375 11.9984 5.375Z", fill: "#EA4335" })
-  ] });
+  ] }) });
 }
 function instaIcon() {
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
@@ -144,19 +145,19 @@ function instaIcon() {
   ] });
 }
 function xIcon() {
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "h-10 w-10 bg-white rounded-full flex center justify-center items-center pl-1 pt-1", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
     /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("g", { "clip-path": "url(#clip0_935_452)", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M15.7425 0.963867H18.7947L12.128 8.63456L19.9995 19.0362H13.8148L8.99549 12.7309L3.45332 19.0362H0.401118L7.5497 10.8434L-0.000488281 0.963867H6.34489L10.7224 6.74701L15.7425 0.963867ZM14.6581 17.1888H16.3449L5.42119 2.69078H3.5738L14.6581 17.1888Z", fill: "black" }) }),
     /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("defs", { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("clipPath", { id: "clip0_935_452", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("rect", { width: "24", height: "20.0723", fill: "white", transform: "translate(0 0.963867)" }) }) })
-  ] });
+  ] }) });
 }
 function discordIcon() {
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { width: "24", height: "20", viewBox: "0 0 24 20", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "h-10 w-10 bg-white rounded-full flex center justify-center items-center", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { width: "24", height: "20", viewBox: "0 0 24 20", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
     /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("g", { "clip-path": "url(#clip0_935_456)", children: [
       /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("mask", { id: "mask0_935_456", maskUnits: "userSpaceOnUse", x: "0", y: "0", width: "24", height: "20", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M23.667 0.962402H0.33374V19.0375H23.667V0.962402Z", fill: "white" }) }),
       /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("g", { mask: "url(#mask0_935_456)", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M20.0864 2.57195C18.5992 1.88956 17.0044 1.38681 15.337 1.09886C15.3066 1.09331 15.2763 1.10719 15.2606 1.13497C15.0555 1.49976 14.8283 1.97566 14.6692 2.34972C12.8758 2.08122 11.0915 2.08122 9.33488 2.34972C9.17575 1.96735 8.94031 1.49976 8.73429 1.13497C8.71865 1.10812 8.68831 1.09423 8.65795 1.09886C6.99142 1.38589 5.39664 1.88864 3.90853 2.57195C3.89565 2.5775 3.88461 2.58677 3.87728 2.5988C0.852315 7.11803 0.02365 11.5262 0.430165 15.8797C0.432005 15.901 0.443961 15.9214 0.460516 15.9343C2.4563 17.4 4.38956 18.2898 6.28692 18.8795C6.31729 18.8888 6.34946 18.8777 6.36879 18.8527C6.81761 18.2398 7.21769 17.5935 7.56072 16.9139C7.58097 16.8741 7.56164 16.8269 7.52027 16.8111C6.88567 16.5704 6.2814 16.2769 5.70014 15.9436C5.65416 15.9167 5.65048 15.851 5.69278 15.8195C5.8151 15.7278 5.93745 15.6325 6.05425 15.5362C6.07538 15.5186 6.10482 15.5149 6.12967 15.526C9.94831 17.2694 14.0824 17.2694 17.856 15.526C17.8809 15.514 17.9103 15.5177 17.9324 15.5352C18.0492 15.6315 18.1715 15.7278 18.2948 15.8195C18.3371 15.851 18.3343 15.9167 18.2883 15.9436C17.7071 16.2834 17.1028 16.5704 16.4673 16.8102C16.4259 16.8259 16.4075 16.8741 16.4277 16.9139C16.7781 17.5926 17.1782 18.2388 17.6188 18.8518C17.6372 18.8777 17.6703 18.8888 17.7006 18.8795C19.6072 18.2898 21.5404 17.4 23.5362 15.9343C23.5537 15.9214 23.5647 15.9019 23.5666 15.8806C24.0531 10.8475 22.7517 6.47548 20.1167 2.59972C20.1103 2.58677 20.0993 2.5775 20.0864 2.57195ZM8.13098 13.2289C6.9813 13.2289 6.034 12.1734 6.034 10.8771C6.034 9.58088 6.96293 8.52539 8.13098 8.52539C9.30819 8.52539 10.2463 9.59015 10.2279 10.8771C10.2279 12.1734 9.29899 13.2289 8.13098 13.2289ZM15.8842 13.2289C14.7345 13.2289 13.7872 12.1734 13.7872 10.8771C13.7872 9.58088 14.7161 8.52539 15.8842 8.52539C17.0614 8.52539 17.9995 9.59015 17.9811 10.8771C17.9811 12.1734 17.0614 13.2289 15.8842 13.2289Z", fill: "#5865F2" }) })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("defs", { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("clipPath", { id: "clip0_935_456", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("rect", { width: "23.3333", height: "18.0751", fill: "white", transform: "translate(0.333252 0.962402)" }) }) })
-  ] });
+  ] }) });
 }
 function useSocialLoginConnectors() {
   const google = {
@@ -179,7 +180,7 @@ function useSocialLoginConnectors() {
     id: "4",
     type: "Discord" /* Discord */
   };
-  return [google, twitter, discord, instagram];
+  return [google, twitter, discord];
 }
 
 // src/Components/EmailAndSocial.tsx
@@ -200,6 +201,7 @@ function EmailAndSocial(props) {
   const socialLogins = useSocialLoginConnectors();
   const [authenticated, setAuthenticated] = (0, import_react3.useState)(false);
   const [openIframe, setOpenFrame] = (0, import_react3.useState)(false);
+  const [openLoginFrame, setOpenLoginFrame] = (0, import_react3.useState)(false);
   const { connect, connectors: connectors2 } = (0, import_wagmi.useConnect)();
   const baseUrl = "https://staging.tria.so";
   const socialLoginClicked = (socialLoginIndex) => __async(this, null, function* () {
@@ -224,6 +226,7 @@ function EmailAndSocial(props) {
   });
   return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { children: [
     openIframe === true ? /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Iframe_default, {}) : null,
+    openLoginFrame === true ? /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "mb-4 mr-2 absolute right-0 bottom-0 left-0 bg-black", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("iframe", { width: "450", height: "1000", src: `https://auth-7rin.vercel.app/signInPassword/${email}` }) }) : null,
     /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "w-[416px] h-[260px] px-5 py-4 rounded-2xl border border-violet-400 border-opacity-30 flex-col justify-center items-center gap-2 inline-flex", children: [
       /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "w-[376px] h-[54px] py-3 justify-center items-center gap-4 inline-flex", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "grow shrink basis-0 h-[22px] justify-start items-center gap-2 flex", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { onClick: props.toggleState2, className: "text-center text-white text-opacity-80 text-lg font-medium font-['Montserrat'] leading-snug", children: "Continue with email" }) }),
@@ -234,7 +237,7 @@ function EmailAndSocial(props) {
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "self-stretch py-3 justify-center items-center gap-2 inline-flex", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("input", { className: "grow shrink basis-0 h-10 px-5 py-3 font-Montserrat bg-white bg-opacity-5 rounded-[20px] justify-start items-center flex", type: "email", placeholder: "your@email.com", value: email, onChange: (e) => setEmail(e.target.value) }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { onClick: () => setView("Sign In Password"), className: "w-[99px] h-10 px-5 py-3 bg-white rounded-[20px] justify-center items-center flex", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "justify-center items-center flex", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "text-center text-black text-base font-semibold font-Montserrat leading-tight", onClick: checkEmailExists, children: "Next" }) }) }) })
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { onClick: () => setOpenLoginFrame(true), className: "w-[99px] h-10 px-5 py-3 bg-white rounded-[20px] justify-center items-center flex", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "justify-center items-center flex", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "text-center text-black text-base font-semibold font-Montserrat leading-tight", onClick: checkEmailExists, children: "Next" }) }) }) })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "self-stretch py-3 justify-center items-center gap-2 inline-flex", children: [
         /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "grow shrink basis-0 h-[0px] border-2 border-white border-opacity-25" }),
@@ -243,11 +246,11 @@ function EmailAndSocial(props) {
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "", children: authenticated === false ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "self-stretch px-5 py-2 justify-center items-center gap-5 inline-flex", children: [
         socialLogins == null ? void 0 : socialLogins.map((social, index3) => {
-          return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "w-10 h-10 bg-neutral-50 rounded-[28.33px] shadow flex justify-center items-center ", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { onClick: () => socialLoginClicked(index3), className: "w-6 h-6", children: social == null ? void 0 : social.iconUrl }) }, index3);
+          return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { onClick: () => socialLoginClicked(index3), children: social == null ? void 0 : social.iconUrl });
         }),
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "w-10 h-10 bg-neutral-50 rounded-[28.33px] shadow flex justify-center items-center ", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { onClick: () => {
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { onClick: () => {
           connect({ connector: connectors2[2] });
-        }, className: "w-6 h-6", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("svg", { width: "28", height: "28", viewBox: "0 0 28 28", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+        }, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "h-10 w-10 bg-white rounded-full flex center justify-center items-center", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("svg", { width: "28", height: "28", viewBox: "0 0 28 28", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
           /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("rect", { width: "28", height: "28", fill: "#1E1E1E" }),
           /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("g", { id: "Email - sign up", children: [
             /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("path", { d: "M-338 -827C-338 -828.105 -337.105 -829 -336 -829H2281C2282.1 -829 2283 -828.105 2283 -827V228C2283 229.105 2282.1 230 2281 230H-336C-337.105 230 -338 229.105 -338 228V-827Z", fill: "#404040" }),
@@ -360,6 +363,12 @@ function EmailAndSocial(props) {
             /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("clipPath", { id: "clip0_1_2", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("rect", { x: "-270", y: "-711", width: "448", height: "840", rx: "20", fill: "white" }) }),
             /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("clipPath", { id: "clip1_1_2", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("rect", { width: "376", height: "56", fill: "white", transform: "translate(-234 -14)" }) })
           ] })
+        ] }) }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { onClick: () => {
+          connect({ connector: connectors2[1] });
+        }, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "h-10 w-10 bg-[#3B99FC] rounded-full flex center justify-center items-center", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("svg", { width: "28", height: "28", viewBox: "0 0 28 28", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("rect", { width: "28", height: "28", rx: "6", fill: "#3B99FC" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("path", { d: "M8.38969 10.3737C11.4882 7.27518 16.5118 7.27518 19.6103 10.3737L19.9832 10.7466C20.1382 10.9015 20.1382 11.1527 19.9832 11.3076L18.7076 12.5833C18.6301 12.6607 18.5045 12.6607 18.4271 12.5833L17.9139 12.0701C15.7523 9.90851 12.2477 9.90851 10.0861 12.0701L9.53655 12.6197C9.45909 12.6971 9.3335 12.6971 9.25604 12.6197L7.98039 11.344C7.82547 11.1891 7.82547 10.9379 7.98039 10.783L8.38969 10.3737ZM22.2485 13.0118L23.3838 14.1472C23.5387 14.3021 23.5387 14.5533 23.3838 14.7082L18.2645 19.8275C18.1096 19.9825 17.8584 19.9825 17.7035 19.8276C17.7035 19.8276 17.7035 19.8276 17.7035 19.8276L14.0702 16.1942C14.0314 16.1555 13.9686 16.1555 13.9299 16.1942C13.9299 16.1942 13.9299 16.1942 13.9299 16.1942L10.2966 19.8275C10.1417 19.9825 9.89053 19.9825 9.73561 19.8276C9.7356 19.8276 9.7356 19.8276 9.7356 19.8276L4.61619 14.7081C4.46127 14.5532 4.46127 14.302 4.61619 14.1471L5.75152 13.0118C5.90645 12.8569 6.15763 12.8569 6.31255 13.0118L9.94595 16.6452C9.98468 16.6839 10.0475 16.6839 10.0862 16.6452C10.0862 16.6452 10.0862 16.6452 10.0862 16.6452L13.7194 13.0118C13.8743 12.8568 14.1255 12.8568 14.2805 13.0118C14.2805 13.0118 14.2805 13.0118 14.2805 13.0118L17.9139 16.6452C17.9526 16.6839 18.0154 16.6839 18.0541 16.6452L21.6874 13.0118C21.8424 12.8569 22.0936 12.8569 22.2485 13.0118Z", fill: "white" })
         ] }) }) })
       ] }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "px-8 py-2 bg-green-400 text-green-700 font-bold font-Montserrat rounded-md", children: "Authenticated" }) })
     ] }) })
@@ -654,7 +663,7 @@ function Home() {
 }
 
 // src/index.tsx
-var import_react8 = require("react");
+var import_react9 = require("react");
 
 // src/Pages/ConfirmEmail/index.tsx
 var import_jsx_runtime8 = require("react/jsx-runtime");
@@ -1084,6 +1093,7 @@ var IframeController = class {
 
 // src/index.tsx
 var import_core = require("@tria-sdk/core");
+var import_connect = require("@tria-sdk/connect");
 var import_jsx_runtime15 = require("react/jsx-runtime");
 window.Buffer = window.Buffer || require("buffer").Buffer;
 var { chains, publicClient, webSocketPublicClient } = (0, import_wagmi2.configureChains)(
@@ -1134,7 +1144,7 @@ var iframe = new IframeController(
   "https://opensea.com",
   "https://wallet.tria.so"
 );
-console.log("ifrome", iframe);
+console.log("iframe", iframe);
 var authController = new import_core.AuthController("https://staging.tria.so");
 var wagmiConfig = (0, import_wagmi2.createConfig)({
   autoConnect: true,
@@ -1143,12 +1153,25 @@ var wagmiConfig = (0, import_wagmi2.createConfig)({
   webSocketPublicClient
 });
 var Application = ({ dappName, logo }) => {
-  const [view, setView] = (0, import_react8.useState)("Home");
-  const [triaName, setTriaName] = (0, import_react8.useState)("");
-  const [email, setEmail] = (0, import_react8.useState)("");
-  const [showWallet, setShowWallet] = (0, import_react8.useState)(false);
-  const [isDarkMode, setIsDarkMode] = (0, import_react8.useState)(true);
-  const [showOnboarding, setShowOnboarding] = (0, import_react8.useState)(true);
+  const [view, setView] = (0, import_react9.useState)("Home");
+  const [triaName, setTriaName] = (0, import_react9.useState)("");
+  const [email, setEmail] = (0, import_react9.useState)("");
+  const [showWallet, setShowWallet] = (0, import_react9.useState)(false);
+  const [isDarkMode, setIsDarkMode] = (0, import_react9.useState)(true);
+  const [showOnboarding, setShowOnboarding] = (0, import_react9.useState)(false);
+  const { account } = (0, import_connect.useAccount)();
+  (0, import_react8.useEffect)(() => {
+    setInterval(() => {
+      var _a;
+      console.log("account", account);
+      if (localStorage.getItem("tria.wallet.store") !== null) {
+        setShowOnboarding(false);
+        setTriaName((_a = JSON.parse(localStorage.getItem("tria.wallet.store"))) == null ? void 0 : _a.triaName);
+      } else {
+        setShowOnboarding(true);
+      }
+    }, 500);
+  }, []);
   const nav_context_object = {
     view,
     setView,
@@ -1165,7 +1188,7 @@ var Application = ({ dappName, logo }) => {
   return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(import_jsx_runtime15.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(import_wagmi2.WagmiConfig, { config: wagmiConfig, children: /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
     /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(import_react_router_dom5.BrowserRouter, { children: [
       showWallet && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "bg flex  justify-between bg-black", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "mb-4 mr-2 absolute right-0 bottom-40 bg-black", children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("iframe", { width: "450", height: "840", src: "https://reliable-semifreddo-e8e93e.netlify.app/" }) }) }),
-      showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: `absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-md border border-gray-800 rounded-lg ${isDarkMode ? "dark" : ""}`, children: /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "", children: [
+      showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: `absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-md border border-gray-800 rounded-xl ${isDarkMode ? "dark" : ""}`, children: /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "", children: [
         view === "Home" ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Home, {}) : null,
         view === "Sign Up" ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(SignUp, {}) : null,
         view === "Confirm Email" ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(index, {}) : null,
