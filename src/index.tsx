@@ -101,6 +101,41 @@ const wagmiConfig = createConfig({
   webSocketPublicClient,
 });
 
+const createEncodedData=(data)=>{
+  const encodedParams = btoa(
+    JSON.stringify(data));
+    return encodedParams;
+}
+
+
+export const  triaSendTransaction = ({ appDomain, appLogo }) => {
+  const sendTransaction = async (sendDataFromDapp) => {
+  
+  const loginData=  { loginType: 'native', triaName:triaName , socialName: localStorage?.getItem("socialNetwork"), userId: '', input: '' }
+
+    // const { from, to, chainName, tokenAddress, amount }=sendDataFromDapp;
+    const iframeEncodedData=createEncodedData({...sendDataFromDapp,...loginData,appDomain,appLogo});
+    const sendIframeUrl={authURL}/send/iframeEncodedData;
+    setIframeURL(sendIframeUrl);
+  };
+
+
+  const signMessage = async (message) => {
+    const loginData=  { loginType: 'native', triaName:triaName , socialName: localStorage?.getItem("socialNetwork"), userId: '', input: '' }
+
+      // const { message }=message;
+      const iframeEncodedData=createEncodedData({...message,...loginData,appDomain,appLogo});
+      const signIframeUrl={authURL}/signMessage/iframeEncodedData;
+      setIframeURL(signIframeUrl);
+    };
+
+  return {
+    sendTransaction,
+    signMessage
+  };
+};
+
+
 const Application = ({ dappName, logo }) => {
 
   const [view, setView] = useState("Home");
@@ -108,7 +143,8 @@ const Application = ({ dappName, logo }) => {
   const [email, setEmail] = useState("")
   const [showWallet, setShowWallet] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [showOnboarding, setShowOnboarding] = useState(false)
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [iframeURL, setIframeURL]=useState("https://reliable-semifreddo-e8e93e.netlify.app/");
 
   const { account } = useAccount();
 
@@ -153,7 +189,7 @@ const Application = ({ dappName, logo }) => {
 
               <div className="bg flex  justify-between bg-black">
                 <div className="mr-2 fixed right-2 bottom-16 rounded-[20px] overflow-hidden">
-                  <iframe width="314" height="588" className="" src="https://reliable-semifreddo-e8e93e.netlify.app/" />
+                  <iframe width="314" height="588" className="" src={iframeURL} />
                 </div>
               </div>
             )}
