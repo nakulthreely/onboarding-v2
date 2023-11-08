@@ -171,6 +171,7 @@ const Application = ({ dappName, logo }) => {
     authController,
     setShowWallet,
     setShowOnboarding,
+    showOnboarding,
     email,
     setEmail
   };

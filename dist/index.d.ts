@@ -10,9 +10,16 @@ declare const getDefaultWallets: ({ appName, projectId, chains }: {
 }) => {
     connectors: (CoinbaseWalletConnector | WalletConnectConnector | MetaMaskConnector)[];
 };
+declare const triaSendTransaction: ({ appDomain, appLogo }: {
+    appDomain: any;
+    appLogo: any;
+}) => {
+    sendTransaction: (sendDataFromDapp: any) => Promise<void>;
+    signMessage: (message: any) => Promise<void>;
+};
 declare const Application: ({ dappName, logo }: {
     dappName: any;
     logo: any;
 }) => react_jsx_runtime.JSX.Element;
 
-export { Application as default, getDefaultWallets };
+export { Application as default, getDefaultWallets, triaSendTransaction };

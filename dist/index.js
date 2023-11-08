@@ -1,8 +1,25 @@
 "use strict";
 var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -41,7 +58,8 @@ var __async = (__this, __arguments, generator) => {
 var src_exports = {};
 __export(src_exports, {
   default: () => src_default,
-  getDefaultWallets: () => getDefaultWallets
+  getDefaultWallets: () => getDefaultWallets,
+  triaSendTransaction: () => triaSendTransaction
 });
 module.exports = __toCommonJS(src_exports);
 var import_react8 = require("react");
@@ -759,7 +777,7 @@ function SignUp() {
 var import_react5 = require("react");
 var import_jsx_runtime11 = require("react/jsx-runtime");
 function SignInPassword() {
-  const { triaName, setView, setShowOnboarding, setTriaName, email, setEmail } = (0, import_react5.useContext)(NavContext_default);
+  const { triaName: triaName2, setView, setShowOnboarding, setTriaName, email, setEmail } = (0, import_react5.useContext)(NavContext_default);
   const [password, setPassword] = (0, import_react5.useState)("");
   const [loader, setLoader] = (0, import_react5.useState)(false);
   (0, import_react5.useEffect)(() => {
@@ -991,14 +1009,14 @@ var IframeController = class {
     this.walletUrl = walletUrl;
   }
   getVault({
-    triaName,
+    triaName: triaName2,
     password,
     userId
   }) {
     const encodedParams = btoa(
       JSON.stringify({
         op: "getVault",
-        triaName,
+        triaName: triaName2,
         password,
         userId
       })
@@ -1007,11 +1025,11 @@ var IframeController = class {
     const eventType = eventTypes.logIn;
     return { iframeUrl, eventType };
   }
-  createAccount({ triaName, password }) {
+  createAccount({ triaName: triaName2, password }) {
     const encodedParams = btoa(
       JSON.stringify({
         op: "createAccount",
-        triaName,
+        triaName: triaName2,
         password
       })
     );
@@ -1020,7 +1038,7 @@ var IframeController = class {
     return { iframeUrl, eventType };
   }
   socialogin({
-    triaName,
+    triaName: triaName2,
     password,
     platform,
     userId,
@@ -1029,7 +1047,7 @@ var IframeController = class {
     const encodedParams = btoa(
       JSON.stringify({
         op: "socialogin",
-        triaName,
+        triaName: triaName2,
         password,
         userId,
         platform,
@@ -1040,14 +1058,14 @@ var IframeController = class {
     const eventType = eventTypes.socialSignUp;
     return { iframeUrl, eventType };
   }
-  signMessage(chainName, message, loginType, triaName, socialName, userId, input, appDomain, appLogo) {
+  signMessage(chainName, message, loginType, triaName2, socialName, userId, input, appDomain, appLogo) {
     return __async(this, null, function* () {
       const encodedParams = btoa(
         JSON.stringify({
           chainName,
           message,
           loginType,
-          triaName,
+          triaName: triaName2,
           socialName,
           userId,
           input,
@@ -1075,11 +1093,11 @@ var IframeController = class {
       return { iframeUrl, eventType };
     });
   }
-  approve(triaName, chainName, tokenAddress, amount) {
+  approve(triaName2, chainName, tokenAddress, amount) {
     const encodedParams = btoa(
       JSON.stringify({
         chainName,
-        triaName,
+        triaName: triaName2,
         tokenAddress,
         amount
       })
@@ -1152,13 +1170,38 @@ var wagmiConfig = (0, import_wagmi2.createConfig)({
   publicClient,
   webSocketPublicClient
 });
+var createEncodedData = (data) => {
+  const encodedParams = btoa(
+    JSON.stringify(data)
+  );
+  return encodedParams;
+};
+var triaSendTransaction = ({ appDomain, appLogo }) => {
+  const sendTransaction = (sendDataFromDapp) => __async(void 0, null, function* () {
+    const loginData = { loginType: "native", triaName, socialName: localStorage == null ? void 0 : localStorage.getItem("socialNetwork"), userId: "", input: "" };
+    const iframeEncodedData = createEncodedData(__spreadProps(__spreadValues(__spreadValues({}, sendDataFromDapp), loginData), { appDomain, appLogo }));
+    const sendIframeUrl = { authURL } / send / iframeEncodedData;
+    setIframeURL(sendIframeUrl);
+  });
+  const signMessage = (message) => __async(void 0, null, function* () {
+    const loginData = { loginType: "native", triaName, socialName: localStorage == null ? void 0 : localStorage.getItem("socialNetwork"), userId: "", input: "" };
+    const iframeEncodedData = createEncodedData(__spreadProps(__spreadValues(__spreadValues({}, message), loginData), { appDomain, appLogo }));
+    const signIframeUrl = { authURL } / signMessage / iframeEncodedData;
+    setIframeURL(signIframeUrl);
+  });
+  return {
+    sendTransaction,
+    signMessage
+  };
+};
 var Application = ({ dappName, logo }) => {
   const [view, setView] = (0, import_react9.useState)("Home");
-  const [triaName, setTriaName] = (0, import_react9.useState)("");
+  const [triaName2, setTriaName] = (0, import_react9.useState)("");
   const [email, setEmail] = (0, import_react9.useState)("");
   const [showWallet, setShowWallet] = (0, import_react9.useState)(false);
   const [isDarkMode, setIsDarkMode] = (0, import_react9.useState)(true);
   const [showOnboarding, setShowOnboarding] = (0, import_react9.useState)(false);
+  const [iframeURL, setIframeURL2] = (0, import_react9.useState)("https://reliable-semifreddo-e8e93e.netlify.app/");
   const { account } = (0, import_connect.useAccount)();
   (0, import_react8.useEffect)(() => {
     setInterval(() => {
@@ -1175,7 +1218,7 @@ var Application = ({ dappName, logo }) => {
   const nav_context_object = {
     view,
     setView,
-    triaName,
+    triaName: triaName2,
     setTriaName,
     dappName,
     logo,
@@ -1198,7 +1241,7 @@ var Application = ({ dappName, logo }) => {
         view === "Create A Wallet" ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(index2, {}) : null
       ] }) })
     ] }),
-    triaName && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+    triaName2 && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
       "div",
       {
         className: "wallet_icon fixed w-[80px] bottom-4 right-8 cursor-pointer",
@@ -1251,6 +1294,7 @@ var Application = ({ dappName, logo }) => {
 var src_default = Application;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  getDefaultWallets
+  getDefaultWallets,
+  triaSendTransaction
 });
 //# sourceMappingURL=index.js.map
