@@ -1,8 +1,7 @@
 //@ts-nocheck
-import React, { useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
-import { useState } from "react";
 import ConfirmEmail from "./Pages/ConfirmEmail";
 import SignUp from "./Pages/SignUp/EmailPage";
 import PasswordPage from "./Pages/SignUp/SignUpPassword";
@@ -15,6 +14,7 @@ import ConnectingAnimation from "./Pages/ConnectWallet/ConnectingAnimation";
 import CreateWallet from "./Pages/CreateWallet";
 import SignUpPasswordConfirm from "./Pages/SignUp/SignUpPasswordConfirm";
 import LoaderPage from "./Pages/Loader";
+
 // import { configureChains, createConfig, WagmiConfig } from "wagmi";
 // import {
 //   mainnet,
@@ -193,7 +193,7 @@ export const useTriaSendTransaction = () => {
   // }
 
 
-  import { useState, useEffect } from 'react';
+  
 
  export const TriaConnectProvider = () => {
   const [renderAuthIframe, setRenderAuthIframe] = useState(false);
@@ -298,7 +298,7 @@ const Application = ({ dappName, logo }) => {
       {/* <WagmiConfig config={wagmiConfig}> */}
         <NavContext.Provider value={nav_context_object}>
           {/* <Router> */}
-           {!triaName && showOnboarding &&<div className="w-[100vw] h-[100vh] flex items-center justify-center bg-black">
+           {!triaName && showOnboarding &&<div className="rounded-[20px] overflow-hidden fixed top-[20%] left-[40%]">
                 <div className="fixed rounded-[20px] overflow-hidden">
                   <iframe width="314" height="586" src="https://auth-7rin.vercel.app/" />
                 </div>
@@ -336,8 +336,8 @@ const Application = ({ dappName, logo }) => {
                 setShowWallet(!showWallet);
               }}
             >
-              <div className="relative ">
-                <div className="left-[15.49px] top-[15.49px]">
+              <div className=" ">
+                <div className="">
                   <svg width="134" height="134" viewBox="0 0 134 134" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g filter="url(#filter0_d_1316_13027)">
                       <rect x="35" y="35" width="64" height="64" rx="32" fill="url(#paint0_linear_1316_13027)" />

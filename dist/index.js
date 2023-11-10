@@ -45,6 +45,7 @@ __export(src_exports, {
   useTriaSendTransaction: () => useTriaSendTransaction
 });
 module.exports = __toCommonJS(src_exports);
+var import_react2 = require("react");
 
 // src/NavContext.tsx
 var import_react = require("react");
@@ -171,7 +172,6 @@ var IframeController = class {
 
 // src/index.tsx
 var import_core = require("@tria-sdk/core");
-var import_react2 = require("react");
 var import_jsx_runtime = require("react/jsx-runtime");
 window.Buffer = window.Buffer || require("buffer").Buffer;
 var iframe = new IframeController(
@@ -279,7 +279,7 @@ var Application = ({ dappName, logo }) => {
     setEmail
   };
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
-    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "w-[100vw] h-[100vh] flex items-center justify-center bg-black", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "fixed rounded-[20px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", { width: "314", height: "586", src: "https://auth-7rin.vercel.app/" }) }) }),
+    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "rounded-[20px] overflow-hidden fixed top-[20%] left-[40%]", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "fixed rounded-[20px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", { width: "314", height: "586", src: "https://auth-7rin.vercel.app/" }) }) }),
     showWallet && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "bg flex  justify-between bg-black", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "mb-4 mr-2 fixed right-2 rounded-[20px] bottom-[130px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", { width: "312", height: "586", src: iframeURL }) }) }),
     triaName && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
       "div",
@@ -288,7 +288,7 @@ var Application = ({ dappName, logo }) => {
         onClick: () => {
           setShowWallet(!showWallet);
         },
-        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "relative ", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "left-[15.49px] top-[15.49px]", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", { width: "134", height: "134", viewBox: "0 0 134 134", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: " ", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", { width: "134", height: "134", viewBox: "0 0 134 134", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { filter: "url(#filter0_d_1316_13027)", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "35", y: "35", width: "64", height: "64", rx: "32", fill: "url(#paint0_linear_1316_13027)" }) }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("g", { filter: "url(#filter1_d_1316_13027)", children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "37.5098", y: "37.5098", width: "58.9804", height: "58.9804", rx: "29.4902", fill: "url(#paint1_linear_1316_13027)", "shape-rendering": "crispEdges" }),
