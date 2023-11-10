@@ -348,8 +348,8 @@ video {
 .bottom-4 {
   bottom: 1rem;
 }
-.bottom-40 {
-  bottom: 10rem;
+.bottom-\[130px\] {
+  bottom: 130px;
 }
 .left-0 {
   left: 0px;
@@ -482,6 +482,9 @@ video {
 }
 .h-\[10\.37px\] {
   height: 10.37px;
+}
+.h-\[100vh\] {
+  height: 100vh;
 }
 .h-\[11px\] {
   height: 11px;
@@ -659,6 +662,9 @@ video {
 }
 .w-\[100px\] {
   width: 100px;
+}
+.w-\[100vw\] {
+  width: 100vw;
 }
 .w-\[12\.57px\] {
   width: 12.57px;
@@ -1208,7 +1214,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  zoom: .7;
 }
 .wallet_icon {
   margin-top: 25px;

@@ -15,76 +15,76 @@ import ConnectingAnimation from "./Pages/ConnectWallet/ConnectingAnimation";
 import CreateWallet from "./Pages/CreateWallet";
 import SignUpPasswordConfirm from "./Pages/SignUp/SignUpPasswordConfirm";
 import LoaderPage from "./Pages/Loader";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  base,
-  zora,
-  goerli,
-} from "wagmi/chains";
-import { publicProvider } from "wagmi/providers/public";
-import { MetaMaskConnector } from "wagmi/connectors/metaMask";
-import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
+// import { configureChains, createConfig, WagmiConfig } from "wagmi";
+// import {
+//   mainnet,
+//   polygon,
+//   optimism,
+//   arbitrum,
+//   base,
+//   zora,
+//   goerli,
+// } from "wagmi/chains";
+// import { publicProvider } from "wagmi/providers/public";
+// import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+// import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
+// import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import "./index.css";
 import NavContext from "./NavContext";
 import { IframeController } from "./connect/controllers/iframe.controller";
 import { UserController, AuthController } from '@tria-sdk/core';
-import { useAccount } from '@tria-sdk/connect'
+// import { useAccount } from '@tria-sdk/connect'
 
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
-const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    base,
-    zora,
-    ...(process.env.REACT_APP_ENABLE_TESTNETS === "true" ? [goerli] : []),
-  ],
-  [publicProvider()]
-);
+// const { chains, publicClient, webSocketPublicClient } = configureChains(
+//   [
+//     mainnet,
+//     polygon,
+//     optimism,
+//     arbitrum,
+//     base,
+//     zora,
+//     ...(process.env.REACT_APP_ENABLE_TESTNETS === "true" ? [goerli] : []),
+//   ],
+//   [publicProvider()]
+// );
 
-export const getDefaultWallets = ({ appName, projectId, chains }) => {
-  // Set up connectors
-  const connectors = [
-    new CoinbaseWalletConnector({
-      chains,
-      options: {
-        appName,
-        shimDisconnect: true,
-      },
-    }),
-    new WalletConnectConnector({
-      chains,
-      options: {
-        projectId,
-        qrcode: true,
-        shimDisconnect: true,
-      },
-    }),
-    new MetaMaskConnector({
-      chains,
-      options: {
-        shimDisconnect: true,
-        UNSTABLE_shimOnConnectSelectAccount: true,
-      },
-    }),
-  ];
-  return { connectors };
-};
+// export const getDefaultWallets = ({ appName, projectId, chains }) => {
+//   // Set up connectors
+//   const connectors = [
+//     new CoinbaseWalletConnector({
+//       chains,
+//       options: {
+//         appName,
+//         shimDisconnect: true,
+//       },
+//     }),
+//     new WalletConnectConnector({
+//       chains,
+//       options: {
+//         projectId,
+//         qrcode: true,
+//         shimDisconnect: true,
+//       },
+//     }),
+//     new MetaMaskConnector({
+//       chains,
+//       options: {
+//         shimDisconnect: true,
+//         UNSTABLE_shimOnConnectSelectAccount: true,
+//       },
+//     }),
+//   ];
+//   return { connectors };
+// };
 
-const { connectors } = getDefaultWallets({
-  appName: "Customer App powered by Tria",
-  projectId: "bd38d3892c8fd8bc9dabf6fced0bd3c6",
-  chains,
-});
+// const { connectors } = getDefaultWallets({
+//   appName: "Customer App powered by Tria",
+//   projectId: "bd38d3892c8fd8bc9dabf6fced0bd3c6",
+//   chains,
+// });
 
 const iframe = new IframeController(
   "https://opensea.com",
@@ -94,12 +94,12 @@ console.log("iframe", iframe);
 
 const authController = new AuthController('https://staging.tria.so');
 
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient,
-  webSocketPublicClient,
-});
+// const wagmiConfig = createConfig({
+//   autoConnect: true,
+//   connectors,
+//   publicClient,
+//   webSocketPublicClient,
+// });
 
 const createEncodedData=(data)=>{
   const encodedParams = btoa(
@@ -107,78 +107,145 @@ const createEncodedData=(data)=>{
     return encodedParams;
 }
 
-let iframeurl;
-const createWalletiframe =({appDomain,appLogo})=>{
-  const loginData=  { loginType: 'native', triaName:"dev@tria" , socialName: localStorage?.getItem("socialNetwork"), userId: '', input: '' }
-  const res=createEncodedData( {
-    triaName:loginData.triaName,
-    appName:'',
-    darkMode:true,
-    appDomain,
-    defaultChain:'',
-    allowedChains:[],
-    appLogo,
-    accessToken:'',
-    loginType:loginData.loginType,
-    socialName:loginData.socialName,
-    userId:loginData.userId
-  } );
-   const walletIframe=`https://reliable-semifreddo-e8e93e.netlify.app/${res}`;
-   iframeurl=walletIframe;
-
-}
-
-
-export const  triaSendTransaction = ({ appDomain, appLogo }) => {
+export const useTriaSendTransaction = () => {
+  const[iframe,setIframe]=useState('');
   const sendTransaction = async (sendDataFromDapp) => {
-  
-  const loginData=  { loginType: 'native', triaName:"dev@tria" , socialName: localStorage?.getItem("socialNetwork"), userId: '', input: '' }
-
-    // const { from, to, chainName, tokenAddress, amount }=sendDataFromDapp;
-    const iframeEncodedData=createEncodedData({...sendDataFromDapp,...loginData,appDomain,appLogo});
-    const sendIframeUrl={authURL}/send/iframeEncodedData;
-    setIframeURL(sendIframeUrl);
-    iframeurl=sendIframeUrl;
+    const iframeEncodedData=createEncodedData(sendDataFromDapp);
+    const sendIframeUrl=`https://auth-7rin.vercel.app/send/${iframeEncodedData}`;
+    // ifrm=sendIframeUrl;
+    setIframe(sendIframeUrl);
+     return iframe;
   };
-
-
   const signMessage = async (message) => {
-    const loginData=  { loginType: 'native', triaName:"dev@tria" , socialName: localStorage?.getItem("socialNetwork"), userId: '', input: '' }
-
-      // const { message }=message;
-      const iframeEncodedData=createEncodedData({...message,...loginData,appDomain,appLogo});
-      const signIframeUrl={authURL}/signMessage/iframeEncodedData;
-      setIframeURL(signIframeUrl);
-      iframeurl=signIframeUrl;
+      const iframeEncodedData=createEncodedData(message);
+      const signIframeUrl=`https://auth-7rin.vercel.app/signMessage/${iframeEncodedData}`;
+      setIframe(signIframeUrl);
+      // ifrm=signIframeUrl;
+      return iframe;
     };
-
   return {
     sendTransaction,
     signMessage
-  };
+  }
+}
+
+
+// export const  triaSendTransaction = ({ appDomain, appLogo }) => {
+//   const sendTransaction = async (sendDataFromDapp) => {
+  
+//   const loginData=  { loginType: 'native', triaName:triaName , socialName: localStorage?.getItem("socialNetwork"), userId: '', input: '' }
+
+//     // const { from, to, chainName, tokenAddress, amount }=sendDataFromDapp;
+//     const iframeEncodedData=createEncodedData({...sendDataFromDapp,...loginData,appDomain,appLogo});
+//     const sendIframeUrl={authURL}/send/iframeEncodedData;
+//     setIframeURL(sendIframeUrl);
+//   };
+
+
+//   const signMessage = async (message) => {
+//     const loginData=  { loginType: 'native', triaName:triaName , socialName: localStorage?.getItem("socialNetwork"), userId: '', input: '' }
+
+//       // const { message }=message;
+//       const iframeEncodedData=createEncodedData({...message,...loginData,appDomain,appLogo});
+//       const signIframeUrl={authURL}/signMessage/iframeEncodedData;
+//       setIframeURL(signIframeUrl);
+//     };
+
+//   return {
+//     sendTransaction,
+//     signMessage
+//   };
+// };
+
+
+  // function encodeParamas(params:typeof transactionPayload): string{
+  // const {
+  //   triaName,
+  //   appDomain
+  //   senderName,
+  //   accessToken,
+  //   darkMode,
+
+
+  // } = params
+  //   const encodedParams = btoa(
+  //     JSON.stringify({
+
+  //       qouteRate,
+  //       senderBalance,
+  //       senderName,
+  //       recepientName,
+  //       senderLogo,
+  //       recepientLogo,
+  //       chainLogo,
+  //       chainName,
+  //       appLogo,
+  //       appDomain,
+  //       accessToken,
+  //       darkMode,
+  //       tokenName,
+  //       tokenLogo,
+  //     })
+  //   );
+  //   // const iframeUrl = encodedParams;
+  //   // return iframeUrl
+   
+  // }
+
+
+  import { useState, useEffect } from 'react';
+
+ export const TriaConnectProvider = () => {
+  const [renderAuthIframe, setRenderAuthIframe] = useState(false);
+  useEffect(() => {
+    // Function to get the value of a URL parameter
+    const getQueryParam = (param: string) => {
+      return new URLSearchParams(window.location.search).get(param);
+    };
+
+    // Check if the URL parameter is as expected
+    const isVerified = getQueryParam('verified') === 'true';
+    setRenderAuthIframe(isVerified);
+  }, []);
+  return (
+    <>
+      {renderAuthIframe && (
+        <iframe
+          src="https://auth.tria.so/verified"
+          title="Auth Verification"
+          style={{ display: 'none' }}
+        />
+      )}
+    </>
+  );
 };
+
+
+
 
 
 const Application = ({ dappName, logo }) => {
 
   const [view, setView] = useState("Home");
-  const [triaName, setTriaName] = useState("");
+  const [triaName, setTriaName] = useState(null);
   const [email, setEmail] = useState("")
   const [showWallet, setShowWallet] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [showOnboarding, setShowOnboarding] = useState(false);
-  // const [iframeURL, setIframeURL]=useState("https://reliable-semifreddo-e8e93e.netlify.app/");
+  const [appDomain, setAppDomain] = useState<string>()
+  const [iframeURL, setIframeURL]=useState();
+  const WALLET_BASE_URL = "https://reliable-semifreddo-e8e93e.netlify.app/"
+  const [accessToken, setAccessToken] = useState<string>()
+  const darkMode = true;
 
-  const { account } = useAccount();
 
-  useEffect(()=>{
-   createWalletiframe({appDomain:dappName,appLogo:logo});
-  },[])
+
+  // const { account } = useAccount();
 
 
   useEffect(() => {
     setInterval(() => {
-      console.log('account', account)
+      // console.log('account', account)
       if (localStorage.getItem('tria.wallet.store') !== null) {
         setShowOnboarding(false)
         setTriaName(JSON.parse(localStorage.getItem('tria.wallet.store'))?.triaName)
@@ -187,6 +254,29 @@ const Application = ({ dappName, logo }) => {
       }
     }, 500)
   }, [])
+  useEffect(()=>{
+    setInterval(()=>{
+      setShowOnboarding(true)
+    },1000)
+  },[])
+
+  useEffect(()=>{
+    const item = localStorage.getItem("access_token");
+    setAccessToken(item);
+    setAppDomain(window.parent.origin);
+    
+  },[triaName])
+
+  useEffect(()=>{
+    const encodedParams = btoa(JSON.stringify({triaName, appDomain, darkMode, logo, accessToken}))
+    console.log(encodedParams, triaName,accessToken,logo,appDomain,darkMode)
+    setIframeURL(`https://reliable-semifreddo-e8e93e.netlify.app/${encodedParams}`);
+
+  },[triaName])
+
+  useEffect(() => {
+  console.log("WALLET URL ---->", iframeURL);
+}, [iframeURL]);
 
   const nav_context_object = {
     view,
@@ -198,19 +288,25 @@ const Application = ({ dappName, logo }) => {
     authController,
     setShowWallet,
     setShowOnboarding,
+    showOnboarding,
     email,
     setEmail
   };
 
   return (
     <>
-      <WagmiConfig config={wagmiConfig}>
+      {/* <WagmiConfig config={wagmiConfig}> */}
         <NavContext.Provider value={nav_context_object}>
-          <Router>
+          {/* <Router> */}
+           {!triaName && showOnboarding &&<div className="w-[100vw] h-[100vh] flex items-center justify-center bg-black">
+                <div className="fixed rounded-[20px] overflow-hidden">
+                  <iframe width="314" height="586" src="https://auth-7rin.vercel.app/" />
+                </div>
+              </div>}
             {showWallet && (
               <div className="bg flex  justify-between bg-black">
-                <div className="mr-2 fixed right-2 bottom-16 rounded-[20px] overflow-hidden">
-                  <iframe width="314" height="588" className="" src={iframeurl} />
+                <div className="mb-4 mr-2 fixed right-2 rounded-[20px] bottom-[130px] overflow-hidden">
+                  <iframe width="312" height="586" src={iframeURL} />
                 </div>
               </div>
 
@@ -220,7 +316,7 @@ const Application = ({ dappName, logo }) => {
               //   </div>
               // </div>
             )}
-            {showOnboarding && (<div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-md border border-gray-800 rounded-xl ${isDarkMode ? "dark" : ""}`}>
+            {/* {showOnboarding && (<div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-md border border-gray-800 rounded-xl ${isDarkMode ? "dark" : ""}`}>
               <div className="">
                 {view === "Home" ? <Home /> : null}
                 {view === "Sign Up" ? <SignUp /> : null}
@@ -231,8 +327,8 @@ const Application = ({ dappName, logo }) => {
                 {view === "Create A Wallet" ? <CreateWallet /> : null}
 
               </div>
-            </div>)}
-          </Router>
+            </div>)} */}
+          {/* </Router> */}
           {triaName && (
             <div
               className="wallet_icon fixed w-[80px] bottom-4 right-8 cursor-pointer"
@@ -293,7 +389,7 @@ const Application = ({ dappName, logo }) => {
             </div>
           )}
         </NavContext.Provider>
-      </WagmiConfig>
+      {/* </WagmiConfig> */}
     </>
   );
 };
