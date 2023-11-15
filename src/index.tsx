@@ -228,6 +228,7 @@ const Application = ({ dappName, logo }) => {
 
   const [view, setView] = useState("Home");
   const [triaName, setTriaName] = useState(null);
+  const [userAddress, setUserAddress] = useState(null);
   const [email, setEmail] = useState("")
   const [showWallet, setShowWallet] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -249,6 +250,7 @@ const Application = ({ dappName, logo }) => {
       if (localStorage.getItem('tria.wallet.store') !== null) {
         setShowOnboarding(false)
         setTriaName(JSON.parse(localStorage.getItem('tria.wallet.store'))?.triaName)
+        setUserAddress(JSON.parse(localStorage.getItem('tria.wallet.store'))?.evm?.address)
       } else {
         setShowOnboarding(true)
       }
@@ -268,7 +270,7 @@ const Application = ({ dappName, logo }) => {
   },[triaName])
 
   useEffect(()=>{
-    const encodedParams = btoa(JSON.stringify({triaName, appDomain, darkMode, logo, accessToken}))
+    const encodedParams = btoa(JSON.stringify({triaName, userAddress, appDomain, darkMode, logo, accessToken}))
     console.log(encodedParams, triaName,accessToken,logo,appDomain,darkMode)
     setIframeURL(`https://reliable-semifreddo-e8e93e.netlify.app/${encodedParams}`);
 
