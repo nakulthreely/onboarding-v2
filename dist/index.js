@@ -172,7 +172,53 @@ var IframeController = class {
 
 // src/index.tsx
 var import_core = require("@tria-sdk/core");
+
+// src/Components/TriaWalletButton.tsx
 var import_jsx_runtime = require("react/jsx-runtime");
+var TriaWalletButton = ({ bgColor }) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", { width: "134", height: "134", viewBox: "0 0 134 134", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { filter: "url(#filter0_d_1316_13027)", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "35", y: "35", width: "64", height: "64", rx: "32", fill: bgColor }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("g", { filter: "url(#filter1_d_1316_13027)", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "37.5098", y: "37.5098", width: "58.9804", height: "58.9804", rx: "29.4902", fill: "url(#paint1_linear_1316_13027)", "shape-rendering": "crispEdges" }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { "clip-path": "url(#clip0_1316_13027)", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M81 53H53V81H81V53ZM67.8533 61.2654V64.9058L73.8652 62.5352V65.2285C73.8652 65.8062 73.5281 66.3228 73.0206 66.5229L67.8533 68.5606V65.8728C67.8498 65.2986 67.5136 64.7863 67.0087 64.5872L62.686 62.8826C62.1784 62.6824 61.8414 62.1658 61.8414 61.5881V58.8948L67.8533 61.2654ZM67.8533 68.5767V69.2782H67.8618V76.8857H65.3848V71.2581L62.686 70.1938C62.1784 69.9937 61.8414 69.4771 61.8414 68.8993V66.206L67.8533 68.5767Z", fill: "white" }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "37.7598", y: "37.7598", width: "58.4804", height: "58.4804", rx: "29.2402", stroke: "#9A87FF", "stroke-width": "0.5", "shape-rendering": "crispEdges" })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("defs", { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("filter", { id: "filter0_d_1316_13027", x: "0", y: "0", width: "134", height: "134", filterUnits: "userSpaceOnUse", "color-interpolation-filters": "sRGB", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feFlood", { "flood-opacity": "0", result: "BackgroundImageFix" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feColorMatrix", { in: "SourceAlpha", type: "matrix", values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0", result: "hardAlpha" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feOffset", {}),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feGaussianBlur", { stdDeviation: "17.5" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feComposite", { in2: "hardAlpha", operator: "out" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feColorMatrix", { type: "matrix", values: "0 0 0 0 0.567674 0 0 0 0 0.48 0 0 0 0 1 0 0 0 0.35 0" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feBlend", { mode: "normal", in2: "BackgroundImageFix", result: "effect1_dropShadow_1316_13027" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feBlend", { mode: "normal", in: "SourceGraphic", in2: "effect1_dropShadow_1316_13027", result: "shape" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("filter", { id: "filter1_d_1316_13027", x: "6.50977", y: "6.50977", width: "120.98", height: "120.98", filterUnits: "userSpaceOnUse", "color-interpolation-filters": "sRGB", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feFlood", { "flood-opacity": "0", result: "BackgroundImageFix" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feColorMatrix", { in: "SourceAlpha", type: "matrix", values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0", result: "hardAlpha" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feOffset", {}),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feGaussianBlur", { stdDeviation: "15.5" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feComposite", { in2: "hardAlpha", operator: "out" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feColorMatrix", { type: "matrix", values: "0 0 0 0 0.567674 0 0 0 0 0.48 0 0 0 0 1 0 0 0 0.68 0" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feBlend", { mode: "normal", in2: "BackgroundImageFix", result: "effect1_dropShadow_1316_13027" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feBlend", { mode: "normal", in: "SourceGraphic", in2: "effect1_dropShadow_1316_13027", result: "shape" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("linearGradient", { id: "paint0_linear_1316_13027", x1: "35", y1: "35", x2: "112.218", y2: "65.1631", gradientUnits: "userSpaceOnUse", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { "stop-color": "white" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { offset: "1", "stop-color": "#D2CAF8" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("linearGradient", { id: "paint1_linear_1316_13027", x1: "37.5098", y1: "37.5098", x2: "108.671", y2: "65.3071", gradientUnits: "userSpaceOnUse", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { "stop-color": "#9F8BFF" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { offset: "1", "stop-color": "#7053FF" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("clipPath", { id: "clip0_1316_13027", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "53", y: "53", width: "28", height: "28", rx: "6", fill: "white" }) })
+    ] })
+  ] }) });
+};
+
+// src/index.tsx
+var import_jsx_runtime2 = require("react/jsx-runtime");
 window.Buffer = window.Buffer || require("buffer").Buffer;
 var iframe = new IframeController(
   "https://opensea.com",
@@ -214,7 +260,7 @@ var TriaConnectProvider = () => {
     const isVerified = getQueryParam("verified") === "true";
     setRenderAuthIframe(isVerified);
   }, []);
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: renderAuthIframe && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: renderAuthIframe && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
     "iframe",
     {
       src: "https://auth.tria.so/verified",
@@ -223,9 +269,10 @@ var TriaConnectProvider = () => {
     }
   ) });
 };
-var Application = ({ dappName, logo }) => {
+var Application = ({ dappName, logo, primaryColor }) => {
   const [view, setView] = (0, import_react2.useState)("Home");
   const [triaName, setTriaName] = (0, import_react2.useState)(null);
+  const [userAddress, setUserAddress] = (0, import_react2.useState)(null);
   const [email, setEmail] = (0, import_react2.useState)("");
   const [showWallet, setShowWallet] = (0, import_react2.useState)(false);
   const [isDarkMode, setIsDarkMode] = (0, import_react2.useState)(true);
@@ -237,10 +284,11 @@ var Application = ({ dappName, logo }) => {
   const darkMode = true;
   (0, import_react2.useEffect)(() => {
     setInterval(() => {
-      var _a;
+      var _a, _b, _c;
       if (localStorage.getItem("tria.wallet.store") !== null) {
         setShowOnboarding(false);
         setTriaName((_a = JSON.parse(localStorage.getItem("tria.wallet.store"))) == null ? void 0 : _a.triaName);
+        setUserAddress((_c = (_b = JSON.parse(localStorage.getItem("tria.wallet.store"))) == null ? void 0 : _b.evm) == null ? void 0 : _c.address);
       } else {
         setShowOnboarding(true);
       }
@@ -257,7 +305,7 @@ var Application = ({ dappName, logo }) => {
     setAppDomain(window.parent.origin);
   }, [triaName]);
   (0, import_react2.useEffect)(() => {
-    const encodedParams = btoa(JSON.stringify({ triaName, appDomain, darkMode, logo, accessToken }));
+    const encodedParams = btoa(JSON.stringify({ triaName, userAddress, appDomain, darkMode, logo, accessToken }));
     console.log(encodedParams, triaName, accessToken, logo, appDomain, darkMode);
     setIframeURL(`https://reliable-semifreddo-e8e93e.netlify.app/${encodedParams}`);
   }, [triaName]);
@@ -278,55 +326,17 @@ var Application = ({ dappName, logo }) => {
     email,
     setEmail
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
-    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "rounded-[20px] overflow-hidden fixed top-[20%] left-[40%]", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "fixed rounded-[20px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", { width: "314", height: "586", src: "https://auth-7rin.vercel.app/" }) }) }),
-    showWallet && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "bg flex  justify-between bg-black", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "mb-4 mr-2 fixed right-2 rounded-[20px] bottom-[130px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", { width: "312", height: "586", src: iframeURL }) }) }),
-    triaName && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
+    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "rounded-[20px] overflow-hidden fixed top-[20%] left-[40%]", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "fixed rounded-[20px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("iframe", { width: "314", height: "586", src: `https://auth-7rin.vercel.app/?dappName=${dappName}&dappLogo=${logo}` }) }) }),
+    showWallet && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "bg flex  justify-between bg-black", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "mb-4 mr-2 fixed right-2 rounded-[20px] bottom-[130px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("iframe", { width: "312", height: "586", src: iframeURL }) }) }),
+    triaName && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
       "div",
       {
         className: "wallet_icon fixed w-[80px] bottom-4 right-8 cursor-pointer",
         onClick: () => {
           setShowWallet(!showWallet);
         },
-        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: " ", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", { width: "134", height: "134", viewBox: "0 0 134 134", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { filter: "url(#filter0_d_1316_13027)", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "35", y: "35", width: "64", height: "64", rx: "32", fill: "url(#paint0_linear_1316_13027)" }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("g", { filter: "url(#filter1_d_1316_13027)", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "37.5098", y: "37.5098", width: "58.9804", height: "58.9804", rx: "29.4902", fill: "url(#paint1_linear_1316_13027)", "shape-rendering": "crispEdges" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { "clip-path": "url(#clip0_1316_13027)", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M81 53H53V81H81V53ZM67.8533 61.2654V64.9058L73.8652 62.5352V65.2285C73.8652 65.8062 73.5281 66.3228 73.0206 66.5229L67.8533 68.5606V65.8728C67.8498 65.2986 67.5136 64.7863 67.0087 64.5872L62.686 62.8826C62.1784 62.6824 61.8414 62.1658 61.8414 61.5881V58.8948L67.8533 61.2654ZM67.8533 68.5767V69.2782H67.8618V76.8857H65.3848V71.2581L62.686 70.1938C62.1784 69.9937 61.8414 69.4771 61.8414 68.8993V66.206L67.8533 68.5767Z", fill: "white" }) }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "37.7598", y: "37.7598", width: "58.4804", height: "58.4804", rx: "29.2402", stroke: "#9A87FF", "stroke-width": "0.5", "shape-rendering": "crispEdges" })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("defs", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("filter", { id: "filter0_d_1316_13027", x: "0", y: "0", width: "134", height: "134", filterUnits: "userSpaceOnUse", "color-interpolation-filters": "sRGB", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feFlood", { "flood-opacity": "0", result: "BackgroundImageFix" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feColorMatrix", { in: "SourceAlpha", type: "matrix", values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0", result: "hardAlpha" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feOffset", {}),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feGaussianBlur", { stdDeviation: "17.5" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feComposite", { in2: "hardAlpha", operator: "out" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feColorMatrix", { type: "matrix", values: "0 0 0 0 0.567674 0 0 0 0 0.48 0 0 0 0 1 0 0 0 0.35 0" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feBlend", { mode: "normal", in2: "BackgroundImageFix", result: "effect1_dropShadow_1316_13027" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feBlend", { mode: "normal", in: "SourceGraphic", in2: "effect1_dropShadow_1316_13027", result: "shape" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("filter", { id: "filter1_d_1316_13027", x: "6.50977", y: "6.50977", width: "120.98", height: "120.98", filterUnits: "userSpaceOnUse", "color-interpolation-filters": "sRGB", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feFlood", { "flood-opacity": "0", result: "BackgroundImageFix" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feColorMatrix", { in: "SourceAlpha", type: "matrix", values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0", result: "hardAlpha" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feOffset", {}),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feGaussianBlur", { stdDeviation: "15.5" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feComposite", { in2: "hardAlpha", operator: "out" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feColorMatrix", { type: "matrix", values: "0 0 0 0 0.567674 0 0 0 0 0.48 0 0 0 0 1 0 0 0 0.68 0" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feBlend", { mode: "normal", in2: "BackgroundImageFix", result: "effect1_dropShadow_1316_13027" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feBlend", { mode: "normal", in: "SourceGraphic", in2: "effect1_dropShadow_1316_13027", result: "shape" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("linearGradient", { id: "paint0_linear_1316_13027", x1: "35", y1: "35", x2: "112.218", y2: "65.1631", gradientUnits: "userSpaceOnUse", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { "stop-color": "white" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { offset: "1", "stop-color": "#D2CAF8" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("linearGradient", { id: "paint1_linear_1316_13027", x1: "37.5098", y1: "37.5098", x2: "108.671", y2: "65.3071", gradientUnits: "userSpaceOnUse", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { "stop-color": "#9F8BFF" }),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { offset: "1", "stop-color": "#7053FF" })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("clipPath", { id: "clip0_1316_13027", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "53", y: "53", width: "28", height: "28", rx: "6", fill: "white" }) })
-          ] })
-        ] }) }) })
+        children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(TriaWalletButton, { bgColor: primaryColor })
       }
     )
   ] }) });

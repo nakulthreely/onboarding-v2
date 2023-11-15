@@ -5,9 +5,10 @@ declare const useTriaSendTransaction: () => {
     signMessage: (message: any) => Promise<string>;
 };
 declare const TriaConnectProvider: () => react_jsx_runtime.JSX.Element;
-declare const Application: ({ dappName, logo }: {
+declare const Application: ({ dappName, logo, primaryColor }: {
     dappName: any;
     logo: any;
+    primaryColor: any;
 }) => react_jsx_runtime.JSX.Element;
 
 export { TriaConnectProvider, Application as default, useTriaSendTransaction };
