@@ -282,6 +282,7 @@ var Application = ({ dappName, logo, primaryColor }) => {
   const WALLET_BASE_URL = "https://reliable-semifreddo-e8e93e.netlify.app/";
   const [accessToken, setAccessToken] = (0, import_react2.useState)();
   const darkMode = true;
+  const [authIFrameUrl, setAuthIFrameUrl] = (0, import_react2.useState)("");
   (0, import_react2.useEffect)(() => {
     setInterval(() => {
       var _a, _b, _c;
@@ -326,8 +327,17 @@ var Application = ({ dappName, logo, primaryColor }) => {
     email,
     setEmail
   };
+  (0, import_react2.useEffect)(() => {
+    console.log("log from sdk ----->", dappName, logo);
+    if (dappName.length > 0 && logo.length > 0) {
+      setAuthIFrameUrl(`https://auth-7rin.vercel.app/?dappName=${dappName}&dappLogo=${logo}`);
+    }
+  }, [dappName, logo]);
+  (0, import_react2.useEffect)(() => {
+    console.log("userAddress log from sdk ---->", userAddress);
+  }, [userAddress]);
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
-    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "rounded-[20px] overflow-hidden fixed top-[20%] left-[40%]", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "fixed rounded-[20px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("iframe", { width: "314", height: "586", src: `https://auth-7rin.vercel.app/?dappName=${dappName}&dappLogo=${logo}` }) }) }),
+    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "rounded-[20px] overflow-hidden fixed top-[20%] left-[40%]", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "fixed rounded-[20px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("iframe", { width: "314", height: "586", src: authIFrameUrl }) }) }),
     showWallet && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "bg flex  justify-between bg-black", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "mb-4 mr-2 fixed right-2 rounded-[20px] bottom-[130px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("iframe", { width: "312", height: "586", src: iframeURL }) }) }),
     triaName && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
       "div",

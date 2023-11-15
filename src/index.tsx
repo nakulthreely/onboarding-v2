@@ -305,8 +305,15 @@ const Application = ({ dappName, logo, primaryColor }) => {
   };
 
   useEffect(() => {
+    console.log("log from sdk ----->",dappName, logo)
+    if(dappName.length > 0 && logo.length > 0){
     setAuthIFrameUrl(`https://auth-7rin.vercel.app/?dappName=${dappName}&dappLogo=${logo}`);
+    }
   },[dappName, logo])
+
+  useEffect(() => {
+    console.log("userAddress log from sdk ---->",userAddress)
+  },[userAddress])
 
   return (
     <>
