@@ -306,7 +306,7 @@ const Application = ({ dappName, logo, primaryColor }) => {
 
   useEffect(() => {
     console.log("log from sdk ----->",dappName, logo)
-    if(dappName.length > 0 && logo.length > 0){
+    if(dappName?.length > 0 && logo?.length > 0){
     setAuthIFrameUrl(`https://auth-7rin.vercel.app/?dappName=${dappName}&dappLogo=${logo}`);
     }
   },[dappName, logo])
@@ -315,20 +315,44 @@ const Application = ({ dappName, logo, primaryColor }) => {
     console.log("userAddress log from sdk ---->",userAddress)
   },[userAddress])
 
+    useEffect(() => {
+        const handleStorageChange = (event) => {
+            if (event.key === 'tria.wallet.store') {
+                // Check if the specific localStorage item has been cleared or changed
+                // Update the showWallet state based on your specific condition
+                const data = event.newValue;
+                if (!data) {
+                    setShowWallet(false);
+                    setTriaName(null);
+                    setShowOnboarding(true);
+                    alert("logged out")
+                }
+            }
+        };
+
+        // Add event listener for localStorage changes
+        window.addEventListener('storage', handleStorageChange);
+
+        // Cleanup the event listener
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
+
   return (
     <>
       {/* <WagmiConfig config={wagmiConfig}> */}
         <NavContext.Provider value={nav_context_object}>
           {/* <Router> */}
-           {!triaName && showOnboarding &&<div className="rounded-[20px] overflow-hidden fixed top-[20%] left-[40%]">
+           {!triaName && showOnboarding &&<div className="rounded-[20px] overflow-hidden absolute top-[20%] left-[40%]">
                 <div className="fixed rounded-[20px] overflow-hidden">
-                  <iframe width="314" height="586" src={authIFrameUrl} />
+                  <iframe width="314" height="586" src={authIFrameUrl} allow="publickey-credentials-get"/>
                 </div>
               </div>}
             {showWallet && (
               <div className="bg flex  justify-between bg-black">
                 <div className="mb-4 mr-2 fixed right-2 rounded-[20px] bottom-[130px] overflow-hidden">
-                  <iframe width="312" height="586" src={iframeURL} />
+                  <iframe width="312" height="586" src={iframeURL} allow="publickey-credentials-get" />
                 </div>
               </div>
 
@@ -353,7 +377,7 @@ const Application = ({ dappName, logo, primaryColor }) => {
           {/* </Router> */}
           {triaName && (
             <div
-              className="wallet_icon fixed w-[80px] bottom-4 right-8 cursor-pointer"
+              className="wallet_icon absolute w-[80px] bottom-4 right-8 cursor-pointer"
               onClick={() => {
                 setShowWallet(!showWallet);
               }}

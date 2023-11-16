@@ -329,20 +329,37 @@ var Application = ({ dappName, logo, primaryColor }) => {
   };
   (0, import_react2.useEffect)(() => {
     console.log("log from sdk ----->", dappName, logo);
-    if (dappName.length > 0 && logo.length > 0) {
+    if ((dappName == null ? void 0 : dappName.length) > 0 && (logo == null ? void 0 : logo.length) > 0) {
       setAuthIFrameUrl(`https://auth-7rin.vercel.app/?dappName=${dappName}&dappLogo=${logo}`);
     }
   }, [dappName, logo]);
   (0, import_react2.useEffect)(() => {
     console.log("userAddress log from sdk ---->", userAddress);
   }, [userAddress]);
+  (0, import_react2.useEffect)(() => {
+    const handleStorageChange = (event) => {
+      if (event.key === "tria.wallet.store") {
+        const data = event.newValue;
+        if (!data) {
+          setShowWallet(false);
+          setTriaName(null);
+          setShowOnboarding(true);
+          alert("logged out");
+        }
+      }
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
-    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "rounded-[20px] overflow-hidden fixed top-[20%] left-[40%]", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "fixed rounded-[20px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("iframe", { width: "314", height: "586", src: authIFrameUrl }) }) }),
-    showWallet && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "bg flex  justify-between bg-black", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "mb-4 mr-2 fixed right-2 rounded-[20px] bottom-[130px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("iframe", { width: "312", height: "586", src: iframeURL }) }) }),
+    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "rounded-[20px] overflow-hidden absolute top-[20%] left-[40%]", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "fixed rounded-[20px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("iframe", { width: "314", height: "586", src: authIFrameUrl, allow: "publickey-credentials-get" }) }) }),
+    showWallet && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "bg flex  justify-between bg-black", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "mb-4 mr-2 fixed right-2 rounded-[20px] bottom-[130px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("iframe", { width: "312", height: "586", src: iframeURL, allow: "publickey-credentials-get" }) }) }),
     triaName && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
       "div",
       {
-        className: "wallet_icon fixed w-[80px] bottom-4 right-8 cursor-pointer",
+        className: "wallet_icon absolute w-[80px] bottom-4 right-8 cursor-pointer",
         onClick: () => {
           setShowWallet(!showWallet);
         },
