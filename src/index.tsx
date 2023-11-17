@@ -34,6 +34,7 @@ import NavContext from "./NavContext";
 import { IframeController } from "./connect/controllers/iframe.controller";
 import { UserController, AuthController } from '@tria-sdk/core';
 import { TriaWalletButton } from "./Components/TriaWalletButton";
+import WalletCloseButton from "./Components/WalletCloseButton";
 // import { useAccount } from '@tria-sdk/connect'
 
 
@@ -311,33 +312,53 @@ const Application = ({ dappName, logo, primaryColor }) => {
     }
   },[dappName, logo])
 
-  useEffect(() => {
-    console.log("userAddress log from sdk ---->",userAddress)
-  },[userAddress])
+  // useEffect(() => {
+  //   console.log("userAddress log from sdk ---->",userAddress)
+  // },[userAddress])
+
+  //   useEffect(() => {
+  //       const handleStorageChange = (event) => {
+  //           if (event.key === 'tria.wallet.store') {
+  //               // Check if the specific localStorage item has been cleared or changed
+  //               // Update the showWallet state based on your specific condition
+  //               const data = event.newValue;
+  //               if (!data) {
+  //                   setShowWallet(false);
+  //                   setTriaName(null);
+  //                   setShowOnboarding(true);
+  //                   alert("logged out")
+  //               }
+  //           }
+  //       };
+
+  //       // Add event listener for localStorage changes
+  //       window.addEventListener('storage', handleStorageChange);
+
+  //       // Cleanup the event listener
+  //       return () => {
+  //           window.removeEventListener('storage', handleStorageChange);
+  //       };
+  //   }, []);
 
     useEffect(() => {
-        const handleStorageChange = (event) => {
-            if (event.key === 'tria.wallet.store') {
-                // Check if the specific localStorage item has been cleared or changed
-                // Update the showWallet state based on your specific condition
-                const data = event.newValue;
-                if (!data) {
-                    setShowWallet(false);
-                    setTriaName(null);
-                    setShowOnboarding(true);
-                    alert("logged out")
-                }
-            }
-        };
+    const handleClickOutside = (event) => {
+        // Select the iframe element
+        const iframeElement = document.getElementById('triaWallet'); // Use the actual ID or selector of your iframe
 
-        // Add event listener for localStorage changes
-        window.addEventListener('storage', handleStorageChange);
+        if (iframeElement && !iframeElement.contains(event.target)) {
+            // The click is outside the iframe
+            setShowWallet(false);
+        }
+    };
 
-        // Cleanup the event listener
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-        };
-    }, []);
+    // Attach the event listener to the document
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Clean up the event listener
+    return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+    };
+}, []);
 
   return (
     <>
@@ -350,9 +371,17 @@ const Application = ({ dappName, logo, primaryColor }) => {
                 </div>
               </div>}
             {showWallet && (
-              <div className="bg flex  justify-between bg-black">
-                <div className="mb-4 mr-2 fixed right-2 rounded-[20px] bottom-[130px] overflow-hidden">
+              <div id="triaWallet" className="bg flex  justify-between bg-transparent absolute bottom-4 right-2  ">
+                <div className="mb-4 mr-2 relative rounded-[20px]">
+                  <div className="absolute w-[312px] h-[40px] rounded-[20px] top-[-38px] flex items-end justify-center" >
+                    {/* <img src='./WalletCloseButton.svg' alt='' className="cursor-pointer"  onClick={() => {setShowWallet(false)}}/> */}
+                    <div className="cursor-pointer" onClick={()=>{setShowWallet(false)}}>
+                    <WalletCloseButton/>
+                    </div>
+                  </div>
+                  <div className="h-[586px] w-[312px] rounded-[20px] overflow-hidden">
                   <iframe width="312" height="586" src={iframeURL} allow="publickey-credentials-get" />
+                  </div>
                 </div>
               </div>
 
@@ -375,7 +404,7 @@ const Application = ({ dappName, logo, primaryColor }) => {
               </div>
             </div>)} */}
           {/* </Router> */}
-          {triaName && (
+          {triaName && !showWallet && (
             <div
               className="wallet_icon absolute w-[80px] bottom-4 right-8 cursor-pointer"
               onClick={() => {
