@@ -356,7 +356,7 @@ var Application = ({ dappName, logo, primaryColor }) => {
     };
   }, []);
   return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
-    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "rounded-[20px] overflow-hidden absolute top-[20%] left-[40%]", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "fixed rounded-[20px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("iframe", { width: "314", height: "586", src: authIFrameUrl, allow: "publickey-credentials-get" }) }) }),
+    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "rounded-[20px] overflow-hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("iframe", { width: "314", height: "586", src: authIFrameUrl, allow: "publickey-credentials-get" }) }),
     showWallet && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { id: "triaWallet", className: "bg flex  justify-between bg-transparent absolute bottom-4 right-2  ", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mb-4 mr-2 relative rounded-[20px]", children: [
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "absolute w-[312px] h-[40px] rounded-[20px] top-[-38px] flex items-end justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "cursor-pointer", onClick: () => {
         setShowWallet(false);
