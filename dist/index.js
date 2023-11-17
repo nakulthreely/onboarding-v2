@@ -361,7 +361,7 @@ var Application = ({ dappName, logo, primaryColor }) => {
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "absolute w-[312px] h-[40px] rounded-[20px] top-[-38px] flex items-end justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "cursor-pointer", onClick: () => {
         setShowWallet(false);
       }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(WalletCloseButton_default, {}) }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "h-[586px] w-[312px] rounded-[20px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("iframe", { width: "312", height: "586", src: iframeURL, allow: "publickey-credentials-get" }) })
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "h-[586px] w-[312px] rounded-[20px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("iframe", { width: "312", height: "586", src: iframeURL, allow: "publickey-credentials-get", style: { backgroundColor: "transparent" } }) })
     ] }) }),
     triaName && !showWallet && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       "div",
