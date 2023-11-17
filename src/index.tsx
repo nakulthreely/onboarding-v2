@@ -93,6 +93,7 @@ const iframe = new IframeController(
   "https://wallet.tria.so"
 );
 console.log("iframe", iframe);
+const authUrl="https://auth-7rin.vercel.app";
 
 const authController = new AuthController('https://staging.tria.so');
 
@@ -106,35 +107,75 @@ const authController = new AuthController('https://staging.tria.so');
 const createEncodedData=(data)=>{
   const encodedParams = btoa(
     JSON.stringify(data));
-    return encodedParams;
+  return encodedParams;
 }
 
-export const useTriaSendTransaction = () => {
-  const[iframe,setIframe]=useState('');
-  const sendTransaction = async (sendDataFromDapp) => {
-    const iframeEncodedData=createEncodedData(sendDataFromDapp);
-    const sendIframeUrl=`https://auth-7rin.vercel.app/send/${iframeEncodedData}`;
-    // ifrm=sendIframeUrl;
-    setIframe(sendIframeUrl);
-     return iframe;
+export const useTriaTransaction = () => {
+  const createIframe = (iframeUrl) => {
+    const iframeContainer = document.createElement("div");
+    iframeContainer.id = "triaWallet";
+    iframeContainer.className = "bg flex justify-between bg-transparent absolute bottom-4 right-2";
+    iframeContainer.style.position = "absolute";
+    iframeContainer.style.bottom = "4px";
+    iframeContainer.style.right = "2px";
+
+    const innerContainer = document.createElement("div");
+    innerContainer.className = "mb-4 mr-2 relative rounded-[20px]";
+
+    const iframeWrapper = document.createElement("div");
+    iframeWrapper.className = "h-[586px] w-[312px] rounded-[20px] overflow-hidden";
+
+    const iframe = document.createElement("iframe");
+    iframe.width = "312";
+    iframe.height = "586";
+    iframe.src = iframeUrl;
+    iframe.allow = "publickey-credentials-get";
+    iframe.style.border = "none";
+
+    // Append elements to construct the desired structure
+    iframeWrapper.appendChild(iframe);
+    innerContainer.appendChild(iframeWrapper);
+    iframeContainer.appendChild(innerContainer);
+
+    // Append iframeContainer to the document body or a specific container
+    document.body.appendChild(iframeContainer);
+
+    // Return any relevant data if needed
+    
   };
+
+
+  const sendTransaction = async (sendDataFromDapp) => {
+    const iframeEncodedData = createEncodedData(sendDataFromDapp);
+    const sendIframeUrl = `${authUrl}/send/${iframeEncodedData}`;
+    const iframe = createIframe(sendIframeUrl);
+    return sendIframeUrl;
+  };
+
   const signMessage = async (message) => {
-      const iframeEncodedData=createEncodedData(message);
-      const signIframeUrl=`https://auth-7rin.vercel.app/signMessage/${iframeEncodedData}`;
-      setIframe(signIframeUrl);
-      // ifrm=signIframeUrl;
-      return iframe;
-    };
+    const iframeEncodedData = createEncodedData(message);
+    const signIframeUrl = `${authUrl}/signMessage/${iframeEncodedData}`;
+    const iframe = createIframe(signIframeUrl);
+    return signIframeUrl;
+  };
+
+  const callContract = async (data) => {
+    const iframeEncodedData = createEncodedData(data);
+    const signIframeUrl = `${authUrl}/mint/${iframeEncodedData}`;
+    const iframe = createIframe(signIframeUrl);
+    return signIframeUrl;
+  };
   return {
     sendTransaction,
-    signMessage
+    signMessage,
+    callContract
   }
 }
 
 
 // export const  triaSendTransaction = ({ appDomain, appLogo }) => {
 //   const sendTransaction = async (sendDataFromDapp) => {
-  
+
 //   const loginData=  { loginType: 'native', triaName:triaName , socialName: localStorage?.getItem("socialNetwork"), userId: '', input: '' }
 
 //     // const { from, to, chainName, tokenAddress, amount }=sendDataFromDapp;
@@ -160,44 +201,44 @@ export const useTriaSendTransaction = () => {
 // };
 
 
-  // function encodeParamas(params:typeof transactionPayload): string{
-  // const {
-  //   triaName,
-  //   appDomain
-  //   senderName,
-  //   accessToken,
-  //   darkMode,
+// function encodeParamas(params:typeof transactionPayload): string{
+// const {
+//   triaName,
+//   appDomain
+//   senderName,
+//   accessToken,
+//   darkMode,
 
 
-  // } = params
-  //   const encodedParams = btoa(
-  //     JSON.stringify({
+// } = params
+//   const encodedParams = btoa(
+//     JSON.stringify({
 
-  //       qouteRate,
-  //       senderBalance,
-  //       senderName,
-  //       recepientName,
-  //       senderLogo,
-  //       recepientLogo,
-  //       chainLogo,
-  //       chainName,
-  //       appLogo,
-  //       appDomain,
-  //       accessToken,
-  //       darkMode,
-  //       tokenName,
-  //       tokenLogo,
-  //     })
-  //   );
-  //   // const iframeUrl = encodedParams;
-  //   // return iframeUrl
-   
-  // }
+//       qouteRate,
+//       senderBalance,
+//       senderName,
+//       recepientName,
+//       senderLogo,
+//       recepientLogo,
+//       chainLogo,
+//       chainName,
+//       appLogo,
+//       appDomain,
+//       accessToken,
+//       darkMode,
+//       tokenName,
+//       tokenLogo,
+//     })
+//   );
+//   // const iframeUrl = encodedParams;
+//   // return iframeUrl
+
+// }
 
 
   
 
- export const TriaConnectProvider = () => {
+export const TriaConnectProvider = () => {
   const [renderAuthIframe, setRenderAuthIframe] = useState(false);
   useEffect(() => {
     // Function to get the value of a URL parameter
@@ -225,9 +266,9 @@ export const useTriaSendTransaction = () => {
 // const getAccessToken = () => {
 //   const [accessToken, setAccessToken] = useState<string>("");
 //   useEffect(() => {
-//     const getAccessToken = 
+//     const getAccessToken =
 //   },[])
-//   return 
+//   return
 // }
 
 
@@ -276,7 +317,7 @@ const Application = ({ dappName, logo, primaryColor }) => {
     const item = localStorage.getItem("access_token");
     setAccessToken(item);
     setAppDomain(window.parent.origin);
-    
+  
   },[triaName])
 
   useEffect(()=>{
@@ -287,8 +328,8 @@ const Application = ({ dappName, logo, primaryColor }) => {
   },[triaName])
 
   useEffect(() => {
-  console.log("WALLET URL ---->", iframeURL);
-}, [iframeURL]);
+    console.log("WALLET URL ---->", iframeURL);
+  }, [iframeURL]);
 
   const nav_context_object = {
     view,
@@ -308,7 +349,7 @@ const Application = ({ dappName, logo, primaryColor }) => {
   useEffect(() => {
     console.log("log from sdk ----->",dappName, logo)
     if(dappName?.length > 0 && logo?.length > 0){
-    setAuthIFrameUrl(`https://auth-7rin.vercel.app/?dappName=${dappName}&dappLogo=${logo}`);
+      setAuthIFrameUrl(`https://auth-7rin.vercel.app/?dappName=${dappName}&dappLogo=${logo}`);
     }
   },[dappName, logo])
 
@@ -340,15 +381,15 @@ const Application = ({ dappName, logo, primaryColor }) => {
   //       };
   //   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     const handleClickOutside = (event) => {
-        // Select the iframe element
-        const iframeElement = document.getElementById('triaWallet'); // Use the actual ID or selector of your iframe
+      // Select the iframe element
+      const iframeElement = document.getElementById('triaWallet'); // Use the actual ID or selector of your iframe
 
-        if (iframeElement && !iframeElement.contains(event.target)) {
-            // The click is outside the iframe
-            setShowWallet(false);
-        }
+      if (iframeElement && !iframeElement.contains(event.target)) {
+        // The click is outside the iframe
+        setShowWallet(false);
+      }
     };
 
     // Attach the event listener to the document
@@ -356,40 +397,40 @@ const Application = ({ dappName, logo, primaryColor }) => {
 
     // Clean up the event listener
     return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
-}, []);
+  }, []);
 
   return (
     <>
       {/* <WagmiConfig config={wagmiConfig}> */}
-        <NavContext.Provider value={nav_context_object}>
-          {/* <Router> */}
-           {!triaName && showOnboarding &&<div className="rounded-[20px] overflow-hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <iframe width="314" height="586" src={authIFrameUrl} allow="publickey-credentials-get"/>
-              </div>}
-            {showWallet && (
-              <div id="triaWallet" className="bg flex  justify-between bg-transparent absolute bottom-4 right-2  ">
-                <div className="mb-4 mr-2 relative rounded-[20px]">
-                  <div className="absolute w-[312px] h-[40px] rounded-[20px] top-[-38px] flex items-end justify-center" >
-                    {/* <img src='./WalletCloseButton.svg' alt='' className="cursor-pointer"  onClick={() => {setShowWallet(false)}}/> */}
-                    <div className="cursor-pointer" onClick={()=>{setShowWallet(false)}}>
-                    <WalletCloseButton/>
-                    </div>
-                  </div>
-                  <div className="h-[586px] w-[312px] rounded-[20px] overflow-hidden">
-                  <iframe width="312" height="586" src={iframeURL} allow="publickey-credentials-get" />
-                  </div>
+      <NavContext.Provider value={nav_context_object}>
+        {/* <Router> */}
+        {!triaName && showOnboarding &&<div className="rounded-[20px] overflow-hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <iframe width="314" height="586" src={authIFrameUrl} allow="publickey-credentials-get"/>
+          </div>}
+        {showWallet && (
+          <div id="triaWallet" className="bg flex  justify-between bg-transparent absolute bottom-4 right-2  ">
+            <div className="mb-4 mr-2 relative rounded-[20px]">
+              <div className="absolute w-[312px] h-[40px] rounded-[20px] top-[-38px] flex items-end justify-center" >
+                {/* <img src='./WalletCloseButton.svg' alt='' className="cursor-pointer"  onClick={() => {setShowWallet(false)}}/> */}
+                <div className="cursor-pointer" onClick={()=>{setShowWallet(false)}}>
+                  <WalletCloseButton/>
                 </div>
               </div>
+              <div className="h-[586px] w-[312px] rounded-[20px] overflow-hidden">
+                <iframe width="312" height="586" src={iframeURL} allow="publickey-credentials-get" />
+              </div>
+            </div>
+          </div>
 
-              // <div className="bg flex  justify-between bg-black">
-              //   <div className="mr-2 fixed right-2 bottom-16 rounded-[20px] overflow-hidden">
-              //     <iframe width="314" height="588" className="" src="https://reliable-semifreddo-e8e93e.netlify.app/" />
-              //   </div>
-              // </div>
-            )}
-            {/* {showOnboarding && (<div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-md border border-gray-800 rounded-xl ${isDarkMode ? "dark" : ""}`}>
+          // <div className="bg flex  justify-between bg-black">
+          //   <div className="mr-2 fixed right-2 bottom-16 rounded-[20px] overflow-hidden">
+          //     <iframe width="314" height="588" className="" src="https://reliable-semifreddo-e8e93e.netlify.app/" />
+          //   </div>
+          // </div>
+        )}
+        {/* {showOnboarding && (<div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-md border border-gray-800 rounded-xl ${isDarkMode ? "dark" : ""}`}>
               <div className="">
                 {view === "Home" ? <Home /> : null}
                 {view === "Sign Up" ? <SignUp /> : null}
@@ -401,73 +442,73 @@ const Application = ({ dappName, logo, primaryColor }) => {
 
               </div>
             </div>)} */}
-          {/* </Router> */}
-          {triaName && !showWallet && (
-            <div
-              className="wallet_icon absolute w-[80px] bottom-4 right-8 cursor-pointer"
-              onClick={() => {
-                setShowWallet(!showWallet);
-              }}
-            >
-              <TriaWalletButton bgColor={primaryColor} />
-            
-            </div>
-          )}
-        </NavContext.Provider>
+        {/* </Router> */}
+        {triaName && !showWallet && (
+          <div
+            className="wallet_icon absolute w-[80px] bottom-4 right-8 cursor-pointer"
+            onClick={() => {
+              setShowWallet(!showWallet);
+            }}
+          >
+            <TriaWalletButton bgColor={primaryColor} />
+
+          </div>
+        )}
+      </NavContext.Provider>
       {/* </WagmiConfig> */}
     </>
   );
 };
 
-  // <div className=" ">
-  //               <div className="">
-  //                 <svg width="134" height="134" viewBox="0 0 134 134" fill="none" xmlns="http://www.w3.org/2000/svg">
-  //                   <g filter="url(#filter0_d_1316_13027)">
-  //                     <rect x="35" y="35" width="64" height="64" rx="32" fill="url(#paint0_linear_1316_13027)" />
-  //                   </g>
-  //                   <g filter="url(#filter1_d_1316_13027)">
-  //                     <rect x="37.5098" y="37.5098" width="58.9804" height="58.9804" rx="29.4902" fill="url(#paint1_linear_1316_13027)" shape-rendering="crispEdges" />
-  //                     <g clip-path="url(#clip0_1316_13027)">
-  //                       <path fill-rule="evenodd" clip-rule="evenodd" d="M81 53H53V81H81V53ZM67.8533 61.2654V64.9058L73.8652 62.5352V65.2285C73.8652 65.8062 73.5281 66.3228 73.0206 66.5229L67.8533 68.5606V65.8728C67.8498 65.2986 67.5136 64.7863 67.0087 64.5872L62.686 62.8826C62.1784 62.6824 61.8414 62.1658 61.8414 61.5881V58.8948L67.8533 61.2654ZM67.8533 68.5767V69.2782H67.8618V76.8857H65.3848V71.2581L62.686 70.1938C62.1784 69.9937 61.8414 69.4771 61.8414 68.8993V66.206L67.8533 68.5767Z" fill="white" />
-  //                     </g>
-  //                     <rect x="37.7598" y="37.7598" width="58.4804" height="58.4804" rx="29.2402" stroke="#9A87FF" stroke-width="0.5" shape-rendering="crispEdges" />
-  //                   </g>
-  //                   <defs>
-  //                     <filter id="filter0_d_1316_13027" x="0" y="0" width="134" height="134" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-  //                       <feFlood flood-opacity="0" result="BackgroundImageFix" />
-  //                       <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-  //                       <feOffset />
-  //                       <feGaussianBlur stdDeviation="17.5" />
-  //                       <feComposite in2="hardAlpha" operator="out" />
-  //                       <feColorMatrix type="matrix" values="0 0 0 0 0.567674 0 0 0 0 0.48 0 0 0 0 1 0 0 0 0.35 0" />
-  //                       <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1316_13027" />
-  //                       <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1316_13027" result="shape" />
-  //                     </filter>
-  //                     <filter id="filter1_d_1316_13027" x="6.50977" y="6.50977" width="120.98" height="120.98" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-  //                       <feFlood flood-opacity="0" result="BackgroundImageFix" />
-  //                       <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-  //                       <feOffset />
-  //                       <feGaussianBlur stdDeviation="15.5" />
-  //                       <feComposite in2="hardAlpha" operator="out" />
-  //                       <feColorMatrix type="matrix" values="0 0 0 0 0.567674 0 0 0 0 0.48 0 0 0 0 1 0 0 0 0.68 0" />
-  //                       <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1316_13027" />
-  //                       <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1316_13027" result="shape" />
-  //                     </filter>
-  //                     <linearGradient id="paint0_linear_1316_13027" x1="35" y1="35" x2="112.218" y2="65.1631" gradientUnits="userSpaceOnUse">
-  //                       <stop stop-color="white" />
-  //                       <stop offset="1" stop-color="#D2CAF8" />
-  //                     </linearGradient>
-  //                     <linearGradient id="paint1_linear_1316_13027" x1="37.5098" y1="37.5098" x2="108.671" y2="65.3071" gradientUnits="userSpaceOnUse">
-  //                       <stop stop-color="#9F8BFF" />
-  //                       <stop offset="1" stop-color="#7053FF" />
-  //                     </linearGradient>
-  //                     <clipPath id="clip0_1316_13027">
-  //                       <rect x="53" y="53" width="28" height="28" rx="6" fill="white" />
-  //                     </clipPath>
-  //                   </defs>
-  //                 </svg>
+// <div className=" ">
+//               <div className="">
+//                 <svg width="134" height="134" viewBox="0 0 134 134" fill="none" xmlns="http://www.w3.org/2000/svg">
+//                   <g filter="url(#filter0_d_1316_13027)">
+//                     <rect x="35" y="35" width="64" height="64" rx="32" fill="url(#paint0_linear_1316_13027)" />
+//                   </g>
+//                   <g filter="url(#filter1_d_1316_13027)">
+//                     <rect x="37.5098" y="37.5098" width="58.9804" height="58.9804" rx="29.4902" fill="url(#paint1_linear_1316_13027)" shape-rendering="crispEdges" />
+//                     <g clip-path="url(#clip0_1316_13027)">
+//                       <path fill-rule="evenodd" clip-rule="evenodd" d="M81 53H53V81H81V53ZM67.8533 61.2654V64.9058L73.8652 62.5352V65.2285C73.8652 65.8062 73.5281 66.3228 73.0206 66.5229L67.8533 68.5606V65.8728C67.8498 65.2986 67.5136 64.7863 67.0087 64.5872L62.686 62.8826C62.1784 62.6824 61.8414 62.1658 61.8414 61.5881V58.8948L67.8533 61.2654ZM67.8533 68.5767V69.2782H67.8618V76.8857H65.3848V71.2581L62.686 70.1938C62.1784 69.9937 61.8414 69.4771 61.8414 68.8993V66.206L67.8533 68.5767Z" fill="white" />
+//                     </g>
+//                     <rect x="37.7598" y="37.7598" width="58.4804" height="58.4804" rx="29.2402" stroke="#9A87FF" stroke-width="0.5" shape-rendering="crispEdges" />
+//                   </g>
+//                   <defs>
+//                     <filter id="filter0_d_1316_13027" x="0" y="0" width="134" height="134" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+//                       <feFlood flood-opacity="0" result="BackgroundImageFix" />
+//                       <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+//                       <feOffset />
+//                       <feGaussianBlur stdDeviation="17.5" />
+//                       <feComposite in2="hardAlpha" operator="out" />
+//                       <feColorMatrix type="matrix" values="0 0 0 0 0.567674 0 0 0 0 0.48 0 0 0 0 1 0 0 0 0.35 0" />
+//                       <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1316_13027" />
+//                       <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1316_13027" result="shape" />
+//                     </filter>
+//                     <filter id="filter1_d_1316_13027" x="6.50977" y="6.50977" width="120.98" height="120.98" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+//                       <feFlood flood-opacity="0" result="BackgroundImageFix" />
+//                       <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+//                       <feOffset />
+//                       <feGaussianBlur stdDeviation="15.5" />
+//                       <feComposite in2="hardAlpha" operator="out" />
+//                       <feColorMatrix type="matrix" values="0 0 0 0 0.567674 0 0 0 0 0.48 0 0 0 0 1 0 0 0 0.68 0" />
+//                       <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1316_13027" />
+//                       <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1316_13027" result="shape" />
+//                     </filter>
+//                     <linearGradient id="paint0_linear_1316_13027" x1="35" y1="35" x2="112.218" y2="65.1631" gradientUnits="userSpaceOnUse">
+//                       <stop stop-color="white" />
+//                       <stop offset="1" stop-color="#D2CAF8" />
+//                     </linearGradient>
+//                     <linearGradient id="paint1_linear_1316_13027" x1="37.5098" y1="37.5098" x2="108.671" y2="65.3071" gradientUnits="userSpaceOnUse">
+//                       <stop stop-color="#9F8BFF" />
+//                       <stop offset="1" stop-color="#7053FF" />
+//                     </linearGradient>
+//                     <clipPath id="clip0_1316_13027">
+//                       <rect x="53" y="53" width="28" height="28" rx="6" fill="white" />
+//                     </clipPath>
+//                   </defs>
+//                 </svg>
 
-  //               </div>
-  //             </div>
+//               </div>
+//             </div>
 
 export default Application;
