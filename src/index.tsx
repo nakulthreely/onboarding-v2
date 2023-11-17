@@ -365,10 +365,8 @@ const Application = ({ dappName, logo, primaryColor }) => {
       {/* <WagmiConfig config={wagmiConfig}> */}
         <NavContext.Provider value={nav_context_object}>
           {/* <Router> */}
-           {!triaName && showOnboarding &&<div className="rounded-[20px] overflow-hidden absolute top-[20%] left-[40%]">
-                <div className="fixed rounded-[20px] overflow-hidden">
+           {!triaName && showOnboarding &&<div className="rounded-[20px] overflow-hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                   <iframe width="314" height="586" src={authIFrameUrl} allow="publickey-credentials-get"/>
-                </div>
               </div>}
             {showWallet && (
               <div id="triaWallet" className="bg flex  justify-between bg-transparent absolute bottom-4 right-2  ">
