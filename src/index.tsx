@@ -408,29 +408,6 @@ const Application = ({ dappName, logo, primaryColor }) => {
   return (
     <>
       {/* <WagmiConfig config={wagmiConfig}> */}
-<<<<<<< HEAD
-        <NavContext.Provider value={nav_context_object}>
-          {/* <Router> */}
-           {!triaName && showOnboarding &&<div className="rounded-[20px] overflow-hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <iframe width="314" height="586" src={authIFrameUrl} allow="publickey-credentials-get"/>
-              </div>}
-            {showWallet && (
-              <div id="triaWallet" className="bg flex  justify-between bg-transparent absolute bottom-4 right-2  ">
-                <div className="mb-4 mr-2 relative rounded-[20px]">
-                  <div className="absolute w-[312px] h-[40px] rounded-[20px] top-[-38px] flex items-end justify-center" >
-                    {/* <img src='./WalletCloseButton.svg' alt='' className="cursor-pointer"  onClick={() => {setShowWallet(false)}}/> */}
-                    <div className="cursor-pointer" onClick={()=>{setShowWallet(false)}}>
-                    <WalletCloseButton/>
-                    </div>
-                  </div>
-                  <div className="h-[586px] w-[312px] rounded-[20px] overflow-hidden">
-                  <iframe 
-                  width="312" height="586" 
-                  src={iframeURL} 
-                  allow="clipboard-read; clipboard-write; publickey-credentials-get" 
-                  style={{ backgroundColor: 'transparent' }} />
-                  </div>
-=======
       <NavContext.Provider value={nav_context_object}>
         {/* <Router> */}
         {!triaName && showOnboarding &&<div className="rounded-[20px] overflow-hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -443,11 +420,15 @@ const Application = ({ dappName, logo, primaryColor }) => {
                 {/* <img src='./WalletCloseButton.svg' alt='' className="cursor-pointer"  onClick={() => {setShowWallet(false)}}/> */}
                 <div className="cursor-pointer" onClick={()=>{setShowWallet(false)}}>
                   <WalletCloseButton/>
->>>>>>> origin/nakul
+
                 </div>
               </div>
               <div className="h-[586px] w-[312px] rounded-[20px] overflow-hidden">
-                <iframe width="312" height="586" src={iframeURL} allow="publickey-credentials-get" />
+                <iframe 
+                width="312" 
+                height="586" 
+                src={iframeURL} 
+                allow="publickey-credentials-get" />
               </div>
             </div>
           </div>
