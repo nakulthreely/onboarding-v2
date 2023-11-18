@@ -1,13 +1,13 @@
- const createEncodedData=(data)=>{
+export const createEncodedData=(data:any)=>{
     const encodedParams = btoa(
       JSON.stringify(data));
     return encodedParams;
   }
   
 
-   const createIframe = (iframeUrl) => {
+ export  const createIframe = (iframeUrl:string,hookName:string) => {
     const iframeContainer = document.createElement("div");
-    iframeContainer.id = "triaWallet";
+    iframeContainer.id =hookName ;
     iframeContainer.className = "bg flex justify-between bg-transparent absolute bottom-4 right-2";
     iframeContainer.style.position = "absolute";
     iframeContainer.style.bottom = "4px";
@@ -37,5 +37,3 @@
     // Return any relevant data if needed
     
   };
-
-export default {createEncodedData,createIframe}
