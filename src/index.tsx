@@ -378,7 +378,11 @@ const Application = ({ dappName, logo, primaryColor }) => {
                     </div>
                   </div>
                   <div className="h-[586px] w-[312px] rounded-[20px] overflow-hidden">
-                  <iframe width="312" height="586" src={iframeURL} allow="publickey-credentials-get" style={{ backgroundColor: 'transparent' }} />
+                  <iframe 
+                  width="312" height="586" 
+                  src={iframeURL} 
+                  allow="clipboard-read; clipboard-write; publickey-credentials-get" 
+                  style={{ backgroundColor: 'transparent' }} />
                   </div>
                 </div>
               </div>
