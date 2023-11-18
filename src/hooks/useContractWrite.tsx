@@ -11,7 +11,7 @@ const createEncodedData=(data:any)=>{
 
  const createIframe = (iframeUrl:string) => {
   const iframeContainer = document.createElement("div");
-  iframeContainer.id = "triaWallet";
+  iframeContainer.id = "sdkMint";
   iframeContainer.className = "bg flex justify-between bg-transparent absolute bottom-4 right-2";
   iframeContainer.style.position = "absolute";
   iframeContainer.style.bottom = "4px";
@@ -92,6 +92,7 @@ export const useContractWrite = (calldata:any) => {
         }
         setData(eventData?.data);
         setIsLoading(false);
+        document.getElementById("sdkMint")?.remove();
       }
     };
 

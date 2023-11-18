@@ -13,7 +13,7 @@ const createEncodedData=(data:any)=>{
 
  const createIframe = (iframeUrl:string) => {
   const iframeContainer = document.createElement("div");
-  iframeContainer.id = "triaWallet";
+  iframeContainer.id = "sdkSend";
   iframeContainer.className = "bg flex justify-between bg-transparent absolute bottom-4 right-2";
   iframeContainer.style.position = "absolute";
   iframeContainer.style.bottom = "4px";
@@ -58,23 +58,16 @@ export const useSendTransaction = (calldata:any) => {
 
   const sendTransaction  = () => {
     setIsLoading(true);
-    
-
     const iframeEncodedData = createEncodedData(calldata);
     const signIframeUrl =  `${authUrl}/send/${iframeEncodedData}`;
     const iframe = createIframe(signIframeUrl);
     setIsLoading(false);
     return signIframeUrl;
-    
-    // setTimeout(() => {
-    //   setAccount('Signed Account'); // Replace this with your actual account data
-    //   setIsLoading(false);
-    // }, 1000);
+
   };
 
   useEffect(() => {
     const detect = (event: MessageEvent) => {
-     console.log("event---------------->",event);
       if (event.origin !== authUrl) return;
 
       let eventData;
@@ -87,6 +80,7 @@ export const useSendTransaction = (calldata:any) => {
       if (eventData?.type ==='closeIframe' && eventData?.callFrom=="send") {
         setData(eventData?.data);
         setIsLoading(false);
+        document.getElementById("sdkSend")?.remove();
       }
     };
 

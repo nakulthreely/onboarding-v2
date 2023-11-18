@@ -11,7 +11,7 @@ const createEncodedData=(data:any)=>{
 
  const createIframe = (iframeUrl:string) => {
   const iframeContainer = document.createElement("div");
-  iframeContainer.id = "triaWallet";
+  iframeContainer.id = "sdkSign";
   iframeContainer.className = "bg flex justify-between bg-transparent absolute bottom-4 right-2";
   iframeContainer.style.position = "absolute";
   iframeContainer.style.bottom = "4px";
@@ -38,14 +38,6 @@ const createEncodedData=(data:any)=>{
   // Append iframeContainer to the document body or a specific container
   document.body.appendChild(iframeContainer);
 
-  const cleanup = () => {
-    document.body.removeChild(iframeContainer);
-  };
-
-  return cleanup;
-
-  // Return any relevant data if needed
-  
 };
 
 export interface SignMessageState {
@@ -59,7 +51,6 @@ export const useSignMessage = (calldata:any) => {
   const [account, setAccount] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [cleanUp, setCleanUp] = useState<() => void>(() => () => {}); 
 
   const signMessage = () => {
     setIsLoading(true);
@@ -67,8 +58,7 @@ export const useSignMessage = (calldata:any) => {
 
     const iframeEncodedData = createEncodedData(calldata);
     const signIframeUrl = `${authUrl}/signMessage/${iframeEncodedData}`;
-    const cleanUp = createIframe(signIframeUrl);
-    setCleanUp(() => cleanUp);
+    createIframe(signIframeUrl);
     setIsLoading(false);
     return signIframeUrl;
 
@@ -87,11 +77,10 @@ export const useSignMessage = (calldata:any) => {
     
       if (eventData?.type ==='closeIframe' && eventData?.callFrom=="sign") {
         console.log("event",eventData);
-        if (cleanUp) {
-          cleanUp();
-        }
         setAccount(eventData?.data);
         setIsLoading(false);
+        document.getElementById("sdkSign")?.remove();
+      
       }
     };
 
