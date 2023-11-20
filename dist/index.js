@@ -180,11 +180,11 @@ var import_core = require("@tria-sdk/core");
 var import_jsx_runtime = require("react/jsx-runtime");
 var TriaWalletButton = ({ bgColor }) => {
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", { width: "134", height: "134", viewBox: "0 0 134 134", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { filter: "url(#filter0_d_1316_13027)", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "35", y: "35", width: "64", height: "64", rx: "32", fill: bgColor }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { filter: "url(#filter0_d_1316_13027)", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "35", y: "35", width: "64", height: "64", rx: "32", fill: "#101010" }) }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("g", { filter: "url(#filter1_d_1316_13027)", children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "37.5098", y: "37.5098", width: "58.9804", height: "58.9804", rx: "29.4902", fill: "url(#paint1_linear_1316_13027)", "shape-rendering": "crispEdges" }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { "clip-path": "url(#clip0_1316_13027)", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M81 53H53V81H81V53ZM67.8533 61.2654V64.9058L73.8652 62.5352V65.2285C73.8652 65.8062 73.5281 66.3228 73.0206 66.5229L67.8533 68.5606V65.8728C67.8498 65.2986 67.5136 64.7863 67.0087 64.5872L62.686 62.8826C62.1784 62.6824 61.8414 62.1658 61.8414 61.5881V58.8948L67.8533 61.2654ZM67.8533 68.5767V69.2782H67.8618V76.8857H65.3848V71.2581L62.686 70.1938C62.1784 69.9937 61.8414 69.4771 61.8414 68.8993V66.206L67.8533 68.5767Z", fill: "white" }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "37.7598", y: "37.7598", width: "58.4804", height: "58.4804", rx: "29.2402", stroke: "#9A87FF", "stroke-width": "0.5", "shape-rendering": "crispEdges" })
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { "clip-path": "url(#clip0_1316_13027)", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M81 53H53V81H81V53ZM67.8533 61.2654V64.9058L73.8652 62.5352V65.2285C73.8652 65.8062 73.5281 66.3228 73.0206 66.5229L67.8533 68.5606V65.8728C67.8498 65.2986 67.5136 64.7863 67.0087 64.5872L62.686 62.8826C62.1784 62.6824 61.8414 62.1658 61.8414 61.5881V58.8948L67.8533 61.2654ZM67.8533 68.5767V69.2782H67.8618V76.8857H65.3848V71.2581L62.686 70.1938C62.1784 69.9937 61.8414 69.4771 61.8414 68.8993V66.206L67.8533 68.5767Z", fill: "#101010" }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "37.7598", y: "37.7598", width: "58.4804", height: "58.4804", rx: "29.2402", stroke: bgColor, "stroke-width": "0.5", "shape-rendering": "crispEdges" })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("defs", { children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("filter", { id: "filter0_d_1316_13027", x: "0", y: "0", width: "134", height: "134", filterUnits: "userSpaceOnUse", "color-interpolation-filters": "sRGB", children: [
@@ -208,14 +208,14 @@ var TriaWalletButton = ({ bgColor }) => {
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feBlend", { mode: "normal", in: "SourceGraphic", in2: "effect1_dropShadow_1316_13027", result: "shape" })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("linearGradient", { id: "paint0_linear_1316_13027", x1: "35", y1: "35", x2: "112.218", y2: "65.1631", gradientUnits: "userSpaceOnUse", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { "stop-color": "white" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { offset: "1", "stop-color": "#D2CAF8" })
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { "stop-color": "#101010" }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { offset: "1", "stop-color": bgColor })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("linearGradient", { id: "paint1_linear_1316_13027", x1: "37.5098", y1: "37.5098", x2: "108.671", y2: "65.3071", gradientUnits: "userSpaceOnUse", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { "stop-color": "#9F8BFF" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { offset: "1", "stop-color": "#7053FF" })
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { "stop-color": bgColor }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("stop", { offset: "1", "stop-color": bgColor })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("clipPath", { id: "clip0_1316_13027", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "53", y: "53", width: "28", height: "28", rx: "6", fill: "white" }) })
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("clipPath", { id: "clip0_1316_13027", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "53", y: "53", width: "28", height: "28", rx: "6", fill: "#101010" }) })
     ] })
   ] }) });
 };
@@ -465,7 +465,7 @@ var TriaConnectProvider = () => {
     }
   ) });
 };
-var Application = ({ dappName, logo, primaryColor }) => {
+var Application = ({ dappName, dappDomain, uiType, logo, primaryColor }) => {
   const [view, setView] = (0, import_react5.useState)("Home");
   const [triaName, setTriaName] = (0, import_react5.useState)(null);
   const [userAddress, setUserAddress] = (0, import_react5.useState)(null);
@@ -488,6 +488,8 @@ var Application = ({ dappName, logo, primaryColor }) => {
         setUserAddress((_c = (_b = JSON.parse(localStorage.getItem("tria.wallet.store"))) == null ? void 0 : _b.evm) == null ? void 0 : _c.address);
       } else if (localStorage.getItem("wagmi.connected") === true) {
         setShowOnboarding(false);
+        const wallet = localStorage.getItem("wagmi.connected");
+        console.log(wallet);
       } else {
         setShowOnboarding(true);
       }
@@ -529,7 +531,7 @@ var Application = ({ dappName, logo, primaryColor }) => {
   (0, import_react5.useEffect)(() => {
     console.log("log from sdk ----->", dappName, logo);
     if ((dappName == null ? void 0 : dappName.length) > 0 && (logo == null ? void 0 : logo.length) > 0) {
-      setAuthIFrameUrl(`https://auth-7rin.vercel.app/?dappName=${dappName}&dappLogo=${logo}`);
+      setAuthIFrameUrl(`https://auth-7rin.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
     }
   }, [dappName, logo]);
   (0, import_react5.useEffect)(() => {
@@ -550,14 +552,14 @@ var Application = ({ dappName, logo, primaryColor }) => {
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "absolute w-[312px] h-[40px] rounded-[20px] top-[-38px] flex items-end justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "cursor-pointer", onClick: () => {
         setShowWallet(false);
       }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(WalletCloseButton_default, {}) }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "h-[586px] w-[312px] rounded-[20px] overflow-hidden", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "h-[586px] w-[312px] rounded-[20px] overflow-hidden bg-[#101010]", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
         "iframe",
         {
           width: "312",
           height: "586",
           src: iframeURL,
           allow: "clipboard-read; clipboard-write; publickey-credentials-get",
-          style: { backgroundColor: "transparent" }
+          style: { backgroundColor: "#101010" }
         }
       ) })
     ] }) }),

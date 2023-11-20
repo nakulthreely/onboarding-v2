@@ -897,6 +897,10 @@ video {
 .border-opacity-5 {
   --tw-border-opacity: 0.05;
 }
+.bg-\[\#101010\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(16 16 16 / var(--tw-bg-opacity));
+}
 .bg-\[\#3B99FC\] {
   --tw-bg-opacity: 1;
   background-color: rgb(59 153 252 / var(--tw-bg-opacity));

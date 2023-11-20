@@ -280,7 +280,7 @@ export const TriaConnectProvider = () => {
 
 
 
-const Application = ({ dappName, logo, primaryColor }) => {
+const Application = ({ dappName, dappDomain, uiType, logo,  primaryColor }) => {
 
   const [view, setView] = useState("Home");
   const [triaName, setTriaName] = useState(null);
@@ -310,6 +310,8 @@ const Application = ({ dappName, logo, primaryColor }) => {
         setUserAddress(JSON.parse(localStorage.getItem('tria.wallet.store'))?.evm?.address)
       } else if(localStorage.getItem("wagmi.connected") ===true){
         setShowOnboarding(false);
+        const wallet = localStorage.getItem("wagmi.connected")
+        console.log(wallet)
       }else{
         setShowOnboarding(true);
       }
@@ -359,7 +361,7 @@ const Application = ({ dappName, logo, primaryColor }) => {
   useEffect(() => {
     console.log("log from sdk ----->",dappName, logo)
     if(dappName?.length > 0 && logo?.length > 0){
-      setAuthIFrameUrl(`https://auth-7rin.vercel.app/?dappName=${dappName}&dappLogo=${logo}`);
+      setAuthIFrameUrl(`https://auth-7rin.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
     }
   },[dappName, logo])
 
@@ -429,13 +431,13 @@ const Application = ({ dappName, logo, primaryColor }) => {
 
                 </div>
               </div>
-              <div className="h-[586px] w-[312px] rounded-[20px] overflow-hidden">
+              <div className="h-[586px] w-[312px] rounded-[20px] overflow-hidden bg-[#101010]">
           <iframe
           width="312"
           height="586"
           src={iframeURL}
           allow="clipboard-read; clipboard-write; publickey-credentials-get"
-          style={{ backgroundColor: 'transparent' }}
+          style={{ backgroundColor: '#101010' }}
           />
               </div>
             </div>

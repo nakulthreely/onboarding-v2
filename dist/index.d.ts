@@ -30,8 +30,10 @@ declare const useTriaTransaction: () => {
     callContract: (data: any) => Promise<string>;
 };
 declare const TriaConnectProvider: () => react_jsx_runtime.JSX.Element;
-declare const Application: ({ dappName, logo, primaryColor }: {
+declare const Application: ({ dappName, dappDomain, uiType, logo, primaryColor }: {
     dappName: any;
+    dappDomain: any;
+    uiType: any;
     logo: any;
     primaryColor: any;
 }) => react_jsx_runtime.JSX.Element;
