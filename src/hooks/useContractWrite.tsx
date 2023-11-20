@@ -12,8 +12,7 @@ export const useContractWrite = (calldata:any) => {
 
   const write = () => {
     setIsLoading(true);
-    const prepare_data={ContractDetails:calldata}
-    const iframeEncodedData = createEncodedData(prepare_data);   
+    const iframeEncodedData = createEncodedData(calldata);   
     const signIframeUrl =`${authUrl}/mint/${iframeEncodedData}`;
     createIframe(signIframeUrl,"sdkMint");
     setIsLoading(false);

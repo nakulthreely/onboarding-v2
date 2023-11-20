@@ -5,7 +5,7 @@ import {createEncodedData,createIframe} from "../utils"
 
 
 export const useSignMessage = (calldata:any) => {
-  const [account, setAccount] = useState('');
+  const [data, setData] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -34,7 +34,7 @@ export const useSignMessage = (calldata:any) => {
     
       if (eventData?.type ==='closeIframe' && eventData?.callFrom=="sign") {
         console.log("event",eventData);
-        setAccount(eventData?.data);
+        setData(eventData?.data);
         setIsLoading(false);
         document.getElementById("sdkSign")?.remove();
       
@@ -48,5 +48,5 @@ export const useSignMessage = (calldata:any) => {
     };
   }, []);
 
-  return { account, isLoading, isError, isSuccess: !!account, signMessage };
+  return { data, isLoading, isError, isSuccess: !!data, signMessage };
 };
