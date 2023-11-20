@@ -10,7 +10,7 @@ import { useConnect } from 'wagmi';
 export default function EmailAndSocial(props: any) {
 
   //@ts-ignore
-  const { setView, authController, email, setEmail } = useContext(NavContext)
+  const { setView, authController, email, setEmail, showOnboarding } = useContext(NavContext)
   const socialLogins = useSocialLoginConnectors();
   const [authenticated, setAuthenticated] = useState(false);
   // const [email, setEmail] = useState("");
