@@ -36,11 +36,13 @@ import { UserController, AuthController } from '@tria-sdk/core';
 import { TriaWalletButton } from "./Components/TriaWalletButton";
 import WalletCloseButton from "./Components/WalletCloseButton";
 // import { useAccount } from '@tria-sdk/connect'
-import {useSignMessage} from "./hooks/useSignMessage";
-import {useSendTransaction} from "./hooks/useSendTransaction";
-import {useContractWrite} from "./hooks/useContractWrite";
+// import {useSignMessage} from "./hooks/useSignMessage";
+// import {useSendTransaction} from "./hooks/useSendTransaction";
+// import {useContractWrite} from "./hooks/useContractWrite";
 
-export {useSignMessage,useSendTransaction,useContractWrite};
+export {useSignMessage,useSendTransaction,useContractWrite} from "./hooks"
+
+// export {useSignMessage,useSendTransaction,useContractWrite};
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
