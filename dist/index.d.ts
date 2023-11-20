@@ -1,11 +1,11 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
 
-declare const useSignMessage: (calldata: any) => {
-    account: string;
+declare const useContractWrite: (calldata: any) => {
+    data: string;
     isLoading: boolean;
     isError: boolean;
     isSuccess: boolean;
-    signMessage: () => string;
+    write: () => string;
 };
 
 declare const useSendTransaction: (calldata: any) => {
@@ -16,12 +16,12 @@ declare const useSendTransaction: (calldata: any) => {
     sendTransaction: () => string;
 };
 
-declare const useContractWrite: (calldata: any) => {
+declare const useSignMessage: (calldata: any) => {
     data: string;
     isLoading: boolean;
     isError: boolean;
     isSuccess: boolean;
-    write: () => string;
+    signMessage: () => string;
 };
 
 declare const useTriaTransaction: () => {

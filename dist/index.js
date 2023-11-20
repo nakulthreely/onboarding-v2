@@ -230,18 +230,19 @@ var WalletCloseButton = ({ onClick: han }) => {
 };
 var WalletCloseButton_default = WalletCloseButton;
 
-// src/hooks/useSignMessage.tsx
+// src/hooks/useContractWrite.tsx
 var import_react2 = require("react");
-var authUrl = "https://auth-7rin.vercel.app";
+
+// src/utils/shared.ts
 var createEncodedData = (data) => {
   const encodedParams = btoa(
     JSON.stringify(data)
   );
   return encodedParams;
 };
-var createIframe = (iframeUrl) => {
+var createIframe = (iframeUrl, hookName) => {
   const iframeContainer = document.createElement("div");
-  iframeContainer.id = "triaWallet";
+  iframeContainer.id = hookName;
   iframeContainer.className = "bg flex justify-between bg-transparent absolute bottom-4 right-2";
   iframeContainer.style.position = "absolute";
   iframeContainer.style.bottom = "4px";
@@ -260,28 +261,26 @@ var createIframe = (iframeUrl) => {
   innerContainer.appendChild(iframeWrapper);
   iframeContainer.appendChild(innerContainer);
   document.body.appendChild(iframeContainer);
-  const cleanup = () => {
-    document.body.removeChild(iframeContainer);
-  };
-  return cleanup;
 };
-var useSignMessage = (calldata) => {
-  const [account, setAccount] = (0, import_react2.useState)("");
+
+// src/hooks/useContractWrite.tsx
+var authUrl = "https://auth-7rin.vercel.app";
+var useContractWrite = (calldata) => {
+  const [data, setData] = (0, import_react2.useState)("");
   const [isLoading, setIsLoading] = (0, import_react2.useState)(false);
   const [isError, setIsError] = (0, import_react2.useState)(false);
-  const [cleanUp, setCleanUp] = (0, import_react2.useState)(() => () => {
-  });
-  const signMessage = () => {
+  const write = () => {
     setIsLoading(true);
     const iframeEncodedData = createEncodedData(calldata);
-    const signIframeUrl = `${authUrl}/signMessage/${iframeEncodedData}`;
-    const cleanUp2 = createIframe(signIframeUrl);
-    setCleanUp(() => cleanUp2);
+    const signIframeUrl = `${authUrl}/mint/${iframeEncodedData}`;
+    createIframe(signIframeUrl, "sdkMint");
     setIsLoading(false);
     return signIframeUrl;
   };
   (0, import_react2.useEffect)(() => {
     const detect = (event) => {
+      var _a;
+      console.log("event---------------->", event);
       if (event.origin !== authUrl)
         return;
       let eventData;
@@ -290,13 +289,10 @@ var useSignMessage = (calldata) => {
       } catch (err) {
         eventData = event.data;
       }
-      if ((eventData == null ? void 0 : eventData.type) === "closeIframe" && (eventData == null ? void 0 : eventData.callFrom) == "sign") {
-        console.log("event", eventData);
-        if (cleanUp) {
-          cleanUp();
-        }
-        setAccount(eventData == null ? void 0 : eventData.data);
+      if ((eventData == null ? void 0 : eventData.type) === "closeIframe" && (eventData == null ? void 0 : eventData.callFrom) == "mint") {
+        setData(eventData == null ? void 0 : eventData.data);
         setIsLoading(false);
+        (_a = document.getElementById("sdkMint")) == null ? void 0 : _a.remove();
       }
     };
     window.addEventListener("message", detect);
@@ -304,55 +300,27 @@ var useSignMessage = (calldata) => {
       window.removeEventListener("message", detect);
     };
   }, []);
-  return { account, isLoading, isError, isSuccess: !!account, signMessage };
+  return { data, isLoading, isError, isSuccess: !!data, write };
 };
 
 // src/hooks/useSendTransaction.tsx
 var import_react3 = require("react");
 var authUrl2 = "https://auth-7rin.vercel.app";
-var createEncodedData2 = (data) => {
-  const encodedParams = btoa(
-    JSON.stringify(data)
-  );
-  return encodedParams;
-};
-var createIframe2 = (iframeUrl) => {
-  const iframeContainer = document.createElement("div");
-  iframeContainer.id = "triaWallet";
-  iframeContainer.className = "bg flex justify-between bg-transparent absolute bottom-4 right-2";
-  iframeContainer.style.position = "absolute";
-  iframeContainer.style.bottom = "4px";
-  iframeContainer.style.right = "2px";
-  const innerContainer = document.createElement("div");
-  innerContainer.className = "mb-4 mr-2 relative rounded-[20px]";
-  const iframeWrapper = document.createElement("div");
-  iframeWrapper.className = "h-[586px] w-[312px] rounded-[20px] overflow-hidden";
-  const iframe2 = document.createElement("iframe");
-  iframe2.width = "312";
-  iframe2.height = "586";
-  iframe2.src = iframeUrl;
-  iframe2.allow = "publickey-credentials-get";
-  iframe2.style.border = "none";
-  iframeWrapper.appendChild(iframe2);
-  innerContainer.appendChild(iframeWrapper);
-  iframeContainer.appendChild(innerContainer);
-  document.body.appendChild(iframeContainer);
-};
 var useSendTransaction = (calldata) => {
   const [data, setData] = (0, import_react3.useState)("");
   const [isLoading, setIsLoading] = (0, import_react3.useState)(false);
   const [isError, setIsError] = (0, import_react3.useState)(false);
   const sendTransaction = () => {
     setIsLoading(true);
-    const iframeEncodedData = createEncodedData2(calldata);
+    const iframeEncodedData = createEncodedData(calldata);
     const signIframeUrl = `${authUrl2}/send/${iframeEncodedData}`;
-    const iframe2 = createIframe2(signIframeUrl);
+    const iframe2 = createIframe(signIframeUrl, "sdkSend");
     setIsLoading(false);
     return signIframeUrl;
   };
   (0, import_react3.useEffect)(() => {
     const detect = (event) => {
-      console.log("event---------------->", event);
+      var _a;
       if (event.origin !== authUrl2)
         return;
       let eventData;
@@ -364,6 +332,7 @@ var useSendTransaction = (calldata) => {
       if ((eventData == null ? void 0 : eventData.type) === "closeIframe" && (eventData == null ? void 0 : eventData.callFrom) == "send") {
         setData(eventData == null ? void 0 : eventData.data);
         setIsLoading(false);
+        (_a = document.getElementById("sdkSend")) == null ? void 0 : _a.remove();
       }
     };
     window.addEventListener("message", detect);
@@ -374,59 +343,24 @@ var useSendTransaction = (calldata) => {
   return { data, isLoading, isError, isSuccess: !!data, sendTransaction };
 };
 
-// src/hooks/useContractWrite.tsx
+// src/hooks/useSignMessage.tsx
 var import_react4 = require("react");
 var authUrl3 = "https://auth-7rin.vercel.app";
-var createEncodedData3 = (data) => {
-  const encodedParams = btoa(
-    JSON.stringify(data)
-  );
-  return encodedParams;
-};
-var createIframe3 = (iframeUrl) => {
-  const iframeContainer = document.createElement("div");
-  iframeContainer.id = "triaWallet";
-  iframeContainer.className = "bg flex justify-between bg-transparent absolute bottom-4 right-2";
-  iframeContainer.style.position = "absolute";
-  iframeContainer.style.bottom = "4px";
-  iframeContainer.style.right = "2px";
-  const innerContainer = document.createElement("div");
-  innerContainer.className = "mb-4 mr-2 relative rounded-[20px]";
-  const iframeWrapper = document.createElement("div");
-  iframeWrapper.className = "h-[586px] w-[312px] rounded-[20px] overflow-hidden";
-  const iframe2 = document.createElement("iframe");
-  iframe2.width = "312";
-  iframe2.height = "586";
-  iframe2.src = iframeUrl;
-  iframe2.allow = "publickey-credentials-get";
-  iframe2.style.border = "none";
-  iframeWrapper.appendChild(iframe2);
-  innerContainer.appendChild(iframeWrapper);
-  iframeContainer.appendChild(innerContainer);
-  document.body.appendChild(iframeContainer);
-  const cleanup = () => {
-    document.body.removeChild(iframeContainer);
-  };
-  return cleanup;
-};
-var useContractWrite = (calldata) => {
+var useSignMessage = (calldata) => {
   const [data, setData] = (0, import_react4.useState)("");
   const [isLoading, setIsLoading] = (0, import_react4.useState)(false);
   const [isError, setIsError] = (0, import_react4.useState)(false);
-  const [cleanUp, setCleanUp] = (0, import_react4.useState)(() => () => {
-  });
-  const write = () => {
+  const signMessage = () => {
     setIsLoading(true);
-    const iframeEncodedData = createEncodedData3(calldata);
-    const signIframeUrl = `${authUrl3}/mint/${iframeEncodedData}`;
-    const cleanUp2 = createIframe3(signIframeUrl);
-    setCleanUp(() => cleanUp2);
+    const iframeEncodedData = createEncodedData(calldata);
+    const signIframeUrl = `${authUrl3}/signMessage/${iframeEncodedData}`;
+    createIframe(signIframeUrl, "sdkSign");
     setIsLoading(false);
     return signIframeUrl;
   };
   (0, import_react4.useEffect)(() => {
     const detect = (event) => {
-      console.log("event---------------->", event);
+      var _a;
       if (event.origin !== authUrl3)
         return;
       let eventData;
@@ -435,12 +369,11 @@ var useContractWrite = (calldata) => {
       } catch (err) {
         eventData = event.data;
       }
-      if ((eventData == null ? void 0 : eventData.type) === "closeIframe" && (eventData == null ? void 0 : eventData.callFrom) == "mint") {
-        if (cleanUp) {
-          cleanUp();
-        }
+      if ((eventData == null ? void 0 : eventData.type) === "closeIframe" && (eventData == null ? void 0 : eventData.callFrom) == "sign") {
+        console.log("event", eventData);
         setData(eventData == null ? void 0 : eventData.data);
         setIsLoading(false);
+        (_a = document.getElementById("sdkSign")) == null ? void 0 : _a.remove();
       }
     };
     window.addEventListener("message", detect);
@@ -448,7 +381,7 @@ var useContractWrite = (calldata) => {
       window.removeEventListener("message", detect);
     };
   }, []);
-  return { data, isLoading, isError, isSuccess: !!data, write };
+  return { data, isLoading, isError, isSuccess: !!data, signMessage };
 };
 
 // src/index.tsx
@@ -461,14 +394,14 @@ var iframe = new IframeController(
 console.log("iframe", iframe);
 var authUrl4 = "https://auth-7rin.vercel.app";
 var authController = new import_core.AuthController("https://staging.tria.so");
-var createEncodedData4 = (data) => {
+var createEncodedData2 = (data) => {
   const encodedParams = btoa(
     JSON.stringify(data)
   );
   return encodedParams;
 };
 var useTriaTransaction = () => {
-  const createIframe4 = (iframeUrl) => {
+  const createIframe2 = (iframeUrl) => {
     const iframeContainer = document.createElement("div");
     iframeContainer.id = "triaWallet";
     iframeContainer.className = "bg flex justify-between bg-transparent absolute bottom-4 right-2";
@@ -491,21 +424,21 @@ var useTriaTransaction = () => {
     document.body.appendChild(iframeContainer);
   };
   const sendTransaction = (sendDataFromDapp) => __async(void 0, null, function* () {
-    const iframeEncodedData = createEncodedData4(sendDataFromDapp);
+    const iframeEncodedData = createEncodedData2(sendDataFromDapp);
     const sendIframeUrl = `${authUrl4}/send/${iframeEncodedData}`;
-    const iframe2 = createIframe4(sendIframeUrl);
+    const iframe2 = createIframe2(sendIframeUrl);
     return sendIframeUrl;
   });
   const signMessage = (message) => __async(void 0, null, function* () {
-    const iframeEncodedData = createEncodedData4(message);
+    const iframeEncodedData = createEncodedData2(message);
     const signIframeUrl = `${authUrl4}/signMessage/${iframeEncodedData}`;
-    const iframe2 = createIframe4(signIframeUrl);
+    const iframe2 = createIframe2(signIframeUrl);
     return signIframeUrl;
   });
   const callContract = (data) => __async(void 0, null, function* () {
-    const iframeEncodedData = createEncodedData4(data);
+    const iframeEncodedData = createEncodedData2(data);
     const signIframeUrl = `${authUrl4}/mint/${iframeEncodedData}`;
-    const iframe2 = createIframe4(signIframeUrl);
+    const iframe2 = createIframe2(signIframeUrl);
     return signIframeUrl;
   });
   return {
@@ -553,6 +486,8 @@ var Application = ({ dappName, logo, primaryColor }) => {
         setShowOnboarding(false);
         setTriaName((_a = JSON.parse(localStorage.getItem("tria.wallet.store"))) == null ? void 0 : _a.triaName);
         setUserAddress((_c = (_b = JSON.parse(localStorage.getItem("tria.wallet.store"))) == null ? void 0 : _b.evm) == null ? void 0 : _c.address);
+      } else if (localStorage.getItem("wagmi.connected") === true) {
+        setShowOnboarding(false);
       } else {
         setShowOnboarding(true);
       }
@@ -568,9 +503,10 @@ var Application = ({ dappName, logo, primaryColor }) => {
     setAccessToken(item);
     setAppDomain(window.parent.origin);
   }, [triaName]);
+  const fromDapp = true;
   (0, import_react5.useEffect)(() => {
-    const encodedParams = btoa(JSON.stringify({ triaName, userAddress, appDomain, darkMode, logo, accessToken }));
-    console.log(encodedParams, triaName, accessToken, logo, appDomain, darkMode);
+    const encodedParams = btoa(JSON.stringify({ triaName, userAddress, appDomain, darkMode, logo, accessToken, primaryColor, fromDapp }));
+    console.log(encodedParams, triaName, accessToken, logo, appDomain, darkMode, primaryColor, fromDapp);
     setIframeURL(`https://reliable-semifreddo-e8e93e.netlify.app/${encodedParams}`);
   }, [triaName]);
   (0, import_react5.useEffect)(() => {
