@@ -52,6 +52,7 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.59",
     "@types/react-dom": "^18.2.14",
+    "ethers": "^5.7.2",
     "react-router-dom": "^6.17.0",
     "react-scripts": "^5.0.1"
   }
