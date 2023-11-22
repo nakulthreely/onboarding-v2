@@ -41,7 +41,7 @@ import { useAccount } from "@tria-sdk/connect";
 // import {useSendTransaction} from "./hooks/useSendTransaction";
 // import {useContractWrite} from "./hooks/useContractWrite";
 
-export {useSignMessage,useSendTransaction,useContractWrite} from "./hooks"
+export {useSignMessage,useSendTransaction,useContractWrite,useContractRead} from "./hooks"
 
 // export {useSignMessage,useSendTransaction,useContractWrite};
 
