@@ -1,6 +1,6 @@
 {
   "name": "@tria-sdk/authenticate-staging",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/index.js",
   "types": "dist,index.d.ts",
@@ -48,10 +48,11 @@
     "@testing-library/user-event": "^13.5.0",
     "@tria-sdk/connect": "^1.0.44",
     "@tria-sdk/core": "^4.0.12",
-    "@tria-sdk/web": "^3.9.0",
+    "@tria-sdk/web": "^3.8.9",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.59",
     "@types/react-dom": "^18.2.14",
+    "ethers": "^5.7.2",
     "react-router-dom": "^6.17.0",
     "react-scripts": "^5.0.1"
   }
