@@ -7,7 +7,6 @@ declare const useContractWrite: (calldata: any) => {
     isSuccess: boolean;
     write: () => string;
 };
-<<<<<<< HEAD
 
 declare const useSendTransaction: (calldata: any) => {
     data: string;
@@ -32,16 +31,6 @@ declare const useTriaTransaction: () => {
 };
 declare const TriaConnectProvider: () => react_jsx_runtime.JSX.Element;
 declare const Application: ({ dappName, dappDomain, uiType, logo, primaryColor }: {
-=======
-declare const triaSendTransaction: ({ appDomain, appLogo }: {
-    appDomain: any;
-    appLogo: any;
-}) => {
-    sendTransaction: (sendDataFromDapp: any) => Promise<void>;
-    signMessage: (message: any) => Promise<void>;
-};
-declare const Application: ({ dappName, logo }: {
->>>>>>> origin/main
     dappName: any;
     dappDomain: any;
     uiType: any;
@@ -49,8 +38,4 @@ declare const Application: ({ dappName, logo }: {
     primaryColor: any;
 }) => react_jsx_runtime.JSX.Element;
 
-<<<<<<< HEAD
 export { TriaConnectProvider, Application as default, useContractWrite, useSendTransaction, useSignMessage, useTriaTransaction };
-=======
-export { Application as default, getDefaultWallets, triaSendTransaction };
->>>>>>> origin/main
