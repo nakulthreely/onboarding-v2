@@ -35,6 +35,7 @@ import { IframeController } from "./connect/controllers/iframe.controller";
 import { UserController, AuthController } from '@tria-sdk/core';
 import { TriaWalletButton } from "./Components/TriaWalletButton";
 import WalletCloseButton from "./Components/WalletCloseButton";
+import { useAccount } from "@tria-sdk/connect";
 // import { useAccount } from '@tria-sdk/connect'
 // import {useSignMessage} from "./hooks/useSignMessage";
 // import {useSendTransaction} from "./hooks/useSendTransaction";
@@ -295,10 +296,20 @@ const Application = ({ dappName, dappDomain, uiType, logo,  primaryColor }) => {
   const [accessToken, setAccessToken] = useState<string>()
   const darkMode = true;
   const [authIFrameUrl, setAuthIFrameUrl] = useState<string>("")
-
-
-
-  // const { account } = useAccount();
+  const {account} = useAccount();
+   useEffect(() => {
+    if (!account && triaName) {
+      console.log("Account is null, reloading the page");
+      localStorage.setItem('hasReloaded', 'true');
+      window.location.reload();
+    } 
+  }, [account, triaName]);
+  // useEffect(() => {
+  //   if(!showOnboarding){
+  //     console.log("store deleted!")
+  //     console.log(account)
+  //   }
+  // },[])
 
 
   useEffect(() => {
@@ -412,6 +423,8 @@ const Application = ({ dappName, dappDomain, uiType, logo,  primaryColor }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+
 
   return (
     <>

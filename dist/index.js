@@ -230,6 +230,9 @@ var WalletCloseButton = ({ onClick: han }) => {
 };
 var WalletCloseButton_default = WalletCloseButton;
 
+// src/index.tsx
+var import_connect = require("@tria-sdk/connect");
+
 // src/hooks/useContractWrite.tsx
 var import_react2 = require("react");
 
@@ -479,6 +482,14 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor }) => {
   const [accessToken, setAccessToken] = (0, import_react5.useState)();
   const darkMode = true;
   const [authIFrameUrl, setAuthIFrameUrl] = (0, import_react5.useState)("");
+  const { account } = (0, import_connect.useAccount)();
+  (0, import_react5.useEffect)(() => {
+    if (!account && triaName) {
+      console.log("Account is null, reloading the page");
+      localStorage.setItem("hasReloaded", "true");
+      window.location.reload();
+    }
+  }, [account, triaName]);
   (0, import_react5.useEffect)(() => {
     setInterval(() => {
       var _a, _b, _c;
