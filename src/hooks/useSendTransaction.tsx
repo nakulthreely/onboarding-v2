@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 // import { eventTypes } from '../utils/constants';
-const authUrl="https://auth.tria.so";
+const authUrl="https://auth-tria.vercel.app";
 import {createEncodedData,createIframe} from "../utils"
 
 
