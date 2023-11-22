@@ -97,10 +97,10 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 
 const iframe = new IframeController(
   "https://opensea.com",
-  "https://wallet.tria.so"
+  "https://reliable-semifreddo-e8e93e.netlify.app"
 );
 console.log("iframe", iframe);
-const authUrl="https://auth.tria.so";
+const authUrl="https://auth-tria.vercel.app";
 
 const authController = new AuthController('https://staging.tria.so');
 
@@ -261,7 +261,7 @@ export const TriaConnectProvider = () => {
     <>
       {renderAuthIframe && (
         <iframe
-          src="https://auth.tria.so/verified"
+          src="https://auth-tria.vercel.app/verified"
           title="Auth Verification"
           style={{ display: 'none' }}
         />
@@ -292,7 +292,7 @@ const Application = ({ dappName, dappDomain, uiType, logo,  primaryColor }) => {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [appDomain, setAppDomain] = useState<string>()
   const [iframeURL, setIframeURL]=useState();
-  const WALLET_BASE_URL = "https://wallet.tria.so/"
+  const WALLET_BASE_URL = "https://reliable-semifreddo-e8e93e.netlify.app/"
   const [accessToken, setAccessToken] = useState<string>()
   const darkMode = true;
   const [authIFrameUrl, setAuthIFrameUrl] = useState<string>("")
@@ -346,7 +346,7 @@ const Application = ({ dappName, dappDomain, uiType, logo,  primaryColor }) => {
   useEffect(()=>{
     const encodedParams = btoa(JSON.stringify({triaName, userAddress, appDomain, darkMode, logo, accessToken, primaryColor, fromDapp}))
     console.log(encodedParams, triaName,accessToken,logo,appDomain,darkMode, primaryColor, fromDapp)
-    setIframeURL(`https://wallet.tria.so/${encodedParams}`);
+    setIframeURL(`https://reliable-semifreddo-e8e93e.netlify.app/${encodedParams}`);
 
   },[triaName])
 
@@ -372,7 +372,7 @@ const Application = ({ dappName, dappDomain, uiType, logo,  primaryColor }) => {
   useEffect(() => {
     console.log("log from sdk ----->",dappName, logo)
     if(dappName?.length > 0 && logo?.length > 0){
-      setAuthIFrameUrl(`https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
+      setAuthIFrameUrl(`https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
     }
   },[dappName, logo])
 
