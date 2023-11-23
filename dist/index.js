@@ -48,7 +48,7 @@ __export(src_exports, {
   useTriaTransaction: () => useTriaTransaction
 });
 module.exports = __toCommonJS(src_exports);
-var import_react5 = require("react");
+var import_react6 = require("react");
 
 // src/NavContext.tsx
 var import_react = require("react");
@@ -308,7 +308,7 @@ var useContractWrite = (calldata) => {
 
 // src/hooks/useSendTransaction.tsx
 var import_react3 = require("react");
-var authUrl2 = "https://auth.tria.so";
+var authUrl2 = "https://auth-tria.vercel.app";
 var useSendTransaction = (calldata) => {
   const [data, setData] = (0, import_react3.useState)("");
   const [isLoading, setIsLoading] = (0, import_react3.useState)(false);
@@ -387,6 +387,10 @@ var useSignMessage = (calldata) => {
   return { data, isLoading, isError, isSuccess: !!data, signMessage };
 };
 
+// src/hooks/useContractRead.tsx
+var import_react5 = require("react");
+var import_web = require("@tria-sdk/web");
+
 // src/index.tsx
 var import_jsx_runtime3 = require("react/jsx-runtime");
 window.Buffer = window.Buffer || require("buffer").Buffer;
@@ -451,8 +455,8 @@ var useTriaTransaction = () => {
   };
 };
 var TriaConnectProvider = () => {
-  const [renderAuthIframe, setRenderAuthIframe] = (0, import_react5.useState)(false);
-  (0, import_react5.useEffect)(() => {
+  const [renderAuthIframe, setRenderAuthIframe] = (0, import_react6.useState)(false);
+  (0, import_react6.useEffect)(() => {
     const getQueryParam = (param) => {
       return new URLSearchParams(window.location.search).get(param);
     };
@@ -469,28 +473,28 @@ var TriaConnectProvider = () => {
   ) });
 };
 var Application = ({ dappName, dappDomain, uiType, logo, primaryColor }) => {
-  const [view, setView] = (0, import_react5.useState)("Home");
-  const [triaName, setTriaName] = (0, import_react5.useState)(null);
-  const [userAddress, setUserAddress] = (0, import_react5.useState)(null);
-  const [email, setEmail] = (0, import_react5.useState)("");
-  const [showWallet, setShowWallet] = (0, import_react5.useState)(false);
-  const [isDarkMode, setIsDarkMode] = (0, import_react5.useState)(true);
-  const [showOnboarding, setShowOnboarding] = (0, import_react5.useState)(false);
-  const [appDomain, setAppDomain] = (0, import_react5.useState)();
-  const [iframeURL, setIframeURL] = (0, import_react5.useState)();
+  const [view, setView] = (0, import_react6.useState)("Home");
+  const [triaName, setTriaName] = (0, import_react6.useState)(null);
+  const [userAddress, setUserAddress] = (0, import_react6.useState)(null);
+  const [email, setEmail] = (0, import_react6.useState)("");
+  const [showWallet, setShowWallet] = (0, import_react6.useState)(false);
+  const [isDarkMode, setIsDarkMode] = (0, import_react6.useState)(true);
+  const [showOnboarding, setShowOnboarding] = (0, import_react6.useState)(false);
+  const [appDomain, setAppDomain] = (0, import_react6.useState)();
+  const [iframeURL, setIframeURL] = (0, import_react6.useState)();
   const WALLET_BASE_URL = "https://reliable-semifreddo-e8e93e.netlify.app/";
-  const [accessToken, setAccessToken] = (0, import_react5.useState)();
+  const [accessToken, setAccessToken] = (0, import_react6.useState)();
   const darkMode = true;
-  const [authIFrameUrl, setAuthIFrameUrl] = (0, import_react5.useState)("");
+  const [authIFrameUrl, setAuthIFrameUrl] = (0, import_react6.useState)("");
   const { account } = (0, import_connect.useAccount)();
-  (0, import_react5.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     if (!account && triaName) {
       console.log("Account is null, reloading the page");
       localStorage.setItem("hasReloaded", "true");
       window.location.reload();
     }
   }, [account, triaName]);
-  (0, import_react5.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     setInterval(() => {
       var _a, _b, _c;
       if (localStorage.getItem("tria.wallet.store") !== null) {
@@ -506,23 +510,23 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor }) => {
       }
     }, 500);
   }, []);
-  (0, import_react5.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     setInterval(() => {
       setShowOnboarding(true);
     }, 1e3);
   }, []);
-  (0, import_react5.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     const item = localStorage.getItem("access_token");
     setAccessToken(item);
     setAppDomain(window.parent.origin);
   }, [triaName]);
   const fromDapp = true;
-  (0, import_react5.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     const encodedParams = btoa(JSON.stringify({ triaName, userAddress, appDomain, darkMode, logo, accessToken, primaryColor, fromDapp }));
     console.log(encodedParams, triaName, accessToken, logo, appDomain, darkMode, primaryColor, fromDapp);
     setIframeURL(`https://reliable-semifreddo-e8e93e.netlify.app/${encodedParams}`);
   }, [triaName]);
-  (0, import_react5.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     console.log("WALLET URL ---->", iframeURL);
   }, [iframeURL]);
   const nav_context_object = {
@@ -539,13 +543,13 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor }) => {
     email,
     setEmail
   };
-  (0, import_react5.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     console.log("log from sdk ----->", dappName, logo);
     if ((dappName == null ? void 0 : dappName.length) > 0 && (logo == null ? void 0 : logo.length) > 0) {
       setAuthIFrameUrl(`https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
     }
   }, [dappName, logo]);
-  (0, import_react5.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     const handleClickOutside = (event) => {
       const iframeElement = document.getElementById("triaWallet");
       if (iframeElement && !iframeElement.contains(event.target)) {
