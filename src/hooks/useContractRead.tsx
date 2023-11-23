@@ -1,6 +1,6 @@
+
 import { useState } from 'react';
 // import { eventTypes } from '../utils/constants';
-import { ethers } from 'ethers';
 import {
     WalletController,
   } from "@tria-sdk/web";
@@ -13,7 +13,7 @@ import {
 
 
 export const useContractRead = (params: params) => {
-  const [data, setData] = useState('');
+  const [data, setData] = useState<any>();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -31,9 +31,7 @@ export const useContractRead = (params: params) => {
 
 
     const res = await wallet.readContract(contractDetails);
-    const value = ethers.utils.formatEther(res.data);
-    console.log('getItemsNativePrice', res.data.toString(), '->', value);
-    setData(value);
+    setData(res);
     setIsLoading(false);
   }
   catch(err){
