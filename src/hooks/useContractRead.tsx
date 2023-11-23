@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // import { eventTypes } from '../utils/constants';
 import {
     WalletController,
@@ -17,6 +17,7 @@ export const useContractRead = (params: params) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  useEffect(()=>{
   const read =async () => {
     try{
     setIsLoading(true);
@@ -27,9 +28,7 @@ export const useContractRead = (params: params) => {
         baseUrl,
         walletType,
       });
-    
-
-
+ 
     const res = await wallet.readContract(contractDetails);
     setData(res);
     setIsLoading(false);
@@ -38,7 +37,9 @@ export const useContractRead = (params: params) => {
     setIsError(true);
   }
 }
+read();
+},[params]);
 
 
-  return { data, isLoading, isError, isSuccess: !!data, read };
+  return { data, isLoading, isError, isSuccess: !!data };
 };
