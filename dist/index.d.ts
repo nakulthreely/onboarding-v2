@@ -24,6 +24,18 @@ declare const useSignMessage: (calldata: any) => {
     signMessage: () => string;
 };
 
+interface params {
+    contractDetails: any;
+    baseUrl?: string;
+}
+declare const useContractRead: (params: params) => {
+    data: string;
+    isLoading: boolean;
+    isError: boolean;
+    isSuccess: boolean;
+    read: () => Promise<void>;
+};
+
 declare const useTriaTransaction: () => {
     sendTransaction: (sendDataFromDapp: any) => Promise<string>;
     signMessage: (message: any) => Promise<string>;
@@ -38,4 +50,4 @@ declare const Application: ({ dappName, dappDomain, uiType, logo, primaryColor }
     primaryColor: any;
 }) => react_jsx_runtime.JSX.Element;
 
-export { TriaConnectProvider, Application as default, useContractWrite, useSendTransaction, useSignMessage, useTriaTransaction };
+export { TriaConnectProvider, Application as default, useContractRead, useContractWrite, useSendTransaction, useSignMessage, useTriaTransaction };
