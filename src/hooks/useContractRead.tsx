@@ -29,8 +29,8 @@ export const useContractRead = (params: params) => {
       });
     
 
-
-    const res = await wallet.readContract(contractDetails);
+    //@ts-ignore
+    const res = await wallet?.readContract(contractDetails);
     const value = ethers.utils.formatEther(res.data);
     console.log('getItemsNativePrice', res.data.toString(), '->', value);
     setData(value);
