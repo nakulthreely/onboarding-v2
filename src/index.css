@@ -3,6 +3,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+:root {
+    --primary-color: #your-default-color; /* Replace with a default color */
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -27,7 +31,11 @@ font-size: 10px;
   margin-top: 25px;
   height: 150px;
   width: auto;
+  background-color: var(--primary-color);
+    /* Apply a blur effect */
+  filter: blur(4px);
 }
+
 
 /* cyrillic-ext */
 @font-face {

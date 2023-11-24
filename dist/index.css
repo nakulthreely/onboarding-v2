@@ -358,6 +358,9 @@ video {
     max-width: 1536px;
   }
 }
+.fixed {
+  position: fixed;
+}
 .absolute {
   position: absolute;
 }
@@ -1215,6 +1218,9 @@ video {
 .scrollbar-thumb-gray-300 {
   --scrollbar-thumb: #d1d5db !important;
 }
+:root {
+  --primary-color: #your-default-color;
+}
 body {
   margin: 0;
   font-family:
@@ -1236,6 +1242,8 @@ body {
   margin-top: 25px;
   height: 150px;
   width: auto;
+  background-color: var(--primary-color);
+  filter: blur(4px);
 }
 @font-face {
   font-family: "Montserrat";

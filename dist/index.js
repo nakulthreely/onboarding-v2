@@ -181,8 +181,8 @@ var import_core = require("@tria-sdk/core");
 var import_jsx_runtime = require("react/jsx-runtime");
 var TriaWalletButton = ({ bgColor }) => {
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", { width: "134", height: "134", viewBox: "0 0 134 134", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { filter: "url(#filter0_d_1316_13027)", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "35", y: "35", width: "64", height: "64", rx: "32", fill: "#101010" }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("g", { filter: "url(#filter1_d_1316_13027)", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { filter: "", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "35", y: "35", width: "64", height: "64", rx: "32", fill: "#101010" }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("g", { filter: "", children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "37.5098", y: "37.5098", width: "58.9804", height: "58.9804", rx: "29.4902", fill: "url(#paint1_linear_1316_13027)", "shape-rendering": "crispEdges" }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { "clip-path": "url(#clip0_1316_13027)", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M81 53H53V81H81V53ZM67.8533 61.2654V64.9058L73.8652 62.5352V65.2285C73.8652 65.8062 73.5281 66.3228 73.0206 66.5229L67.8533 68.5606V65.8728C67.8498 65.2986 67.5136 64.7863 67.0087 64.5872L62.686 62.8826C62.1784 62.6824 61.8414 62.1658 61.8414 61.5881V58.8948L67.8533 61.2654ZM67.8533 68.5767V69.2782H67.8618V76.8857H65.3848V71.2581L62.686 70.1938C62.1784 69.9937 61.8414 69.4771 61.8414 68.8993V66.206L67.8533 68.5767Z", fill: "#101010" }) }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "37.7598", y: "37.7598", width: "58.4804", height: "58.4804", rx: "29.2402", stroke: bgColor, "stroke-width": "0.5", "shape-rendering": "crispEdges" })
@@ -587,9 +587,14 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  (0, import_react6.useEffect)(() => {
+    if (primaryColor) {
+      document.documentElement.style.setProperty("--primary-color", primaryColor);
+    }
+  }, [primaryColor]);
   return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
     !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "rounded-[20px] overflow-hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("iframe", { width: "314", height: "586", src: authIFrameUrl, allow: "publickey-credentials-get" }) }),
-    showWallet && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { id: "triaWallet", className: "bg flex  justify-between bg-transparent absolute bottom-4 right-2  ", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mb-4 mr-2 relative rounded-[20px]", children: [
+    showWallet && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { id: "triaWallet", className: "bg flex  justify-between bg-transparent fixed bottom-4 right-2  ", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mb-4 mr-2 relative rounded-[20px]", children: [
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "absolute w-[312px] h-[40px] rounded-[20px] top-[-38px] flex items-end justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "cursor-pointer", onClick: () => {
         setShowWallet(false);
       }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(WalletCloseButton_default, {}) }) }),
@@ -607,7 +612,7 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor }) => {
     triaName && !showWallet && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       "div",
       {
-        className: "wallet_icon absolute w-[80px] bottom-4 right-8 cursor-pointer",
+        className: "wallet_icon fixed w-[80px] bottom-4 right-8 cursor-pointer",
         onClick: () => {
           setShowWallet(!showWallet);
         },

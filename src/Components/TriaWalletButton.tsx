@@ -10,10 +10,10 @@ export const TriaWalletButton:React.FC<Props> = ({bgColor}) => {
   return (
     <div>
       <svg width="134" height="134" viewBox="0 0 134 134" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g filter="url(#filter0_d_1316_13027)">
+        <g filter="">
           <rect x="35" y="35" width="64" height="64" rx="32" fill="#101010" />
         </g>
-        <g filter="url(#filter1_d_1316_13027)">
+        <g filter="">
           <rect x="37.5098" y="37.5098" width="58.9804" height="58.9804" rx="29.4902" fill="url(#paint1_linear_1316_13027)" shape-rendering="crispEdges" />
           <g clip-path="url(#clip0_1316_13027)">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M81 53H53V81H81V53ZM67.8533 61.2654V64.9058L73.8652 62.5352V65.2285C73.8652 65.8062 73.5281 66.3228 73.0206 66.5229L67.8533 68.5606V65.8728C67.8498 65.2986 67.5136 64.7863 67.0087 64.5872L62.686 62.8826C62.1784 62.6824 61.8414 62.1658 61.8414 61.5881V58.8948L67.8533 61.2654ZM67.8533 68.5767V69.2782H67.8618V76.8857H65.3848V71.2581L62.686 70.1938C62.1784 69.9937 61.8414 69.4771 61.8414 68.8993V66.206L67.8533 68.5767Z" fill="#101010" />

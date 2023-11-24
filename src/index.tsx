@@ -424,6 +424,12 @@ const Application = ({ dappName, dappDomain, uiType, logo,  primaryColor }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (primaryColor) {
+        document.documentElement.style.setProperty('--primary-color', primaryColor);
+    }
+}, [primaryColor]);
+
 
 
   return (
@@ -435,7 +441,7 @@ const Application = ({ dappName, dappDomain, uiType, logo,  primaryColor }) => {
             <iframe width="314" height="586" src={authIFrameUrl} allow="publickey-credentials-get"/>
           </div>}
         {showWallet && (
-          <div id="triaWallet" className="bg flex  justify-between bg-transparent absolute bottom-4 right-2  ">
+          <div id="triaWallet" className="bg flex  justify-between bg-transparent fixed bottom-4 right-2  ">
             <div className="mb-4 mr-2 relative rounded-[20px]">
               <div className="absolute w-[312px] h-[40px] rounded-[20px] top-[-38px] flex items-end justify-center" >
                 {/* <img src='./WalletCloseButton.svg' alt='' className="cursor-pointer"  onClick={() => {setShowWallet(false)}}/> */}
@@ -460,7 +466,7 @@ const Application = ({ dappName, dappDomain, uiType, logo,  primaryColor }) => {
        
         {triaName && !showWallet && (
           <div
-            className="wallet_icon absolute w-[80px] bottom-4 right-8 cursor-pointer"
+            className="wallet_icon fixed w-[80px] bottom-4 right-8 cursor-pointer"
             onClick={() => {
               setShowWallet(!showWallet);
             }}
