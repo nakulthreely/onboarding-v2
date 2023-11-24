@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-// import { eventTypes } from '../utils/constants';
 const authUrl="https://auth.tria.so";
 import {createEncodedData,createIframe} from "../utils"
 
@@ -37,9 +36,10 @@ export const useSignMessage = (calldata:any) => {
         setData(eventData?.data);
         setIsLoading(false);
         document.getElementById("sdkSign")?.remove();
-      
       }
     };
+  
+  
 
     window.addEventListener('message', detect);
 

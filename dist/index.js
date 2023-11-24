@@ -405,7 +405,7 @@ var useContractRead = (params) => {
         baseUrl,
         walletType
       });
-      const res = yield wallet.readContract(contractDetails);
+      const res = yield wallet == null ? void 0 : wallet.readContract(contractDetails);
       const value = import_ethers.ethers.utils.formatEther(res.data);
       console.log("getItemsNativePrice", res.data.toString(), "->", value);
       setData(value);
