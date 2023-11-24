@@ -278,10 +278,17 @@ export const TriaConnectProvider = () => {
 //   return
 // }
 
+interface ApplicationProps {
+  dappName?: string;
+  dappDomain?: string;
+  uiType?: string;
+  logo?: string;
+  primaryColor?: string; // Mark as optional with '?'
+}
 
 
 
-const Application = ({ dappName, dappDomain, uiType, logo,  primaryColor }) => {
+const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, logo,  primaryColor='#A855F7' }) => {
 
   const [view, setView] = useState("Home");
   const [triaName, setTriaName] = useState(null);
@@ -297,6 +304,7 @@ const Application = ({ dappName, dappDomain, uiType, logo,  primaryColor }) => {
   const darkMode = true;
   const [authIFrameUrl, setAuthIFrameUrl] = useState<string>("")
   const {account} = useAccount();
+  const [stackui, setStackUi] = useState<boolean>(false);
    useEffect(() => {
     if (!account && triaName) {
       console.log("Account is null, reloading the page");
@@ -375,6 +383,12 @@ const Application = ({ dappName, dappDomain, uiType, logo,  primaryColor }) => {
       setAuthIFrameUrl(`https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
     }
   },[dappName, logo])
+
+  useEffect(() => {
+    if(uiType ==="yes"){
+      setStackUi(true);
+    }
+  },[uiType])
 
   // useEffect(() => {
   //   console.log("userAddress log from sdk ---->",userAddress)
@@ -471,7 +485,7 @@ const Application = ({ dappName, dappDomain, uiType, logo,  primaryColor }) => {
               setShowWallet(!showWallet);
             }}
           >
-            <TriaWalletButton bgColor={primaryColor} />
+            <TriaWalletButton bgColor={primaryColor || "#A855F7"} stackui={stackui}/>
 
           </div>
         )}

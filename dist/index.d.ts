@@ -1,4 +1,5 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
+import React from 'react';
 
 declare const useContractWrite: (calldata: any) => {
     data: string;
@@ -42,12 +43,13 @@ declare const useTriaTransaction: () => {
     callContract: (data: any) => Promise<string>;
 };
 declare const TriaConnectProvider: () => react_jsx_runtime.JSX.Element;
-declare const Application: ({ dappName, dappDomain, uiType, logo, primaryColor }: {
-    dappName: any;
-    dappDomain: any;
-    uiType: any;
-    logo: any;
-    primaryColor: any;
-}) => react_jsx_runtime.JSX.Element;
+interface ApplicationProps {
+    dappName?: string;
+    dappDomain?: string;
+    uiType?: string;
+    logo?: string;
+    primaryColor?: string;
+}
+declare const Application: React.FC<ApplicationProps>;
 
 export { TriaConnectProvider, Application as default, useContractRead, useContractWrite, useSendTransaction, useSignMessage, useTriaTransaction };

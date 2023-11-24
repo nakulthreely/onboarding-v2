@@ -1242,8 +1242,6 @@ body {
   margin-top: 25px;
   height: 150px;
   width: auto;
-  background-color: var(--primary-color);
-  filter: blur(4px);
 }
 @font-face {
   font-family: "Montserrat";

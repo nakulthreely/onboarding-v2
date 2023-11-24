@@ -31,9 +31,6 @@ font-size: 10px;
   margin-top: 25px;
   height: 150px;
   width: auto;
-  background-color: var(--primary-color);
-    /* Apply a blur effect */
-  filter: blur(4px);
 }
 
 
