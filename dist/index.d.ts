@@ -49,6 +49,8 @@ interface ApplicationProps {
     uiType?: string;
     logo?: string;
     primaryColor?: string;
+    supportedChains?: [];
+    defaultChain?: string;
 }
 declare const Application: React.FC<ApplicationProps>;
 
