@@ -310,6 +310,7 @@ const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, 
   const {account} = useAccount();
   const [stackui, setStackUi] = useState<boolean>(false);
   const [wasOpen, setWasOpen] = useState<boolean>(false)
+  const [walletVisible, setWalletVisible] = useState<boolean>(false);
   const isTabVisible = usePageVisibility();
 
   useEffect(() => {
@@ -337,6 +338,7 @@ const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, 
         setShowOnboarding(false)
         setTriaName(JSON.parse(localStorage.getItem('tria.wallet.store') || "")?.triaName)
         setUserAddress(JSON.parse(localStorage.getItem('tria.wallet.store') || "")?.evm?.address)
+       
       } else if(localStorage.getItem("wagmi.connected") ==='true'){
         setShowOnboarding(false);
         const wallet = localStorage.getItem("wagmi.connected")
@@ -435,7 +437,7 @@ const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, 
 
       if (iframeElement && !iframeElement.contains(event.target)) {
         // The click is outside the iframe
-        setShowWallet(false);
+        setWalletVisible(false);
       }
     };
 
@@ -454,6 +456,16 @@ const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, 
     }
 }, [primaryColor]);
 
+ const handleWalletButtonClick = () => {
+  if(showWallet){
+    setWalletVisible(true);
+  }
+  else{
+    setShowWallet(true);
+    setWalletVisible(true);
+  }
+ }
+
 
 
   return (
@@ -465,11 +477,13 @@ const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, 
             <iframe width="314" height="586" src={authIFrameUrl} allow="publickey-credentials-get"/>
           </div>}
         {showWallet && triaName && userAddress && (
-          <div id="triaWallet" className="bg flex  justify-between bg-transparent fixed bottom-4 right-2  ">
+          <div id="triaWallet" className={`flex  justify-between bg-transparent fixed bottom-4 right-2`}
+           style={{ display: walletVisible ? 'block' : 'none' }}
+          >
             <div className="mb-4 mr-2 relative rounded-[20px]">
               <div className="absolute w-[312px] h-[40px] rounded-[20px] top-[-38px] flex items-end justify-center" >
                 {/* <img src='./WalletCloseButton.svg' alt='' className="cursor-pointer"  onClick={() => {setShowWallet(false)}}/> */}
-                <div className="cursor-pointer" onClick={()=>{setShowWallet(false)}}>
+                <div className="cursor-pointer" onClick={()=>{setWalletVisible(false)}}>
                   <WalletCloseButton/>
 
                 </div>
@@ -488,12 +502,10 @@ const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, 
 
         )}
        
-        {triaName && !showWallet && (
+        {triaName && !walletVisible && (
           <div
             className="wallet_icon fixed w-[80px] bottom-4 right-8 cursor-pointer"
-            onClick={() => {
-              setShowWallet(!showWallet);
-            }}
+            onClick={handleWalletButtonClick}
           >
             <TriaWalletButton bgColor={primaryColor || "#A855F7"} stackui={stackui}/>
 

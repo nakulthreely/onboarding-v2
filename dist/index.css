@@ -439,6 +439,9 @@ video {
 .mt-80 {
   margin-top: 20rem;
 }
+.block {
+  display: block;
+}
 .flex {
   display: flex;
 }

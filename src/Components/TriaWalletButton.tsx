@@ -26,7 +26,7 @@ export const TriaWalletButton:React.FC<Props> = ({bgColor, stackui}) => {
       <svg width="134" height="134" viewBox="0 0 134 134" fill="none" xmlns="http://www.w3.org/2000/svg">
              <defs>
           <filter id="dynamic-shadow" x="0" y="0" width="180" height="180" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-            <feDropShadow dx="0" dy="4" stdDeviation="20" floodColor={`rgb(${rgbColor.r},${rgbColor.g},${rgbColor.b})`} floodOpacity="0.5" />
+            <feDropShadow dx="0" dy="4" stdDeviation="15" floodColor={`rgb(${rgbColor.r},${rgbColor.g},${rgbColor.b})`} floodOpacity="0.5" />
           </filter>
           {/* ...other defs content... */}
         </defs>
