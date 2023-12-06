@@ -71,7 +71,7 @@ var TriaWalletButton = ({ bgColor, stackui }) => {
   const rgbColor = hexToRGB(bgColor);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
     !stackui && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", { width: "134", height: "134", viewBox: "0 0 134 134", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("defs", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("filter", { id: "dynamic-shadow", x: "0", y: "0", width: "180", height: "180", filterUnits: "userSpaceOnUse", "color-interpolation-filters": "sRGB", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feDropShadow", { dx: "0", dy: "4", stdDeviation: "20", floodColor: `rgb(${rgbColor.r},${rgbColor.g},${rgbColor.b})`, floodOpacity: "0.5" }) }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("defs", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("filter", { id: "dynamic-shadow", x: "0", y: "0", width: "180", height: "180", filterUnits: "userSpaceOnUse", "color-interpolation-filters": "sRGB", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("feDropShadow", { dx: "0", dy: "4", stdDeviation: "15", floodColor: `rgb(${rgbColor.r},${rgbColor.g},${rgbColor.b})`, floodOpacity: "0.5" }) }) }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", { filter: "url(#dynamic-shadow)", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "35", y: "35", width: "64", height: "64", rx: "32", fill: "#101010" }) }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("g", { filter: "url(#dynamic-shadow)", children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", { x: "37.5098", y: "37.5098", width: "58.9804", height: "58.9804", rx: "29.4902", fill: "url(#paint1_linear_1316_13027)", "shape-rendering": "crispEdges" }),
@@ -562,34 +562,90 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
     }
   };
   return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
-    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "rounded-[20px] overflow-hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("iframe", { width: "314", height: "586", src: authIFrameUrl, allow: "publickey-credentials-get" }) }),
+    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { style: {
+      borderRadius: "20px",
+      overflow: "hidden",
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)"
+    }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("iframe", { width: "314", height: "586", src: authIFrameUrl, allow: "publickey-credentials-get" }) }),
     showWallet && triaName && userAddress && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       "div",
       {
         id: "triaWallet",
-        className: `flex  justify-between bg-transparent fixed bottom-4 right-2`,
-        style: { display: walletVisible ? "block" : "none" },
-        children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "mb-4 mr-2 relative rounded-[20px]", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "absolute w-[312px] h-[40px] rounded-[20px] top-[-38px] flex items-end justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "cursor-pointer", onClick: () => {
-            setWalletVisible(false);
-          }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(WalletCloseButton_default, {}) }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "h-[586px] w-[312px] rounded-[20px] overflow-hidden bg-[#101010]", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-            "iframe",
-            {
-              width: "312",
-              height: "586",
-              src: iframeURL,
-              allow: "clipboard-read; clipboard-write; publickey-credentials-get",
-              style: { backgroundColor: "#101010" }
-            }
-          ) })
-        ] })
+        style: { display: walletVisible ? "block" : "none", justifyItems: "space-between", backgroundColor: "transparent", position: "fixed", bottom: "4px", right: "2px", zIndex: 9999 },
+        children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+          "div",
+          {
+            style: {
+              marginBottom: "4px",
+              marginRight: "2px",
+              position: "relative",
+              borderRadius: "20px"
+            },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                "div",
+                {
+                  style: {
+                    position: "absolute",
+                    width: "312px",
+                    height: "40px",
+                    borderRadius: "20px",
+                    top: "-38px",
+                    display: "flex",
+                    alignItems: "flex-end",
+                    justifyContent: "center"
+                  },
+                  children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { onClick: () => {
+                    setWalletVisible(false);
+                  }, style: { cursor: "pointer" }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(WalletCloseButton_default, {}) })
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                "div",
+                {
+                  style: {
+                    height: "586px",
+                    width: "312px",
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    backgroundColor: "#101010"
+                  },
+                  children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                    "iframe",
+                    {
+                      width: "312",
+                      height: "586",
+                      src: iframeURL,
+                      allow: "clipboard-read; clipboard-write; publickey-credentials-get",
+                      style: {
+                        backgroundColor: "#101010"
+                      }
+                    }
+                  )
+                }
+              )
+            ]
+          }
+        )
       }
     ),
     triaName && !walletVisible && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       "div",
       {
-        className: "wallet_icon fixed w-[80px] bottom-4 right-8 cursor-pointer",
+        style: {
+          position: "fixed",
+          maxWidth: "80px",
+          width: "auto",
+          bottom: "4px",
+          right: "60px",
+          cursor: "pointer",
+          marginTop: "25px",
+          height: "150px",
+          zIndex: 9999
+        },
         onClick: handleWalletButtonClick,
         children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(TriaWalletButton, { bgColor: primaryColor || "#A855F7", stackui })
       }

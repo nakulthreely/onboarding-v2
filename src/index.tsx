@@ -1,5 +1,5 @@
 
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import ConfirmEmail from "./Pages/ConfirmEmail";
@@ -42,7 +42,7 @@ import usePageVisibility from "./hooks/usePageVisibilty";
 // import {useSendTransaction} from "./hooks/useSendTransaction";
 // import {useContractWrite} from "./hooks/useContractWrite";
 
-export {useSignMessage,useSendTransaction,useContractWrite,useContractRead} from "./hooks"
+export { useSignMessage, useSendTransaction, useContractWrite, useContractRead } from "./hooks"
 
 // export {useSignMessage,useSendTransaction,useContractWrite};
 
@@ -101,7 +101,7 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 //   "https://wallet.tria.so"
 // );
 // console.log("iframe", iframe);
-const authUrl="https://auth.tria.so";
+const authUrl = "https://auth.tria.so";
 
 const authController = new AuthController('https://staging.tria.so');
 
@@ -112,14 +112,14 @@ const authController = new AuthController('https://staging.tria.so');
 //   webSocketPublicClient,
 // });
 
-const createEncodedData=(data:any)=>{
+const createEncodedData = (data: any) => {
   const encodedParams = btoa(
     JSON.stringify(data));
   return encodedParams;
 }
 
 export const useTriaTransaction = () => {
-  const createIframe = (iframeUrl:string) => {
+  const createIframe = (iframeUrl: string) => {
     const iframeContainer = document.createElement("div");
     iframeContainer.id = "triaWallet";
     iframeContainer.className = "bg flex justify-between bg-transparent absolute bottom-4 right-2";
@@ -149,25 +149,25 @@ export const useTriaTransaction = () => {
     document.body.appendChild(iframeContainer);
 
     // Return any relevant data if needed
-    
+
   };
 
-  
-  const sendTransaction = async (sendDataFromDapp:any) => {
+
+  const sendTransaction = async (sendDataFromDapp: any) => {
     const iframeEncodedData = createEncodedData(sendDataFromDapp);
     const sendIframeUrl = `${authUrl}/send/${iframeEncodedData}`;
     const iframe = createIframe(sendIframeUrl);
     return sendIframeUrl;
   };
 
-  const signMessage = async (message:any) => {
+  const signMessage = async (message: any) => {
     const iframeEncodedData = createEncodedData(message);
     const signIframeUrl = `${authUrl}/signMessage/${iframeEncodedData}`;
     const iframe = createIframe(signIframeUrl);
     return signIframeUrl;
   };
 
-  const callContract = async (data:any) => {
+  const callContract = async (data: any) => {
     const iframeEncodedData = createEncodedData(data);
     const signIframeUrl = `${authUrl}/mint/${iframeEncodedData}`;
     const iframe = createIframe(signIframeUrl);
@@ -244,7 +244,7 @@ export const useTriaTransaction = () => {
 // }
 
 
-  
+
 
 export const TriaConnectProvider = () => {
   const [renderAuthIframe, setRenderAuthIframe] = useState(false);
@@ -289,10 +289,10 @@ interface ApplicationProps {
   defaultChain?: string;
 }
 
-const initialChains = ["POLYGON", "ARBITRUM", "FUSE","AVALANCHE","BINANCE","ETH","FANTOM","OPTIMISM"]
+const initialChains = ["POLYGON", "ARBITRUM", "FUSE", "AVALANCHE", "BINANCE", "ETH", "FANTOM", "OPTIMISM"]
 
 
-const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, logo,  primaryColor='#A855F7', supportedChains = initialChains, defaultChain = "POLYGON" }) => {
+const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, logo, primaryColor = '#A855F7', supportedChains = initialChains, defaultChain = "POLYGON" }) => {
 
   const [view, setView] = useState("Home");
   const [triaName, setTriaName] = useState<string>();
@@ -302,12 +302,12 @@ const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, 
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [appDomain, setAppDomain] = useState<string>()
-  const [iframeURL, setIframeURL]=useState<string>();
+  const [iframeURL, setIframeURL] = useState<string>();
   const WALLET_BASE_URL = "https://wallet.tria.so/"
   const [accessToken, setAccessToken] = useState<string>()
   const darkMode = true;
   const [authIFrameUrl, setAuthIFrameUrl] = useState<string>("")
-  const {account} = useAccount();
+  const { account } = useAccount();
   const [stackui, setStackUi] = useState<boolean>(false);
   const [wasOpen, setWasOpen] = useState<boolean>(false)
   const [walletVisible, setWalletVisible] = useState<boolean>(false);
@@ -317,16 +317,16 @@ const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, 
     if (!isTabVisible && showWallet) {
       setShowWallet(false);
       setWasOpen(true)
-    } else if(wasOpen){
+    } else if (wasOpen) {
       setShowWallet(true); // Or any other logic when the tab is back in focus
     }
   }, [isTabVisible]);
-   useEffect(() => {
+  useEffect(() => {
     if (!account && triaName) {
       console.log("Account is null, reloading the page");
       localStorage.setItem('hasReloaded', 'true');
       window.location.reload();
-    } 
+    }
   }, [account, triaName]);
 
 
@@ -338,37 +338,37 @@ const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, 
         setShowOnboarding(false)
         setTriaName(JSON.parse(localStorage.getItem('tria.wallet.store') || "")?.triaName)
         setUserAddress(JSON.parse(localStorage.getItem('tria.wallet.store') || "")?.evm?.address)
-       
-      } else if(localStorage.getItem("wagmi.connected") ==='true'){
+
+      } else if (localStorage.getItem("wagmi.connected") === 'true') {
         setShowOnboarding(false);
         const wallet = localStorage.getItem("wagmi.connected")
         console.log(wallet)
-      }else{
+      } else {
         setShowOnboarding(true);
       }
     }, 500)
   }, [])
-  useEffect(()=>{
-    setInterval(()=>{
+  useEffect(() => {
+    setInterval(() => {
       setShowOnboarding(true)
-    },1000)
-  },[])
+    }, 1000)
+  }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     const item = localStorage.getItem("access_token");
     setAccessToken(item || "");
     setAppDomain(window.parent.origin);
-  
-  },[triaName])
+
+  }, [triaName])
 
   const fromDapp = true;
 
-  useEffect(()=>{
-    const encodedParams = btoa(JSON.stringify({triaName, userAddress, appDomain, darkMode, logo, accessToken, primaryColor, fromDapp, dappName, defaultChain, supportedChains}))
-    console.log(encodedParams, userAddress, triaName,accessToken,logo,appDomain,darkMode, primaryColor, fromDapp, dappName, defaultChain, supportedChains)
+  useEffect(() => {
+    const encodedParams = btoa(JSON.stringify({ triaName, userAddress, appDomain, darkMode, logo, accessToken, primaryColor, fromDapp, dappName, defaultChain, supportedChains }))
+    console.log(encodedParams, userAddress, triaName, accessToken, logo, appDomain, darkMode, primaryColor, fromDapp, dappName, defaultChain, supportedChains)
     setIframeURL(`https://wallet.tria.so/${encodedParams}`);
 
-  },[triaName, userAddress])
+  }, [triaName, userAddress])
 
   useEffect(() => {
     console.log("WALLET URL ---->", iframeURL);
@@ -390,17 +390,17 @@ const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, 
   };
 
   useEffect(() => {
-    console.log("log from sdk ----->",dappName, logo)
-    if(dappName && dappName?.length > 0 && logo && logo?.length > 0){
+    console.log("log from sdk ----->", dappName, logo)
+    if (dappName && dappName?.length > 0 && logo && logo?.length > 0) {
       setAuthIFrameUrl(`https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
     }
-  },[dappName, logo])
+  }, [dappName, logo])
 
   useEffect(() => {
-    if(uiType ==="yes"){
+    if (uiType === "yes") {
       setStackUi(true);
     }
-  },[uiType])
+  }, [uiType])
 
   // useEffect(() => {
   //   console.log("userAddress log from sdk ---->",userAddress)
@@ -431,7 +431,7 @@ const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, 
   //   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (event:any) => {
+    const handleClickOutside = (event: any) => {
       // Select the iframe element
       const iframeElement = document.getElementById('triaWallet'); // Use the actual ID or selector of your iframe
 
@@ -452,19 +452,19 @@ const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, 
 
   useEffect(() => {
     if (primaryColor) {
-        document.documentElement.style.setProperty('--primary-color', primaryColor);
+      document.documentElement.style.setProperty('--primary-color', primaryColor);
     }
-}, [primaryColor]);
+  }, [primaryColor]);
 
- const handleWalletButtonClick = () => {
-  if(showWallet){
-    setWalletVisible(true);
+  const handleWalletButtonClick = () => {
+    if (showWallet) {
+      setWalletVisible(true);
+    }
+    else {
+      setShowWallet(true);
+      setWalletVisible(true);
+    }
   }
-  else{
-    setShowWallet(true);
-    setWalletVisible(true);
-  }
- }
 
 
 
@@ -473,41 +473,107 @@ const Application:React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, 
       {/* <WagmiConfig config={wagmiConfig}> */}
       <NavContext.Provider value={nav_context_object}>
         {/* <Router> */}
-        {!triaName && showOnboarding &&<div className="rounded-[20px] overflow-hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <iframe width="314" height="586" src={authIFrameUrl} allow="publickey-credentials-get"/>
+        {!triaName && showOnboarding &&
+          <div style={{
+            borderRadius: '20px',
+            overflow: 'hidden',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+          }}>
+            <iframe width="314" height="586" src={authIFrameUrl} allow="publickey-credentials-get" />
           </div>}
         {showWallet && triaName && userAddress && (
-          <div id="triaWallet" className={`flex  justify-between bg-transparent fixed bottom-4 right-2`}
-           style={{ display: walletVisible ? 'block' : 'none' }}
+          <div id="triaWallet"
+            style={{ display: walletVisible ? 'block' : 'none', justifyItems: 'space-between', backgroundColor: 'transparent', position: 'fixed', bottom: '4px', right: '2px',  zIndex: 9999, }}
           >
-            <div className="mb-4 mr-2 relative rounded-[20px]">
+            {/* <div className="mb-4 mr-2 relative rounded-[20px]">
               <div className="absolute w-[312px] h-[40px] rounded-[20px] top-[-38px] flex items-end justify-center" >
-                {/* <img src='./WalletCloseButton.svg' alt='' className="cursor-pointer"  onClick={() => {setShowWallet(false)}}/> */}
-                <div className="cursor-pointer" onClick={()=>{setWalletVisible(false)}}>
-                  <WalletCloseButton/>
+                <div className="cursor-pointer" onClick={() => { setWalletVisible(false) }}>
+                  <WalletCloseButton />
 
                 </div>
               </div>
               <div className="h-[586px] w-[312px] rounded-[20px] overflow-hidden bg-[#101010]">
-          <iframe
-          width="312"
-          height="586"
-          src={iframeURL}
-          allow="clipboard-read; clipboard-write; publickey-credentials-get"
-          style={{ backgroundColor: '#101010' }}
-          />
+                <iframe
+                  width="312"
+                  height="586"
+                  src={iframeURL}
+                  allow="clipboard-read; clipboard-write; publickey-credentials-get"
+                  style={{ backgroundColor: '#101010' }}
+                />
+              </div>
+            </div> */}
+            <div
+              style={{
+                marginBottom: '4px',
+                marginRight: '2px',
+                position: 'relative',
+                borderRadius: '20px',
+
+              }}
+            >
+              <div
+                style={{
+                  position: 'absolute',
+                  width: '312px',
+                  height: '40px',
+                  borderRadius: '20px',
+                  top: '-38px',
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center',
+
+                }}
+              >
+                {/* Content for WalletCloseButton */}
+                <div onClick={() => { setWalletVisible(false) }} style={{ cursor: 'pointer' }}>
+                  <WalletCloseButton />
+                </div>
+              </div>
+              <div
+                style={{
+                  height: '586px',
+                  width: '312px',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  backgroundColor: '#101010',
+
+                }}
+              >
+                <iframe
+                  width="312"
+                  height="586"
+                  src={iframeURL}
+                  allow="clipboard-read; clipboard-write; publickey-credentials-get"
+                  style={{
+                    backgroundColor: '#101010',
+
+                  }}
+                />
               </div>
             </div>
           </div>
 
         )}
-       
+
         {triaName && !walletVisible && (
           <div
-            className="wallet_icon fixed w-[80px] bottom-4 right-8 cursor-pointer"
+            style={{
+              position: 'fixed',
+              maxWidth: '80px',
+              width: "auto",
+              bottom: '4px',
+              right: '60px',
+              cursor: 'pointer',
+              marginTop: "25px",
+              height: "150px",
+              zIndex: 9999,
+            }}
             onClick={handleWalletButtonClick}
           >
-            <TriaWalletButton bgColor={primaryColor || "#A855F7"} stackui={stackui}/>
+            <TriaWalletButton bgColor={primaryColor || "#A855F7"} stackui={stackui} />
 
           </div>
         )}
