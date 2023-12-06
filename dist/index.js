@@ -358,15 +358,15 @@ var usePageVisibilty_default = usePageVisibility;
 var import_wagmi = require("wagmi");
 var import_jsx_runtime4 = require("react/jsx-runtime");
 function Wallets() {
-  const { connect, connectors: connectors2 } = (0, import_wagmi.useConnect)();
+  const { connect, connectors } = (0, import_wagmi.useConnect)();
   console.log("Wallet page");
   const clickMetamask = () => {
     console.log("Clicked");
-    connect({ connector: connectors2[2] });
+    connect({ connector: connectors[2] });
   };
   const clickWc = () => {
     console.log("Clicked");
-    connect({ connector: connectors2[1] });
+    connect({ connector: connectors[1] });
   };
   return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "self-stretch justify-center items-center inline-flex", children: [
     /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { className: "", onClick: () => clickMetamask(), children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "grow shrink basis-0 h-16 px-1 py-3 justify-center cursor-pointer items-center gap-2 flex", children: [
@@ -623,7 +623,7 @@ var { chains, publicClient, webSocketPublicClient } = (0, import_wagmi2.configur
   [(0, import_public.publicProvider)()]
 );
 var getDefaultWallets = ({ appName, projectId, chains: chains2 }) => {
-  const connectors2 = [
+  const connectors = [
     new import_coinbaseWallet.CoinbaseWalletConnector({
       chains: chains2,
       options: {
@@ -649,21 +649,10 @@ var getDefaultWallets = ({ appName, projectId, chains: chains2 }) => {
       }
     })
   ];
-  return { connectors: connectors2 };
+  return { connectors };
 };
-var { connectors } = getDefaultWallets({
-  appName: "Customer App powered by Tria",
-  projectId: "bd38d3892c8fd8bc9dabf6fced0bd3c6",
-  chains
-});
 var authUrl4 = "https://auth.tria.so";
 var authController = new import_core.AuthController("https://staging.tria.so");
-var wagmiConfig = (0, import_wagmi2.createConfig)({
-  autoConnect: true,
-  connectors,
-  publicClient,
-  webSocketPublicClient
-});
 var createEncodedData2 = (data) => {
   const encodedParams = btoa(
     JSON.stringify(data)
@@ -861,7 +850,7 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
       setFrameUrl(url);
     }
   }, [eventData]);
-  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_jsx_runtime5.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_wagmi2.WagmiConfig, { config: wagmiConfig, children: /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_jsx_runtime5.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
     !triaName && showOnboarding && !externalWallet && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { className: "rounded-[20px] overflow-hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2", children: openNewFrame === false ? /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: "w-[448px] rounded-2xl drop bg-[#101010] h-[840px] p-4 flex-col justify-between inline-flex scale-[0.7]", children: [
       /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { style: { marginLeft: "-150px" }, className: "absolute top-0 ", children: [
         " ",
@@ -923,7 +912,7 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
         children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(TriaWalletButton, { bgColor: primaryColor || "#A855F7", stackui })
       }
     )
-  ] }) }) });
+  ] }) });
 };
 var src_default = Application;
 // Annotate the CommonJS export names for ESM import in node:

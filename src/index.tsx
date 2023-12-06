@@ -95,11 +95,11 @@ export const getDefaultWallets = ({ appName, projectId, chains }) => {
   return { connectors };
 };
 
-const { connectors } = getDefaultWallets({
-  appName: "Customer App powered by Tria",
-  projectId: "bd38d3892c8fd8bc9dabf6fced0bd3c6",
-  chains,
-});
+// const { connectors } = getDefaultWallets({
+//   appName: "Customer App powered by Tria",
+//   projectId: "bd38d3892c8fd8bc9dabf6fced0bd3c6",
+//   chains,
+// });
 
 // const iframe = new IframeController(
 //   "https://opensea.com",
@@ -111,12 +111,12 @@ const authUrl = "https://auth.tria.so";
 
 const authController = new AuthController('https://staging.tria.so');
 
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient,
-  webSocketPublicClient,
-});
+// const wagmiConfig = createConfig({
+//   autoConnect: true,
+//   connectors,
+//   publicClient,
+//   webSocketPublicClient,
+// });
 
 const createEncodedData = (data: any) => {
   const encodedParams = btoa(
@@ -481,7 +481,7 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
 
   return (
     <>
-      <WagmiConfig config={wagmiConfig}>
+      {/* <WagmiConfig config={wagmiConfig}> */}
         <NavContext.Provider value={nav_context_object}>
           {/* <Router> */}
           {!triaName && showOnboarding && !externalWallet &&
@@ -610,7 +610,7 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
             </div>
           )}
         </NavContext.Provider>
-      </WagmiConfig>
+      {/* </WagmiConfig> */}
     </>
   );
 };
