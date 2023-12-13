@@ -36,7 +36,7 @@ import { UserController, AuthController } from '@tria-sdk/core';
 import { TriaWalletButton } from "./Components/TriaWalletButton";
 import WalletCloseButton from "./Components/WalletCloseButton";
 import { useAccount } from "@tria-sdk/connect";
-import usePageVisibility from "./hooks/usePageVisibilty";
+// import usePageVisibility from "./hooks/usePageVisibilty";
 // import { useAccount } from '@tria-sdk/connect'
 // import {useSignMessage} from "./hooks/useSignMessage";
 // import {useSendTransaction} from "./hooks/useSendTransaction";
@@ -101,7 +101,7 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 //   "https://wallet.tria.so"
 // );
 // console.log("iframe", iframe);
-const authUrl = "https://auth.tria.so";
+const authUrl = "https://auth-tria.vercel.app";
 
 const authController = new AuthController('https://staging.tria.so');
 
@@ -262,7 +262,7 @@ export const TriaConnectProvider = () => {
     <>
       {renderAuthIframe && (
         <iframe
-          src="https://auth.tria.so/verified"
+          src="https://auth-tria.vercel.app/verified"
           title="Auth Verification"
           style={{ display: 'none' }}
         />
@@ -311,19 +311,19 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
   const [stackui, setStackUi] = useState<boolean>(false);
   const [wasOpen, setWasOpen] = useState<boolean>(false)
   const [walletVisible, setWalletVisible] = useState<boolean>(false);
-  const isTabVisible = usePageVisibility();
+  // const isTabVisible = usePageVisibility();
 
-  useEffect(() => {
-    if (!isTabVisible && showWallet) {
-      setShowWallet(false);
-      setWasOpen(true)
-    } else if (wasOpen) {
-      setShowWallet(true); // Or any other logic when the tab is back in focus
-    }
-  }, [isTabVisible]);
+  // useEffect(() => {
+  //   if (!isTabVisible && showWallet) {
+  //     setShowWallet(false);
+  //     setWasOpen(true)
+  //   } else if (wasOpen) {
+  //     setShowWallet(true); // Or any other logic when the tab is back in focus
+  //   }
+  // }, [isTabVisible]);
   useEffect(() => {
     if (!account && triaName) {
-      console.log("Account is null, reloading the page");
+      // console.log("Account is null, reloading the page");
       localStorage.setItem('hasReloaded', 'true');
       window.location.reload();
     }
@@ -342,7 +342,7 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
       } else if (localStorage.getItem("wagmi.connected") === 'true') {
         setShowOnboarding(false);
         const wallet = localStorage.getItem("wagmi.connected")
-        console.log(wallet)
+        // console.log(wallet)
       } else {
         setShowOnboarding(true);
       }
@@ -365,13 +365,13 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
 
   useEffect(() => {
     const encodedParams = btoa(JSON.stringify({ triaName, userAddress, appDomain, darkMode, logo, accessToken, primaryColor, fromDapp, dappName, defaultChain, supportedChains }))
-    console.log(encodedParams, userAddress, triaName, accessToken, logo, appDomain, darkMode, primaryColor, fromDapp, dappName, defaultChain, supportedChains)
+    // console.log(encodedParams, userAddress, triaName, accessToken, logo, appDomain, darkMode, primaryColor, fromDapp, dappName, defaultChain, supportedChains)
     setIframeURL(`https://wallet.tria.so/${encodedParams}`);
 
   }, [triaName, userAddress])
 
   useEffect(() => {
-    console.log("WALLET URL ---->", iframeURL);
+    // console.log("WALLET URL ---->", iframeURL);
   }, [iframeURL]);
 
   const nav_context_object = {
@@ -390,9 +390,9 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
   };
 
   useEffect(() => {
-    console.log("log from sdk ----->", dappName, logo)
+    // console.log("log from sdk ----->", dappName, logo)
     if (dappName && dappName?.length > 0 && logo && logo?.length > 0) {
-      setAuthIFrameUrl(`https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
+      setAuthIFrameUrl(`https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
     }
   }, [dappName, logo])
 

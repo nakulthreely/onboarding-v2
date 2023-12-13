@@ -49,7 +49,7 @@ __export(src_exports, {
   useTriaTransaction: () => useTriaTransaction
 });
 module.exports = __toCommonJS(src_exports);
-var import_react7 = require("react");
+var import_react6 = require("react");
 
 // src/NavContext.tsx
 var import_react = require("react");
@@ -165,25 +165,8 @@ var WalletCloseButton_default = WalletCloseButton;
 // src/index.tsx
 var import_connect = require("@tria-sdk/connect");
 
-// src/hooks/usePageVisibilty.tsx
-var import_react2 = require("react");
-var usePageVisibility = () => {
-  const [isVisible, setIsVisible] = (0, import_react2.useState)(!document.hidden);
-  (0, import_react2.useEffect)(() => {
-    const handleVisibilityChange = () => {
-      setIsVisible(!document.hidden);
-    };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, []);
-  return isVisible;
-};
-var usePageVisibilty_default = usePageVisibility;
-
 // src/hooks/useContractWrite.tsx
-var import_react3 = require("react");
+var import_react2 = require("react");
 
 // src/utils/shared.ts
 var createEncodedData = (data) => {
@@ -218,9 +201,9 @@ var createIframe = (iframeUrl, hookName) => {
 // src/hooks/useContractWrite.tsx
 var authUrl = "https://auth.tria.so";
 var useContractWrite = (calldata) => {
-  const [data, setData] = (0, import_react3.useState)("");
-  const [isLoading, setIsLoading] = (0, import_react3.useState)(false);
-  const [isError, setIsError] = (0, import_react3.useState)(false);
+  const [data, setData] = (0, import_react2.useState)("");
+  const [isLoading, setIsLoading] = (0, import_react2.useState)(false);
+  const [isError, setIsError] = (0, import_react2.useState)(false);
   const write = () => {
     setIsLoading(true);
     const iframeEncodedData = createEncodedData(calldata);
@@ -229,7 +212,7 @@ var useContractWrite = (calldata) => {
     setIsLoading(false);
     return signIframeUrl;
   };
-  (0, import_react3.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     const detect = (event) => {
       var _a;
       console.log("event---------------->", event);
@@ -256,12 +239,12 @@ var useContractWrite = (calldata) => {
 };
 
 // src/hooks/useSendTransaction.tsx
-var import_react4 = require("react");
+var import_react3 = require("react");
 var authUrl2 = "https://auth.tria.so";
 var useSendTransaction = (calldata) => {
-  const [data, setData] = (0, import_react4.useState)("");
-  const [isLoading, setIsLoading] = (0, import_react4.useState)(false);
-  const [isError, setIsError] = (0, import_react4.useState)(false);
+  const [data, setData] = (0, import_react3.useState)("");
+  const [isLoading, setIsLoading] = (0, import_react3.useState)(false);
+  const [isError, setIsError] = (0, import_react3.useState)(false);
   const sendTransaction = () => {
     setIsLoading(true);
     const iframeEncodedData = createEncodedData(calldata);
@@ -270,7 +253,7 @@ var useSendTransaction = (calldata) => {
     setIsLoading(false);
     return signIframeUrl;
   };
-  (0, import_react4.useEffect)(() => {
+  (0, import_react3.useEffect)(() => {
     const detect = (event) => {
       var _a;
       if (event.origin !== authUrl2)
@@ -296,12 +279,12 @@ var useSendTransaction = (calldata) => {
 };
 
 // src/hooks/useSignMessage.tsx
-var import_react5 = require("react");
+var import_react4 = require("react");
 var authUrl3 = "https://auth.tria.so";
 var useSignMessage = (calldata) => {
-  const [data, setData] = (0, import_react5.useState)("");
-  const [isLoading, setIsLoading] = (0, import_react5.useState)(false);
-  const [isError, setIsError] = (0, import_react5.useState)(false);
+  const [data, setData] = (0, import_react4.useState)("");
+  const [isLoading, setIsLoading] = (0, import_react4.useState)(false);
+  const [isError, setIsError] = (0, import_react4.useState)(false);
   const signMessage = () => {
     setIsLoading(true);
     const iframeEncodedData = createEncodedData(calldata);
@@ -310,7 +293,7 @@ var useSignMessage = (calldata) => {
     setIsLoading(false);
     return signIframeUrl;
   };
-  (0, import_react5.useEffect)(() => {
+  (0, import_react4.useEffect)(() => {
     const detect = (event) => {
       var _a;
       if (event.origin !== authUrl3)
@@ -337,13 +320,13 @@ var useSignMessage = (calldata) => {
 };
 
 // src/hooks/useContractRead.tsx
-var import_react6 = require("react");
+var import_react5 = require("react");
 var import_ethers = require("ethers");
 var import_web = require("@tria-sdk/web");
 var useContractRead = (params) => {
-  const [data, setData] = (0, import_react6.useState)("");
-  const [isLoading, setIsLoading] = (0, import_react6.useState)(false);
-  const [isError, setIsError] = (0, import_react6.useState)(false);
+  const [data, setData] = (0, import_react5.useState)("");
+  const [isLoading, setIsLoading] = (0, import_react5.useState)(false);
+  const [isError, setIsError] = (0, import_react5.useState)(false);
   const read = () => __async(void 0, null, function* () {
     try {
       setIsLoading(true);
@@ -368,7 +351,7 @@ var useContractRead = (params) => {
 // src/index.tsx
 var import_jsx_runtime3 = require("react/jsx-runtime");
 window.Buffer = window.Buffer || require("buffer").Buffer;
-var authUrl4 = "https://auth.tria.so";
+var authUrl4 = "https://auth-tria.vercel.app";
 var authController = new import_core.AuthController("https://staging.tria.so");
 var createEncodedData2 = (data) => {
   const encodedParams = btoa(
@@ -424,8 +407,8 @@ var useTriaTransaction = () => {
   };
 };
 var TriaConnectProvider = () => {
-  const [renderAuthIframe, setRenderAuthIframe] = (0, import_react7.useState)(false);
-  (0, import_react7.useEffect)(() => {
+  const [renderAuthIframe, setRenderAuthIframe] = (0, import_react6.useState)(false);
+  (0, import_react6.useEffect)(() => {
     const getQueryParam = (param) => {
       return new URLSearchParams(window.location.search).get(param);
     };
@@ -435,7 +418,7 @@ var TriaConnectProvider = () => {
   return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, { children: renderAuthIframe && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
     "iframe",
     {
-      src: "https://auth.tria.so/verified",
+      src: "https://auth-tria.vercel.app/verified",
       title: "Auth Verification",
       style: { display: "none" }
     }
@@ -443,40 +426,30 @@ var TriaConnectProvider = () => {
 };
 var initialChains = ["POLYGON", "ARBITRUM", "FUSE", "AVALANCHE", "BINANCE", "ETH", "FANTOM", "OPTIMISM"];
 var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7", supportedChains = initialChains, defaultChain = "POLYGON" }) => {
-  const [view, setView] = (0, import_react7.useState)("Home");
-  const [triaName, setTriaName] = (0, import_react7.useState)();
-  const [userAddress, setUserAddress] = (0, import_react7.useState)(null);
-  const [email, setEmail] = (0, import_react7.useState)("");
-  const [showWallet, setShowWallet] = (0, import_react7.useState)(false);
-  const [isDarkMode, setIsDarkMode] = (0, import_react7.useState)(true);
-  const [showOnboarding, setShowOnboarding] = (0, import_react7.useState)(false);
-  const [appDomain, setAppDomain] = (0, import_react7.useState)();
-  const [iframeURL, setIframeURL] = (0, import_react7.useState)();
+  const [view, setView] = (0, import_react6.useState)("Home");
+  const [triaName, setTriaName] = (0, import_react6.useState)();
+  const [userAddress, setUserAddress] = (0, import_react6.useState)(null);
+  const [email, setEmail] = (0, import_react6.useState)("");
+  const [showWallet, setShowWallet] = (0, import_react6.useState)(false);
+  const [isDarkMode, setIsDarkMode] = (0, import_react6.useState)(true);
+  const [showOnboarding, setShowOnboarding] = (0, import_react6.useState)(false);
+  const [appDomain, setAppDomain] = (0, import_react6.useState)();
+  const [iframeURL, setIframeURL] = (0, import_react6.useState)();
   const WALLET_BASE_URL = "https://wallet.tria.so/";
-  const [accessToken, setAccessToken] = (0, import_react7.useState)();
+  const [accessToken, setAccessToken] = (0, import_react6.useState)();
   const darkMode = true;
-  const [authIFrameUrl, setAuthIFrameUrl] = (0, import_react7.useState)("");
+  const [authIFrameUrl, setAuthIFrameUrl] = (0, import_react6.useState)("");
   const { account } = (0, import_connect.useAccount)();
-  const [stackui, setStackUi] = (0, import_react7.useState)(false);
-  const [wasOpen, setWasOpen] = (0, import_react7.useState)(false);
-  const [walletVisible, setWalletVisible] = (0, import_react7.useState)(false);
-  const isTabVisible = usePageVisibilty_default();
-  (0, import_react7.useEffect)(() => {
-    if (!isTabVisible && showWallet) {
-      setShowWallet(false);
-      setWasOpen(true);
-    } else if (wasOpen) {
-      setShowWallet(true);
-    }
-  }, [isTabVisible]);
-  (0, import_react7.useEffect)(() => {
+  const [stackui, setStackUi] = (0, import_react6.useState)(false);
+  const [wasOpen, setWasOpen] = (0, import_react6.useState)(false);
+  const [walletVisible, setWalletVisible] = (0, import_react6.useState)(false);
+  (0, import_react6.useEffect)(() => {
     if (!account && triaName) {
-      console.log("Account is null, reloading the page");
       localStorage.setItem("hasReloaded", "true");
       window.location.reload();
     }
   }, [account, triaName]);
-  (0, import_react7.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     setInterval(() => {
       var _a, _b, _c;
       if (localStorage.getItem("tria.wallet.store") !== null) {
@@ -486,30 +459,27 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
       } else if (localStorage.getItem("wagmi.connected") === "true") {
         setShowOnboarding(false);
         const wallet = localStorage.getItem("wagmi.connected");
-        console.log(wallet);
       } else {
         setShowOnboarding(true);
       }
     }, 500);
   }, []);
-  (0, import_react7.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     setInterval(() => {
       setShowOnboarding(true);
     }, 1e3);
   }, []);
-  (0, import_react7.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     const item = localStorage.getItem("access_token");
     setAccessToken(item || "");
     setAppDomain(window.parent.origin);
   }, [triaName]);
   const fromDapp = true;
-  (0, import_react7.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     const encodedParams = btoa(JSON.stringify({ triaName, userAddress, appDomain, darkMode, logo, accessToken, primaryColor, fromDapp, dappName, defaultChain, supportedChains }));
-    console.log(encodedParams, userAddress, triaName, accessToken, logo, appDomain, darkMode, primaryColor, fromDapp, dappName, defaultChain, supportedChains);
     setIframeURL(`https://wallet.tria.so/${encodedParams}`);
   }, [triaName, userAddress]);
-  (0, import_react7.useEffect)(() => {
-    console.log("WALLET URL ---->", iframeURL);
+  (0, import_react6.useEffect)(() => {
   }, [iframeURL]);
   const nav_context_object = {
     view,
@@ -525,18 +495,17 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
     email,
     setEmail
   };
-  (0, import_react7.useEffect)(() => {
-    console.log("log from sdk ----->", dappName, logo);
+  (0, import_react6.useEffect)(() => {
     if (dappName && (dappName == null ? void 0 : dappName.length) > 0 && logo && (logo == null ? void 0 : logo.length) > 0) {
-      setAuthIFrameUrl(`https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
+      setAuthIFrameUrl(`https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
     }
   }, [dappName, logo]);
-  (0, import_react7.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     if (uiType === "yes") {
       setStackUi(true);
     }
   }, [uiType]);
-  (0, import_react7.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     const handleClickOutside = (event) => {
       const iframeElement = document.getElementById("triaWallet");
       if (iframeElement && !iframeElement.contains(event.target)) {
@@ -548,7 +517,7 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  (0, import_react7.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     if (primaryColor) {
       document.documentElement.style.setProperty("--primary-color", primaryColor);
     }
