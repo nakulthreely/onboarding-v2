@@ -36,7 +36,7 @@ import { UserController, AuthController } from '@tria-sdk/core';
 import { TriaWalletButton } from "./Components/TriaWalletButton";
 import WalletCloseButton from "./Components/WalletCloseButton";
 import { useAccount } from "@tria-sdk/connect";
-// import usePageVisibility from "./hooks/usePageVisibilty";
+import Draggable from "react-draggable";
 // import { useAccount } from '@tria-sdk/connect'
 // import {useSignMessage} from "./hooks/useSignMessage";
 // import {useSendTransaction} from "./hooks/useSendTransaction";
@@ -101,7 +101,7 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 //   "https://wallet.tria.so"
 // );
 // console.log("iframe", iframe);
-const authUrl = "https://auth-tria.vercel.app";
+const authUrl = "https://auth.tria.so";
 
 const authController = new AuthController('https://staging.tria.so');
 
@@ -242,12 +242,28 @@ export const useTriaTransaction = () => {
 //   // return iframeUrl
 
 // }
+const requestLoaderStyle = {
+  display: 'flex',
+  // cursor:'move',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '60px',
+  width: '60px',
+  borderRadius: '100%',
+  background: '#FFFFFF',
+  //  boxShadow: isPressed ? '0 0 10px 0 rgba(0,0,0,0.2)' : '0 0 20px 0 rgba(0,0,0,0.25)',
+  // transform: isPressed ? 'scale(0.80)' : 'scale(1)',
+  transition: 'all 0.1s ease',
+  cursor: 'pointer',
+  zIndex: '9999'
+};
 
 
 
-
-export const TriaConnectProvider = () => {
+export const TriaConnectProvider = ({triaStaging=false}) => {
   const [renderAuthIframe, setRenderAuthIframe] = useState(false);
+  const [authIframeSrc, setAuthIframeSrc] = useState<string>("")
   useEffect(() => {
     // Function to get the value of a URL parameter
     const getQueryParam = (param: string) => {
@@ -257,12 +273,14 @@ export const TriaConnectProvider = () => {
     // Check if the URL parameter is as expected
     const isVerified = getQueryParam('verified') === 'true';
     setRenderAuthIframe(isVerified);
+    {triaStaging? setAuthIframeSrc("https://auth-tria.vercel.app/verified") : setAuthIframeSrc("https://auth.tria.so/verified") }
+    
   }, []);
   return (
     <>
       {renderAuthIframe && (
         <iframe
-          src="https://auth-tria.vercel.app/verified"
+          src={authIframeSrc}
           title="Auth Verification"
           style={{ display: 'none' }}
         />
@@ -284,15 +302,18 @@ interface ApplicationProps {
   dappDomain?: string;
   uiType?: string;
   logo?: string;
-  primaryColor?: string; // Mark as optional with '?';
+  primaryColor?: string;
   supportedChains?: [];
   defaultChain?: string;
+  darkMode?: boolean;
+  triaStaging?: boolean;
+  buttonPosition?: {x?:number , y?: number}
 }
 
 const initialChains = ["POLYGON", "ARBITRUM", "FUSE", "AVALANCHE", "BINANCE", "ETH", "FANTOM", "OPTIMISM"]
 
 
-const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, logo, primaryColor = '#A855F7', supportedChains = initialChains, defaultChain = "POLYGON" }) => {
+const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType, logo, primaryColor = '#A855F7', supportedChains = initialChains, defaultChain = "POLYGON", darkMode=true, triaStaging= false, buttonPosition = {x:100, y:100}  }) => {
 
   const [view, setView] = useState("Home");
   const [triaName, setTriaName] = useState<string>();
@@ -303,27 +324,76 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [appDomain, setAppDomain] = useState<string>()
   const [iframeURL, setIframeURL] = useState<string>();
-  const WALLET_BASE_URL = "https://wallet.tria.so/"
   const [accessToken, setAccessToken] = useState<string>()
-  const darkMode = true;
   const [authIFrameUrl, setAuthIFrameUrl] = useState<string>("")
   const { account } = useAccount();
   const [stackui, setStackUi] = useState<boolean>(false);
   const [wasOpen, setWasOpen] = useState<boolean>(false)
+  const [coords, setCoords] = useState({x: 0, y: 0});
   const [walletVisible, setWalletVisible] = useState<boolean>(false);
-  // const isTabVisible = usePageVisibility();
+  const [posX, setPosX] = useState<number>();
+  const [posY, setPosY] = useState<number>()
+  const [buttonPosX, setButtonPosX] = useState(window.innerWidth - (buttonPosition?.x || 100));
+  const [buttonPosY, setButtonPosY] = useState(window.innerHeight - (buttonPosition?.y || 100))
+  const [currentTime, setCurrentTime] = useState<number>()
 
-  // useEffect(() => {
-  //   if (!isTabVisible && showWallet) {
-  //     setShowWallet(false);
-  //     setWasOpen(true)
-  //   } else if (wasOpen) {
-  //     setShowWallet(true); // Or any other logic when the tab is back in focus
-  //   }
-  // }, [isTabVisible]);
+
+  useEffect(() => {
+    const handleWindowMouseMove = (e:MouseEvent) => {
+      setCoords({
+        x: e.clientX,
+        y: e.clientY,
+      });
+    };
+    window.addEventListener('mousemove', handleWindowMouseMove);
+
+    return () => {
+      window.removeEventListener(
+        'mousemove',
+        handleWindowMouseMove,
+      );
+    };
+   
+  }, []);
+
+  useEffect(() => {
+     console.log(buttonPosX, buttonPosY)
+  }, [buttonPosX,buttonPosY])
+
+    const handleStartDragging = () => {
+    var now = new Date();
+    setCurrentTime(now.getTime());
+    // alert(now.getTime())
+  };
+
+  const handleStopDragging = () => {
+    var now = new Date();
+    console.log(coords)
+    console.log(window.innerWidth)
+    console.log(window.innerHeight)
+    setButtonPosX(coords.x)
+      setButtonPosY(coords.y)
+      if(window.innerWidth - coords.x < 312 && window.innerHeight - coords.y  < 586){
+        setPosX(window.innerWidth - 312)
+        setPosY(window.innerHeight - 586)
+      }else if(window.innerWidth - coords.x < 312){
+         setPosX(window.innerWidth - 312)
+         setPosY(coords.y)
+      }else if(window.innerHeight - coords.y <  586){
+        setPosX(coords.x)
+        setPosY(window.innerHeight - 586)
+      }else{
+        setPosX(coords.x)
+      setPosY(coords.y)
+      }
+    if(currentTime && now.getTime() - currentTime< 200){
+      handleWalletButtonClick()
+    } 
+  };
+ 
   useEffect(() => {
     if (!account && triaName) {
-      // console.log("Account is null, reloading the page");
+      console.log("Account is null, reloading the page");
       localStorage.setItem('hasReloaded', 'true');
       window.location.reload();
     }
@@ -342,7 +412,7 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
       } else if (localStorage.getItem("wagmi.connected") === 'true') {
         setShowOnboarding(false);
         const wallet = localStorage.getItem("wagmi.connected")
-        // console.log(wallet)
+        console.log(wallet)
       } else {
         setShowOnboarding(true);
       }
@@ -365,13 +435,13 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
 
   useEffect(() => {
     const encodedParams = btoa(JSON.stringify({ triaName, userAddress, appDomain, darkMode, logo, accessToken, primaryColor, fromDapp, dappName, defaultChain, supportedChains }))
-    // console.log(encodedParams, userAddress, triaName, accessToken, logo, appDomain, darkMode, primaryColor, fromDapp, dappName, defaultChain, supportedChains)
-    setIframeURL(`https://wallet.tria.so/${encodedParams}`);
+    console.log(encodedParams, userAddress, triaName, accessToken, logo, appDomain, darkMode, primaryColor, fromDapp, dappName, defaultChain, supportedChains)
+    {triaStaging? setIframeURL(`https://staging-tria-wallet.vercel.app/${encodedParams}`)  :setIframeURL(`https://wallet.tria.so/${encodedParams}`)};
 
   }, [triaName, userAddress])
 
   useEffect(() => {
-    // console.log("WALLET URL ---->", iframeURL);
+    console.log("WALLET URL ---->", iframeURL);
   }, [iframeURL]);
 
   const nav_context_object = {
@@ -390,9 +460,10 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
   };
 
   useEffect(() => {
-    // console.log("log from sdk ----->", dappName, logo)
+    console.log("log from sdk ----->", dappName, logo)
     if (dappName && dappName?.length > 0 && logo && logo?.length > 0) {
-      setAuthIFrameUrl(`https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
+      {triaStaging? setAuthIFrameUrl(`https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`)
+      : setAuthIFrameUrl(`https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`)};
     }
   }, [dappName, logo])
 
@@ -469,7 +540,9 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
 
 
   return (
-    <>
+    <div style={{position:"fixed", zIndex:0, height:"100vh", width:"100vw", top:0, left:0}}>
+    {/* //  */}
+    
       {/* <WagmiConfig config={wagmiConfig}> */}
       <NavContext.Provider value={nav_context_object}>
         {/* <Router> */}
@@ -486,7 +559,14 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
           </div>}
         {showWallet && triaName && userAddress && (
           <div id="triaWallet"
-            style={{ display: walletVisible ? 'block' : 'none', justifyItems: 'space-between', backgroundColor: 'transparent', position: 'fixed', bottom: '4px', right: '2px',  zIndex: 9999, }}
+            style={{ 
+              display: walletVisible ? 'block' : 'none', 
+              justifyItems: 'space-between', 
+              backgroundColor: 'transparent', 
+              position: 'fixed',
+              top:  posY, 
+              left:  posX, 
+              zIndex: 9999, }}
           >
             {/* <div className="mb-4 mr-2 relative rounded-[20px]">
               <div className="absolute w-[312px] h-[40px] rounded-[20px] top-[-38px] flex items-end justify-center" >
@@ -559,27 +639,47 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
         )}
 
         {triaName && !walletVisible && (
+        <div style={{height:"100vh", width:"100vw"}}>
+        <Draggable
+          defaultPosition={{x: buttonPosX, y: buttonPosY}}
+          onStart= {handleStartDragging}
+          onStop={handleStopDragging}
+          // onDrag={handleMouseMove}
+          // bounds = {"parent"}
+          // style={{position:'fixed', left: x, top: y}} 
+          
+          >
           <div
-            style={{
-              position: 'fixed',
-              maxWidth: '80px',
-              width: "auto",
-              bottom: '4px',
-              right: '60px',
-              cursor: 'pointer',
-              marginTop: "25px",
-              height: "150px",
-              zIndex: 9999,
-            }}
-            onClick={handleWalletButtonClick}
+            style={
+              {
+  // display: 'flex',
+  // position: 'fixed',
+  // cursor:'move',
+  // flexDirection: 'row',
+  // justifyContent: 'center',
+  // alignItems: 'center',
+  // height: '60px',
+  // width: '60px',
+  // borderRadius: '100%',
+  // background: '#FFFFFF',
+  //  boxShadow: isPressed ? '0 0 10px 0 rgba(0,0,0,0.2)' : '0 0 20px 0 rgba(0,0,0,0.25)',
+  // transform: isPressed ? 'scale(0.80)' : 'scale(1)',
+  // transition: 'all 0.1s ease',
+  cursor: 'pointer',
+  zIndex: '9999'
+}
+            }
+            // onClick={handleWalletButtonClick}
           >
             <TriaWalletButton bgColor={primaryColor || "#A855F7"} stackui={stackui} />
 
           </div>
+          </Draggable>
+          </div>
         )}
       </NavContext.Provider>
       {/* </WagmiConfig> */}
-    </>
+      </div>
   );
 };
 

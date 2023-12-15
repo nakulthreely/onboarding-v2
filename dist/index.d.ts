@@ -42,7 +42,9 @@ declare const useTriaTransaction: () => {
     signMessage: (message: any) => Promise<string>;
     callContract: (data: any) => Promise<string>;
 };
-declare const TriaConnectProvider: () => react_jsx_runtime.JSX.Element;
+declare const TriaConnectProvider: ({ triaStaging }: {
+    triaStaging?: boolean | undefined;
+}) => react_jsx_runtime.JSX.Element;
 interface ApplicationProps {
     dappName?: string;
     dappDomain?: string;
@@ -51,6 +53,12 @@ interface ApplicationProps {
     primaryColor?: string;
     supportedChains?: [];
     defaultChain?: string;
+    darkMode?: boolean;
+    triaStaging?: boolean;
+    buttonPosition?: {
+        x?: number;
+        y?: number;
+    };
 }
 declare const Application: React.FC<ApplicationProps>;
 

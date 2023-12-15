@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,6 +17,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
@@ -164,6 +174,7 @@ var WalletCloseButton_default = WalletCloseButton;
 
 // src/index.tsx
 var import_connect = require("@tria-sdk/connect");
+var import_react_draggable = __toESM(require("react-draggable"));
 
 // src/hooks/useContractWrite.tsx
 var import_react2 = require("react");
@@ -351,7 +362,7 @@ var useContractRead = (params) => {
 // src/index.tsx
 var import_jsx_runtime3 = require("react/jsx-runtime");
 window.Buffer = window.Buffer || require("buffer").Buffer;
-var authUrl4 = "https://auth-tria.vercel.app";
+var authUrl4 = "https://auth.tria.so";
 var authController = new import_core.AuthController("https://staging.tria.so");
 var createEncodedData2 = (data) => {
   const encodedParams = btoa(
@@ -406,26 +417,30 @@ var useTriaTransaction = () => {
     callContract
   };
 };
-var TriaConnectProvider = () => {
+var TriaConnectProvider = ({ triaStaging = false }) => {
   const [renderAuthIframe, setRenderAuthIframe] = (0, import_react6.useState)(false);
+  const [authIframeSrc, setAuthIframeSrc] = (0, import_react6.useState)("");
   (0, import_react6.useEffect)(() => {
     const getQueryParam = (param) => {
       return new URLSearchParams(window.location.search).get(param);
     };
     const isVerified = getQueryParam("verified") === "true";
     setRenderAuthIframe(isVerified);
+    {
+      triaStaging ? setAuthIframeSrc("https://auth-tria.vercel.app/verified") : setAuthIframeSrc("https://auth.tria.so/verified");
+    }
   }, []);
   return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, { children: renderAuthIframe && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
     "iframe",
     {
-      src: "https://auth-tria.vercel.app/verified",
+      src: authIframeSrc,
       title: "Auth Verification",
       style: { display: "none" }
     }
   ) });
 };
 var initialChains = ["POLYGON", "ARBITRUM", "FUSE", "AVALANCHE", "BINANCE", "ETH", "FANTOM", "OPTIMISM"];
-var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7", supportedChains = initialChains, defaultChain = "POLYGON" }) => {
+var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7", supportedChains = initialChains, defaultChain = "POLYGON", darkMode = true, triaStaging = false, buttonPosition = { x: 100, y: 100 } }) => {
   const [view, setView] = (0, import_react6.useState)("Home");
   const [triaName, setTriaName] = (0, import_react6.useState)();
   const [userAddress, setUserAddress] = (0, import_react6.useState)(null);
@@ -435,16 +450,67 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
   const [showOnboarding, setShowOnboarding] = (0, import_react6.useState)(false);
   const [appDomain, setAppDomain] = (0, import_react6.useState)();
   const [iframeURL, setIframeURL] = (0, import_react6.useState)();
-  const WALLET_BASE_URL = "https://wallet.tria.so/";
   const [accessToken, setAccessToken] = (0, import_react6.useState)();
-  const darkMode = true;
   const [authIFrameUrl, setAuthIFrameUrl] = (0, import_react6.useState)("");
   const { account } = (0, import_connect.useAccount)();
   const [stackui, setStackUi] = (0, import_react6.useState)(false);
   const [wasOpen, setWasOpen] = (0, import_react6.useState)(false);
+  const [coords, setCoords] = (0, import_react6.useState)({ x: 0, y: 0 });
   const [walletVisible, setWalletVisible] = (0, import_react6.useState)(false);
+  const [posX, setPosX] = (0, import_react6.useState)();
+  const [posY, setPosY] = (0, import_react6.useState)();
+  const [buttonPosX, setButtonPosX] = (0, import_react6.useState)(window.innerWidth - ((buttonPosition == null ? void 0 : buttonPosition.x) || 100));
+  const [buttonPosY, setButtonPosY] = (0, import_react6.useState)(window.innerHeight - ((buttonPosition == null ? void 0 : buttonPosition.y) || 100));
+  const [currentTime, setCurrentTime] = (0, import_react6.useState)();
+  (0, import_react6.useEffect)(() => {
+    const handleWindowMouseMove = (e) => {
+      setCoords({
+        x: e.clientX,
+        y: e.clientY
+      });
+    };
+    window.addEventListener("mousemove", handleWindowMouseMove);
+    return () => {
+      window.removeEventListener(
+        "mousemove",
+        handleWindowMouseMove
+      );
+    };
+  }, []);
+  (0, import_react6.useEffect)(() => {
+    console.log(buttonPosX, buttonPosY);
+  }, [buttonPosX, buttonPosY]);
+  const handleStartDragging = () => {
+    var now = /* @__PURE__ */ new Date();
+    setCurrentTime(now.getTime());
+  };
+  const handleStopDragging = () => {
+    var now = /* @__PURE__ */ new Date();
+    console.log(coords);
+    console.log(window.innerWidth);
+    console.log(window.innerHeight);
+    setButtonPosX(coords.x);
+    setButtonPosY(coords.y);
+    if (window.innerWidth - coords.x < 312 && window.innerHeight - coords.y < 586) {
+      setPosX(window.innerWidth - 312);
+      setPosY(window.innerHeight - 586);
+    } else if (window.innerWidth - coords.x < 312) {
+      setPosX(window.innerWidth - 312);
+      setPosY(coords.y);
+    } else if (window.innerHeight - coords.y < 586) {
+      setPosX(coords.x);
+      setPosY(window.innerHeight - 586);
+    } else {
+      setPosX(coords.x);
+      setPosY(coords.y);
+    }
+    if (currentTime && now.getTime() - currentTime < 200) {
+      handleWalletButtonClick();
+    }
+  };
   (0, import_react6.useEffect)(() => {
     if (!account && triaName) {
+      console.log("Account is null, reloading the page");
       localStorage.setItem("hasReloaded", "true");
       window.location.reload();
     }
@@ -459,6 +525,7 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
       } else if (localStorage.getItem("wagmi.connected") === "true") {
         setShowOnboarding(false);
         const wallet = localStorage.getItem("wagmi.connected");
+        console.log(wallet);
       } else {
         setShowOnboarding(true);
       }
@@ -477,9 +544,14 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
   const fromDapp = true;
   (0, import_react6.useEffect)(() => {
     const encodedParams = btoa(JSON.stringify({ triaName, userAddress, appDomain, darkMode, logo, accessToken, primaryColor, fromDapp, dappName, defaultChain, supportedChains }));
-    setIframeURL(`https://wallet.tria.so/${encodedParams}`);
+    console.log(encodedParams, userAddress, triaName, accessToken, logo, appDomain, darkMode, primaryColor, fromDapp, dappName, defaultChain, supportedChains);
+    {
+      triaStaging ? setIframeURL(`https://staging-tria-wallet.vercel.app/${encodedParams}`) : setIframeURL(`https://wallet.tria.so/${encodedParams}`);
+    }
+    ;
   }, [triaName, userAddress]);
   (0, import_react6.useEffect)(() => {
+    console.log("WALLET URL ---->", iframeURL);
   }, [iframeURL]);
   const nav_context_object = {
     view,
@@ -496,8 +568,12 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
     setEmail
   };
   (0, import_react6.useEffect)(() => {
+    console.log("log from sdk ----->", dappName, logo);
     if (dappName && (dappName == null ? void 0 : dappName.length) > 0 && logo && (logo == null ? void 0 : logo.length) > 0) {
-      setAuthIFrameUrl(`https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
+      {
+        triaStaging ? setAuthIFrameUrl(`https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`) : setAuthIFrameUrl(`https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
+      }
+      ;
     }
   }, [dappName, logo]);
   (0, import_react6.useEffect)(() => {
@@ -530,7 +606,7 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
       setWalletVisible(true);
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { style: { position: "fixed", zIndex: 0, height: "100vh", width: "100vw", top: 0, left: 0 }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
     !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { style: {
       borderRadius: "20px",
       overflow: "hidden",
@@ -543,7 +619,15 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
       "div",
       {
         id: "triaWallet",
-        style: { display: walletVisible ? "block" : "none", justifyItems: "space-between", backgroundColor: "transparent", position: "fixed", bottom: "4px", right: "2px", zIndex: 9999 },
+        style: {
+          display: walletVisible ? "block" : "none",
+          justifyItems: "space-between",
+          backgroundColor: "transparent",
+          position: "fixed",
+          top: posY,
+          left: posX,
+          zIndex: 9999
+        },
         children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
           "div",
           {
@@ -601,24 +685,37 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
         )
       }
     ),
-    triaName && !walletVisible && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-      "div",
+    triaName && !walletVisible && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { style: { height: "100vh", width: "100vw" }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+      import_react_draggable.default,
       {
-        style: {
-          position: "fixed",
-          maxWidth: "80px",
-          width: "auto",
-          bottom: "4px",
-          right: "60px",
-          cursor: "pointer",
-          marginTop: "25px",
-          height: "150px",
-          zIndex: 9999
-        },
-        onClick: handleWalletButtonClick,
-        children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(TriaWalletButton, { bgColor: primaryColor || "#A855F7", stackui })
+        defaultPosition: { x: buttonPosX, y: buttonPosY },
+        onStart: handleStartDragging,
+        onStop: handleStopDragging,
+        children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          "div",
+          {
+            style: {
+              // display: 'flex',
+              // position: 'fixed',
+              // cursor:'move',
+              // flexDirection: 'row',
+              // justifyContent: 'center',
+              // alignItems: 'center',
+              // height: '60px',
+              // width: '60px',
+              // borderRadius: '100%',
+              // background: '#FFFFFF',
+              //  boxShadow: isPressed ? '0 0 10px 0 rgba(0,0,0,0.2)' : '0 0 20px 0 rgba(0,0,0,0.25)',
+              // transform: isPressed ? 'scale(0.80)' : 'scale(1)',
+              // transition: 'all 0.1s ease',
+              cursor: "pointer",
+              zIndex: "9999"
+            },
+            children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(TriaWalletButton, { bgColor: primaryColor || "#A855F7", stackui })
+          }
+        )
       }
-    )
+    ) })
   ] }) });
 };
 var src_default = Application;
