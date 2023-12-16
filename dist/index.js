@@ -462,6 +462,8 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
   const [buttonPosX, setButtonPosX] = (0, import_react6.useState)(window.innerWidth - ((buttonPosition == null ? void 0 : buttonPosition.x) || 100));
   const [buttonPosY, setButtonPosY] = (0, import_react6.useState)(window.innerHeight - ((buttonPosition == null ? void 0 : buttonPosition.y) || 100));
   const [currentTime, setCurrentTime] = (0, import_react6.useState)();
+  const buttonBoundRight = window.innerWidth - 134;
+  const buttonBoundBottom = window.innerHeight - 134;
   (0, import_react6.useEffect)(() => {
     const handleWindowMouseMove = (e) => {
       setCoords({
@@ -606,7 +608,7 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
       setWalletVisible(true);
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { style: { position: "fixed", zIndex: 0, height: "100vh", width: "100vw", top: 0, left: 0 }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
     !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { style: {
       borderRadius: "20px",
       overflow: "hidden",
@@ -685,12 +687,13 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
         )
       }
     ),
-    triaName && !walletVisible && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { style: { height: "100vh", width: "100vw" }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+    triaName && !walletVisible && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       import_react_draggable.default,
       {
         defaultPosition: { x: buttonPosX, y: buttonPosY },
         onStart: handleStartDragging,
         onStop: handleStopDragging,
+        bounds: { top: 0, left: 0, right: buttonBoundRight, bottom: buttonBoundBottom },
         children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
           "div",
           {
@@ -709,13 +712,13 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
               // transform: isPressed ? 'scale(0.80)' : 'scale(1)',
               // transition: 'all 0.1s ease',
               cursor: "pointer",
-              zIndex: "9999"
+              zIndex: 9999
             },
             children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(TriaWalletButton, { bgColor: primaryColor || "#A855F7", stackui })
           }
         )
       }
-    ) })
+    )
   ] }) });
 };
 var src_default = Application;

@@ -336,8 +336,8 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
   const [buttonPosX, setButtonPosX] = useState(window.innerWidth - (buttonPosition?.x || 100));
   const [buttonPosY, setButtonPosY] = useState(window.innerHeight - (buttonPosition?.y || 100))
   const [currentTime, setCurrentTime] = useState<number>()
-
-
+  const buttonBoundRight = window.innerWidth - 134;
+  const buttonBoundBottom = window.innerHeight - 134;
   useEffect(() => {
     const handleWindowMouseMove = (e:MouseEvent) => {
       setCoords({
@@ -540,7 +540,7 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
 
 
   return (
-    <div style={{position:"fixed", zIndex:0, height:"100vh", width:"100vw", top:0, left:0}}>
+    <>
     {/* //  */}
     
       {/* <WagmiConfig config={wagmiConfig}> */}
@@ -639,15 +639,14 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
         )}
 
         {triaName && !walletVisible && (
-        <div style={{height:"100vh", width:"100vw"}}>
+       
         <Draggable
           defaultPosition={{x: buttonPosX, y: buttonPosY}}
           onStart= {handleStartDragging}
           onStop={handleStopDragging}
           // onDrag={handleMouseMove}
-          // bounds = {"parent"}
+          bounds={{top: 0, left:0, right:buttonBoundRight, bottom:buttonBoundBottom}}
           // style={{position:'fixed', left: x, top: y}} 
-          
           >
           <div
             style={
@@ -666,7 +665,7 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
   // transform: isPressed ? 'scale(0.80)' : 'scale(1)',
   // transition: 'all 0.1s ease',
   cursor: 'pointer',
-  zIndex: '9999'
+  zIndex: 9999
 }
             }
             // onClick={handleWalletButtonClick}
@@ -675,11 +674,10 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
 
           </div>
           </Draggable>
-          </div>
         )}
       </NavContext.Provider>
       {/* </WagmiConfig> */}
-      </div>
+      </>
   );
 };
 
