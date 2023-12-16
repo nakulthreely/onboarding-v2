@@ -417,7 +417,7 @@ const Application: React.FC<ApplicationProps> = ({
         window.innerHeight - coords.y < 100
       ) {
         setButtonPosX(coords.x - 100)
-        setButtonPosY(coords.y + 100)
+        setButtonPosY(coords.y - 100)
       } else if (window.innerWidth - coords.x < 100) {
         setButtonPosX(coords.x - 100)
         setButtonPosY(coords.y)
@@ -430,6 +430,12 @@ const Application: React.FC<ApplicationProps> = ({
       } else if (coords.y < 100) {
         setButtonPosY(coords.y + 100)
         setButtonPosX(coords.x)
+      } else if (coords.x < 100 && coords.y < 100) {
+        setButtonPosX(coords.x + 100)
+        setButtonPosY(coords.y + 100)
+      } else {
+        setButtonPosX(coords.x)
+        setButtonPosY(coords.y)
       }
     }
   }
