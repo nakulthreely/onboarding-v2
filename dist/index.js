@@ -365,9 +365,7 @@ window.Buffer = window.Buffer || require("buffer").Buffer;
 var authUrl4 = "https://auth.tria.so";
 var authController = new import_core.AuthController("https://staging.tria.so");
 var createEncodedData2 = (data) => {
-  const encodedParams = btoa(
-    JSON.stringify(data)
-  );
+  const encodedParams = btoa(JSON.stringify(data));
   return encodedParams;
 };
 var useTriaTransaction = () => {
@@ -439,8 +437,28 @@ var TriaConnectProvider = ({ triaStaging = false }) => {
     }
   ) });
 };
-var initialChains = ["POLYGON", "ARBITRUM", "FUSE", "AVALANCHE", "BINANCE", "ETH", "FANTOM", "OPTIMISM"];
-var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7", supportedChains = initialChains, defaultChain = "POLYGON", darkMode = true, triaStaging = false, buttonPosition = { x: 100, y: 100 } }) => {
+var initialChains = [
+  "POLYGON",
+  "ARBITRUM",
+  "FUSE",
+  "AVALANCHE",
+  "BINANCE",
+  "ETH",
+  "FANTOM",
+  "OPTIMISM"
+];
+var Application = ({
+  dappName,
+  dappDomain,
+  uiType,
+  logo,
+  primaryColor = "#A855F7",
+  supportedChains = initialChains,
+  defaultChain = "POLYGON",
+  darkMode = true,
+  triaStaging = false,
+  buttonPosition = { x: 100, y: 100 }
+}) => {
   const [view, setView] = (0, import_react6.useState)("Home");
   const [triaName, setTriaName] = (0, import_react6.useState)();
   const [userAddress, setUserAddress] = (0, import_react6.useState)(null);
@@ -459,8 +477,12 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
   const [walletVisible, setWalletVisible] = (0, import_react6.useState)(false);
   const [posX, setPosX] = (0, import_react6.useState)();
   const [posY, setPosY] = (0, import_react6.useState)();
-  const [buttonPosX, setButtonPosX] = (0, import_react6.useState)(window.innerWidth - ((buttonPosition == null ? void 0 : buttonPosition.x) || 100));
-  const [buttonPosY, setButtonPosY] = (0, import_react6.useState)(window.innerHeight - ((buttonPosition == null ? void 0 : buttonPosition.y) || 100));
+  const [buttonPosX, setButtonPosX] = (0, import_react6.useState)(
+    window.innerWidth - ((buttonPosition == null ? void 0 : buttonPosition.x) || 100)
+  );
+  const [buttonPosY, setButtonPosY] = (0, import_react6.useState)(
+    window.innerHeight - ((buttonPosition == null ? void 0 : buttonPosition.y) || 100)
+  );
   const [currentTime, setCurrentTime] = (0, import_react6.useState)();
   const buttonBoundRight = window.innerWidth - 134;
   const buttonBoundBottom = window.innerHeight - 134;
@@ -473,10 +495,7 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
     };
     window.addEventListener("mousemove", handleWindowMouseMove);
     return () => {
-      window.removeEventListener(
-        "mousemove",
-        handleWindowMouseMove
-      );
+      window.removeEventListener("mousemove", handleWindowMouseMove);
     };
   }, []);
   (0, import_react6.useEffect)(() => {
@@ -491,8 +510,6 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
     console.log(coords);
     console.log(window.innerWidth);
     console.log(window.innerHeight);
-    setButtonPosX(coords.x);
-    setButtonPosY(coords.y);
     if (window.innerWidth - coords.x < 312 && window.innerHeight - coords.y < 586) {
       setPosX(window.innerWidth - 312);
       setPosY(window.innerHeight - 586);
@@ -506,8 +523,27 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
       setPosX(coords.x);
       setPosY(coords.y);
     }
-    if (currentTime && now.getTime() - currentTime < 200) {
+    if (now.getTime() - (currentTime || 0) < 200) {
       handleWalletButtonClick();
+      setButtonPosX(coords.x - (coords.x - buttonPosX));
+      setButtonPosY(coords.y - (coords.y - buttonPosY));
+    } else {
+      if (window.innerWidth - coords.x < 100 && window.innerHeight - coords.y < 100) {
+        setButtonPosX(coords.x - 100);
+        setButtonPosY(coords.y + 100);
+      } else if (window.innerWidth - coords.x < 100) {
+        setButtonPosX(coords.x - 100);
+        setButtonPosY(coords.y);
+      } else if (window.innerHeight - coords.y < 100) {
+        setButtonPosY(coords.y - 100);
+        setButtonPosX(coords.x);
+      } else if (coords.x < 100) {
+        setButtonPosY(coords.y);
+        setButtonPosX(coords.x + 100);
+      } else if (coords.y < 100) {
+        setButtonPosY(coords.y + 100);
+        setButtonPosX(coords.x);
+      }
     }
   };
   (0, import_react6.useEffect)(() => {
@@ -522,8 +558,12 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
       var _a, _b, _c;
       if (localStorage.getItem("tria.wallet.store") !== null) {
         setShowOnboarding(false);
-        setTriaName((_a = JSON.parse(localStorage.getItem("tria.wallet.store") || "")) == null ? void 0 : _a.triaName);
-        setUserAddress((_c = (_b = JSON.parse(localStorage.getItem("tria.wallet.store") || "")) == null ? void 0 : _b.evm) == null ? void 0 : _c.address);
+        setTriaName(
+          (_a = JSON.parse(localStorage.getItem("tria.wallet.store") || "")) == null ? void 0 : _a.triaName
+        );
+        setUserAddress(
+          (_c = (_b = JSON.parse(localStorage.getItem("tria.wallet.store") || "")) == null ? void 0 : _b.evm) == null ? void 0 : _c.address
+        );
       } else if (localStorage.getItem("wagmi.connected") === "true") {
         setShowOnboarding(false);
         const wallet = localStorage.getItem("wagmi.connected");
@@ -545,12 +585,40 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
   }, [triaName]);
   const fromDapp = true;
   (0, import_react6.useEffect)(() => {
-    const encodedParams = btoa(JSON.stringify({ triaName, userAddress, appDomain, darkMode, logo, accessToken, primaryColor, fromDapp, dappName, defaultChain, supportedChains }));
-    console.log(encodedParams, userAddress, triaName, accessToken, logo, appDomain, darkMode, primaryColor, fromDapp, dappName, defaultChain, supportedChains);
+    const encodedParams = btoa(
+      JSON.stringify({
+        triaName,
+        userAddress,
+        appDomain,
+        darkMode,
+        logo,
+        accessToken,
+        primaryColor,
+        fromDapp,
+        dappName,
+        defaultChain,
+        supportedChains
+      })
+    );
+    console.log(
+      encodedParams,
+      userAddress,
+      triaName,
+      accessToken,
+      logo,
+      appDomain,
+      darkMode,
+      primaryColor,
+      fromDapp,
+      dappName,
+      defaultChain,
+      supportedChains
+    );
     {
-      triaStaging ? setIframeURL(`https://staging-tria-wallet.vercel.app/${encodedParams}`) : setIframeURL(`https://wallet.tria.so/${encodedParams}`);
+      triaStaging ? setIframeURL(
+        `https://staging-tria-wallet.vercel.app/${encodedParams}`
+      ) : setIframeURL(`https://wallet.tria.so/${encodedParams}`);
     }
-    ;
   }, [triaName, userAddress]);
   (0, import_react6.useEffect)(() => {
     console.log("WALLET URL ---->", iframeURL);
@@ -573,9 +641,12 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
     console.log("log from sdk ----->", dappName, logo);
     if (dappName && (dappName == null ? void 0 : dappName.length) > 0 && logo && (logo == null ? void 0 : logo.length) > 0) {
       {
-        triaStaging ? setAuthIFrameUrl(`https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`) : setAuthIFrameUrl(`https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`);
+        triaStaging ? setAuthIFrameUrl(
+          `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+        ) : setAuthIFrameUrl(
+          `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+        );
       }
-      ;
     }
   }, [dappName, logo]);
   (0, import_react6.useEffect)(() => {
@@ -597,7 +668,10 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
   }, []);
   (0, import_react6.useEffect)(() => {
     if (primaryColor) {
-      document.documentElement.style.setProperty("--primary-color", primaryColor);
+      document.documentElement.style.setProperty(
+        "--primary-color",
+        primaryColor
+      );
     }
   }, [primaryColor]);
   const handleWalletButtonClick = () => {
@@ -609,14 +683,28 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
     }
   };
   return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(NavContext_default.Provider, { value: nav_context_object, children: [
-    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { style: {
-      borderRadius: "20px",
-      overflow: "hidden",
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)"
-    }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("iframe", { width: "314", height: "586", src: authIFrameUrl, allow: "publickey-credentials-get" }) }),
+    !triaName && showOnboarding && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+      "div",
+      {
+        style: {
+          borderRadius: "20px",
+          overflow: "hidden",
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)"
+        },
+        children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          "iframe",
+          {
+            width: "314",
+            height: "586",
+            src: authIFrameUrl,
+            allow: "publickey-credentials-get"
+          }
+        )
+      }
+    ),
     showWallet && triaName && userAddress && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       "div",
       {
@@ -653,9 +741,16 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
                     alignItems: "flex-end",
                     justifyContent: "center"
                   },
-                  children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { onClick: () => {
-                    setWalletVisible(false);
-                  }, style: { cursor: "pointer" }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(WalletCloseButton_default, {}) })
+                  children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                    "div",
+                    {
+                      onClick: () => {
+                        setWalletVisible(false);
+                      },
+                      style: { cursor: "pointer" },
+                      children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(WalletCloseButton_default, {})
+                    }
+                  )
                 }
               ),
               /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
@@ -693,7 +788,12 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
         defaultPosition: { x: buttonPosX, y: buttonPosY },
         onStart: handleStartDragging,
         onStop: handleStopDragging,
-        bounds: { top: 0, left: 0, right: buttonBoundRight, bottom: buttonBoundBottom },
+        bounds: {
+          top: 0,
+          left: 0,
+          right: buttonBoundRight,
+          bottom: buttonBoundBottom
+        },
         children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
           "div",
           {
@@ -714,7 +814,13 @@ var Application = ({ dappName, dappDomain, uiType, logo, primaryColor = "#A855F7
               cursor: "pointer",
               zIndex: 9999
             },
-            children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(TriaWalletButton, { bgColor: primaryColor || "#A855F7", stackui })
+            children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+              TriaWalletButton,
+              {
+                bgColor: primaryColor || "#A855F7",
+                stackui
+              }
+            )
           }
         )
       }
