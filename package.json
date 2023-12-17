@@ -1,6 +1,6 @@
 {
   "name": "authenticate-test-2",
-  "version": "1.0.25",
+  "version": "1.0.38",
   "description": "",
   "main": "dist/index.js",
   "types": "dist,index.d.ts",
@@ -52,7 +52,7 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.59",
     "@types/react-dom": "^18.2.14",
-    "ethers": "^5.7.2",
+        "ethers": "^5.7.2",
     "react-router-dom": "^6.17.0",
     "react-scripts": "^5.0.1",
     "wagmi": "^1.4.7"

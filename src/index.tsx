@@ -95,15 +95,15 @@ export const getDefaultWallets = ({ appName, projectId, chains }) => {
   return { connectors };
 };
 
-// const { connectors } = getDefaultWallets({
-//   appName: "Customer App powered by Tria",
-//   projectId: "bd38d3892c8fd8bc9dabf6fced0bd3c6",
-//   chains,
-// });
+const { connectors } = getDefaultWallets({
+  appName: "Customer App powered by Tria",
+  projectId: "bd38d3892c8fd8bc9dabf6fced0bd3c6",
+  chains,
+});
 
 // const iframe = new IframeController(
 //   "https://opensea.com",
-//   "https://wallet.tria.so"
+//   "https://staging-tria-wallet.vercel.app"
 // );
 // console.log("iframe", iframe);
 
@@ -111,12 +111,12 @@ const authUrl = "https://auth.tria.so";
 
 const authController = new AuthController('https://staging.tria.so');
 
-// const wagmiConfig = createConfig({
-//   autoConnect: true,
-//   connectors,
-//   publicClient,
-//   webSocketPublicClient,
-// });
+const wagmiConfig = createConfig({
+  autoConnect: true,
+  connectors,
+  publicClient,
+  webSocketPublicClient,
+});
 
 const createEncodedData = (data: any) => {
   const encodedParams = btoa(
@@ -479,9 +479,22 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
     }
   }, [eventData])
 
+  useEffect(() => {
+    console.log("sdk otp event data --> ", eventData, logo,dappName);
+    //@ts-ignore
+    if (eventData?.message?.type == 'otpLogin') {
+      const encodedParams = btoa(JSON.stringify({  logo,dappName }));
+      //@ts-ignore
+      const url = `https://auth.tria.so/phoneEmailOtp/?dappName=${dappName}&dappLogo=${logo}`
+      console.log("url----------------->",url);
+      setOpenNewFrame(true)
+      setFrameUrl(url)
+    }
+  }, [eventData])
+
   return (
     <>
-      {/* <WagmiConfig config={wagmiConfig}> */}
+      <WagmiConfig config={wagmiConfig}>
         <NavContext.Provider value={nav_context_object}>
           {/* <Router> */}
           {!triaName && showOnboarding && !externalWallet &&
@@ -512,7 +525,7 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
                 </div>
                 <div className='mt-auto'>
                   {/* <Logins /> */}
-                  <div className="w-[416px] h-[286px] px-5 py-4 rounded-2xl border border-violet-400 border-opacity-30 flex-col justify-center items-center gap-2 inline-flex">
+                  <div className="w-[416px] h-[375px] px-5 py-4 rounded-2xl border border-violet-400 border-opacity-30 flex-col justify-center items-center gap-2 inline-flex">
 
                     <div className="">
                       <div className=''>
@@ -536,7 +549,7 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
                         })
                     } */}
                         <div>
-                          <iframe src={`https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`} height={"150px"} width="100%" />
+                          <iframe src={`https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`} height={"205px"} width="100%" />
                         </div>
 
                         <div className="w-[376px]  py-3 justify-center items-center gap-2 inline-flex">
@@ -610,7 +623,7 @@ const Application: React.FC<ApplicationProps> = ({ dappName, dappDomain, uiType,
             </div>
           )}
         </NavContext.Provider>
-      {/* </WagmiConfig> */}
+      </WagmiConfig>
     </>
   );
 };
