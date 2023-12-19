@@ -1,8 +1,5 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import React from 'react';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 
 declare const useContractWrite: (calldata: any) => {
     data: string;
@@ -44,9 +41,9 @@ declare const getDefaultWallets: ({ appName, projectId, chains }: {
     appName: any;
     projectId: any;
     chains: any;
-}) => {
-    connectors: (CoinbaseWalletConnector | WalletConnectConnector | MetaMaskConnector)[];
-};
+}) => Promise<{
+    connectors: any[];
+}>;
 declare const useTriaTransaction: () => {
     sendTransaction: (sendDataFromDapp: any) => Promise<string>;
     signMessage: (message: any) => Promise<string>;

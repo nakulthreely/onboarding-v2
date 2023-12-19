@@ -1,7 +1,29 @@
 import React, { useState, useEffect } from 'react'
-// import { MetaMaskConnector } from "wagmi/connectors/metaMask";
-// import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-// import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
+
+let wagmiCore: any
+let wagmi: any
+let wagmiChains: any
+
+async function loadWagmiCore() {
+  wagmiCore = await import('@wagmi/core')
+  wagmi = await import('wagmi')
+  wagmiChains = await import('@wagmi/core/chains')
+}
+
+import { configureChains, createConfig, WagmiConfig } from 'wagmi'
+import {
+  mainnet,
+  polygon,
+  optimism,
+  arbitrum,
+  base,
+  zora,
+  goerli,
+} from 'wagmi/chains'
+import { publicProvider } from 'wagmi/providers/public'
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import './index.css'
 import NavContext from './NavContext'
 import { AuthController } from '@tria-sdk/core'
@@ -17,48 +39,45 @@ export {
   useContractRead,
 } from './hooks'
 
-let wagmiCore: any
-let wagmi: any
-let wagmiChains: any
-
-async function loadWagmiCore() {
-  wagmiCore = await import('@wagmi/core')
-  wagmi = await import('wagmi')
-  wagmiChains = await import('@wagmi/core/chains')
-}
-
 window.Buffer = window.Buffer || require('buffer').Buffer
 
-// const { chains, publicClient, webSocketPublicClient } = configureChains(
-//   [
-//     mainnet,
-//     polygon,
-//     optimism,
-//     arbitrum,
-//     base,
-//     zora,
-//     ...(process.env.REACT_APP_ENABLE_TESTNETS === "true" ? [goerli] : []),
-//   ],
-//   [publicProvider()]
-// );
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+  [
+    mainnet,
+    polygon,
+    optimism,
+    arbitrum,
+    base,
+    zora,
+    ...(process.env.REACT_APP_ENABLE_TESTNETS === 'true' ? [goerli] : []),
+  ],
+  [publicProvider()]
+)
 
-//@ts-ignore
-export const getDefaultWallets = async ({ appName, projectId, chains }) => {
+export const getDefaultWallets = async ({
+  appName,
+  projectId,
+  wagmiChains,
+}: {
+  appName: any
+  projectId: any
+  wagmiChains: any
+}) => {
   // Set up connectors
   if (!wagmiCore && !wagmiChains && !wagmi) {
     await loadWagmiCore()
   }
   const connectors = [
-    new wagmi.CoinbaseWalletConnector({
-      chains,
+    new CoinbaseWalletConnector({
+      wagmiChains,
       options: {
         appName,
         //@ts-ignore
         shimDisconnect: true,
       },
     }),
-    new wagmi.WalletConnectConnector({
-      chains,
+    new WalletConnectConnector({
+      wagmiChains,
       options: {
         projectId,
         //@ts-ignore
@@ -66,7 +85,7 @@ export const getDefaultWallets = async ({ appName, projectId, chains }) => {
         shimDisconnect: true,
       },
     }),
-    new wagmi.MetaMaskConnector({
+    new MetaMaskConnector({
       chains,
       options: {
         shimDisconnect: true,
@@ -76,23 +95,15 @@ export const getDefaultWallets = async ({ appName, projectId, chains }) => {
   ]
   return { connectors }
 }
-
-// const { connectors } = getDefaultWallets({
-//   appName: "Customer App powered by Tria",
-//   projectId: "bd38d3892c8fd8bc9dabf6fced0bd3c6",
-//   chains,
-// });
+let wagmiConnector: (
+  | CoinbaseWalletConnector
+  | WalletConnectConnector
+  | MetaMaskConnector
+)[]
 
 const authUrl = 'https://auth.tria.so'
 
 const authController = new AuthController('https://staging.tria.so')
-
-// const wagmiConfig = createConfig({
-//   autoConnect: true,
-//   connectors,
-//   publicClient,
-//   webSocketPublicClient,
-// });
 
 const createEncodedData = (data: any) => {
   const encodedParams = btoa(JSON.stringify(data))
@@ -549,7 +560,6 @@ const Application: React.FC<ApplicationProps> = ({
 
   return (
     <>
-      {/* <WagmiConfig config={wagmiConfig}> */}
       <NavContext.Provider value={nav_context_object}>
         {!triaName && showOnboarding && !externalWallet && (
           <>
@@ -786,7 +796,6 @@ const Application: React.FC<ApplicationProps> = ({
           </Draggable>
         )}
       </NavContext.Provider>
-      {/* </WagmiConfig> */}
     </>
   )
 }
