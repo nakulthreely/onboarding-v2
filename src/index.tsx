@@ -33,39 +33,38 @@ window.Buffer = window.Buffer || require('buffer').Buffer
 // );
 
 //@ts-ignore
-export const getDefaultWallets = ({ appName, projectId, chains }) => {
-  // Set up connectors
-  // if (!wagmiCore && !wagmiChains && !wagmi) {
-  //   await loadWagmiCore()
-  // }
-  const connectors = [
-    new CoinbaseWalletConnector({
-      chains,
-      options: {
-        appName,
-        //@ts-ignore
-        shimDisconnect: true,
-      },
-    }),
-    new WalletConnectConnector({
-      chains,
-      options: {
-        projectId,
-        //@ts-ignore
-        qrcode: true,
-        shimDisconnect: true,
-      },
-    }),
-    new MetaMaskConnector({
-      chains,
-      options: {
-        shimDisconnect: true,
-        UNSTABLE_shimOnConnectSelectAccount: true,
-      },
-    }),
-  ]
-  return { connectors }
-}
+// export const getDefaultWallets = async ({ appName, projectId, chains }) => {
+//   if (!wagmiCore && !wagmiChains && !wagmi) {
+//     await loadWagmiCore()
+//   }
+//   const connectors = [
+//     new wagmi.CoinbaseWalletConnector({
+//       chains,
+//       options: {
+//         appName,
+//         //@ts-ignore
+//         shimDisconnect: true,
+//       },
+//     }),
+//     new wagmi.WalletConnectConnector({
+//       chains,
+//       options: {
+//         projectId,
+//         //@ts-ignore
+//         qrcode: true,
+//         shimDisconnect: true,
+//       },
+//     }),
+//     new wagmi.MetaMaskConnector({
+//       chains,
+//       options: {
+//         shimDisconnect: true,
+//         UNSTABLE_shimOnConnectSelectAccount: true,
+//       },
+//     }),
+//   ]
+//   return { connectors }
+// }
 
 // const { connectors } = getDefaultWallets({
 //   appName: "Customer App powered by Tria",
