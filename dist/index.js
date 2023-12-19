@@ -52,14 +52,10 @@ var src_exports = {};
 __export(src_exports, {
   TriaConnectProvider: () => TriaConnectProvider,
   default: () => src_default,
-  useContractRead: () => useContractRead,
-  useContractWrite: () => useContractWrite,
-  useSendTransaction: () => useSendTransaction,
-  useSignMessage: () => useSignMessage,
   useTriaTransaction: () => useTriaTransaction
 });
 module.exports = __toCommonJS(src_exports);
-var import_react6 = require("react");
+var import_react2 = require("react");
 
 // src/NavContext.tsx
 var import_react = require("react");
@@ -246,200 +242,17 @@ function Wallets() {
   ] });
 }
 
-// src/hooks/useContractWrite.tsx
-var import_react2 = require("react");
-
-// src/utils/shared.ts
-var createEncodedData = (data) => {
-  const encodedParams = btoa(
-    JSON.stringify(data)
-  );
-  return encodedParams;
-};
-var createIframe = (iframeUrl, hookName) => {
-  const iframeContainer = document.createElement("div");
-  iframeContainer.id = hookName;
-  iframeContainer.className = "bg flex justify-between bg-transparent absolute bottom-4 right-2";
-  iframeContainer.style.position = "absolute";
-  iframeContainer.style.bottom = "4px";
-  iframeContainer.style.right = "2px";
-  const innerContainer = document.createElement("div");
-  innerContainer.className = "mb-4 mr-2 relative rounded-[20px]";
-  const iframeWrapper = document.createElement("div");
-  iframeWrapper.className = "h-[586px] w-[312px] rounded-[20px] overflow-hidden";
-  const iframe = document.createElement("iframe");
-  iframe.width = "312";
-  iframe.height = "586";
-  iframe.src = iframeUrl;
-  iframe.allow = "publickey-credentials-get";
-  iframe.style.border = "none";
-  iframeWrapper.appendChild(iframe);
-  innerContainer.appendChild(iframeWrapper);
-  iframeContainer.appendChild(innerContainer);
-  document.body.appendChild(iframeContainer);
-};
-
-// src/hooks/useContractWrite.tsx
-var authUrl = "https://auth.tria.so";
-var useContractWrite = (calldata) => {
-  const [data, setData] = (0, import_react2.useState)("");
-  const [isLoading, setIsLoading] = (0, import_react2.useState)(false);
-  const [isError, setIsError] = (0, import_react2.useState)(false);
-  const write = () => {
-    setIsLoading(true);
-    const iframeEncodedData = createEncodedData(calldata);
-    const signIframeUrl = `${authUrl}/mint/${iframeEncodedData}`;
-    createIframe(signIframeUrl, "sdkMint");
-    setIsLoading(false);
-    return signIframeUrl;
-  };
-  (0, import_react2.useEffect)(() => {
-    const detect = (event) => {
-      var _a;
-      console.log("event---------------->", event);
-      if (event.origin !== authUrl)
-        return;
-      let eventData;
-      try {
-        eventData = JSON.parse(event.data);
-      } catch (err) {
-        eventData = event.data;
-      }
-      if ((eventData == null ? void 0 : eventData.type) === "closeIframe" && (eventData == null ? void 0 : eventData.callFrom) == "mint") {
-        setData(eventData == null ? void 0 : eventData.data);
-        setIsLoading(false);
-        (_a = document.getElementById("sdkMint")) == null ? void 0 : _a.remove();
-      }
-    };
-    window.addEventListener("message", detect);
-    return () => {
-      window.removeEventListener("message", detect);
-    };
-  }, []);
-  return { data, isLoading, isError, isSuccess: !!data, write };
-};
-
-// src/hooks/useSendTransaction.tsx
-var import_react3 = require("react");
-var authUrl2 = "https://auth.tria.so";
-var useSendTransaction = (calldata) => {
-  const [data, setData] = (0, import_react3.useState)("");
-  const [isLoading, setIsLoading] = (0, import_react3.useState)(false);
-  const [isError, setIsError] = (0, import_react3.useState)(false);
-  const sendTransaction = () => {
-    setIsLoading(true);
-    const iframeEncodedData = createEncodedData(calldata);
-    const signIframeUrl = `${authUrl2}/send/${iframeEncodedData}`;
-    const iframe = createIframe(signIframeUrl, "sdkSend");
-    setIsLoading(false);
-    return signIframeUrl;
-  };
-  (0, import_react3.useEffect)(() => {
-    const detect = (event) => {
-      var _a;
-      if (event.origin !== authUrl2)
-        return;
-      let eventData;
-      try {
-        eventData = JSON.parse(event.data);
-      } catch (err) {
-        eventData = event.data;
-      }
-      if ((eventData == null ? void 0 : eventData.type) === "closeIframe" && (eventData == null ? void 0 : eventData.callFrom) == "send") {
-        setData(eventData == null ? void 0 : eventData.data);
-        setIsLoading(false);
-        (_a = document.getElementById("sdkSend")) == null ? void 0 : _a.remove();
-      }
-    };
-    window.addEventListener("message", detect);
-    return () => {
-      window.removeEventListener("message", detect);
-    };
-  }, []);
-  return { data, isLoading, isError, isSuccess: !!data, sendTransaction };
-};
-
-// src/hooks/useSignMessage.tsx
-var import_react4 = require("react");
-var authUrl3 = "https://auth.tria.so";
-var useSignMessage = (calldata) => {
-  const [data, setData] = (0, import_react4.useState)("");
-  const [isLoading, setIsLoading] = (0, import_react4.useState)(false);
-  const [isError, setIsError] = (0, import_react4.useState)(false);
-  const signMessage = () => {
-    setIsLoading(true);
-    const iframeEncodedData = createEncodedData(calldata);
-    const signIframeUrl = `${authUrl3}/signMessage/${iframeEncodedData}`;
-    createIframe(signIframeUrl, "sdkSign");
-    setIsLoading(false);
-    return signIframeUrl;
-  };
-  (0, import_react4.useEffect)(() => {
-    const detect = (event) => {
-      var _a;
-      if (event.origin !== authUrl3)
-        return;
-      let eventData;
-      try {
-        eventData = JSON.parse(event.data);
-      } catch (err) {
-        eventData = event.data;
-      }
-      if ((eventData == null ? void 0 : eventData.type) === "closeIframe" && (eventData == null ? void 0 : eventData.callFrom) == "sign") {
-        console.log("event", eventData);
-        setData(eventData == null ? void 0 : eventData.data);
-        setIsLoading(false);
-        (_a = document.getElementById("sdkSign")) == null ? void 0 : _a.remove();
-      }
-    };
-    window.addEventListener("message", detect);
-    return () => {
-      window.removeEventListener("message", detect);
-    };
-  }, []);
-  return { data, isLoading, isError, isSuccess: !!data, signMessage };
-};
-
-// src/hooks/useContractRead.tsx
-var import_react5 = require("react");
-var import_ethers = require("ethers");
-var import_web = require("@tria-sdk/web");
-var useContractRead = (params) => {
-  const [data, setData] = (0, import_react5.useState)("");
-  const [isLoading, setIsLoading] = (0, import_react5.useState)(false);
-  const [isError, setIsError] = (0, import_react5.useState)(false);
-  const read = () => __async(void 0, null, function* () {
-    try {
-      setIsLoading(true);
-      const { contractDetails, baseUrl = "https://prod.tria.so" } = params;
-      const walletType = { embedded: true };
-      const wallet = new import_web.WalletController({
-        baseUrl,
-        walletType
-      });
-      const res = yield wallet == null ? void 0 : wallet.readContract(contractDetails);
-      const value = import_ethers.ethers.utils.formatEther(res.data);
-      console.log("getItemsNativePrice", res.data.toString(), "->", value);
-      setData(value);
-      setIsLoading(false);
-    } catch (err) {
-      setIsError(true);
-    }
-  });
-  return { data, isLoading, isError, isSuccess: !!data, read };
-};
-
 // src/index.tsx
 var import_jsx_runtime4 = require("react/jsx-runtime");
 window.Buffer = window.Buffer || require("buffer").Buffer;
-var authUrl4 = "https://auth.tria.so";
+var authUrl = "https://auth.tria.so";
 var authController = new import_core.AuthController("https://staging.tria.so");
-var createEncodedData2 = (data) => {
+var createEncodedData = (data) => {
   const encodedParams = btoa(JSON.stringify(data));
   return encodedParams;
 };
 var useTriaTransaction = () => {
-  const createIframe2 = (iframeUrl) => {
+  const createIframe = (iframeUrl) => {
     const iframeContainer = document.createElement("div");
     iframeContainer.id = "triaWallet";
     iframeContainer.className = "bg flex justify-between bg-transparent absolute bottom-4 right-2";
@@ -462,21 +275,21 @@ var useTriaTransaction = () => {
     document.body.appendChild(iframeContainer);
   };
   const sendTransaction = (sendDataFromDapp) => __async(void 0, null, function* () {
-    const iframeEncodedData = createEncodedData2(sendDataFromDapp);
-    const sendIframeUrl = `${authUrl4}/send/${iframeEncodedData}`;
-    const iframe = createIframe2(sendIframeUrl);
+    const iframeEncodedData = createEncodedData(sendDataFromDapp);
+    const sendIframeUrl = `${authUrl}/send/${iframeEncodedData}`;
+    const iframe = createIframe(sendIframeUrl);
     return sendIframeUrl;
   });
   const signMessage = (message) => __async(void 0, null, function* () {
-    const iframeEncodedData = createEncodedData2(message);
-    const signIframeUrl = `${authUrl4}/signMessage/${iframeEncodedData}`;
-    const iframe = createIframe2(signIframeUrl);
+    const iframeEncodedData = createEncodedData(message);
+    const signIframeUrl = `${authUrl}/signMessage/${iframeEncodedData}`;
+    const iframe = createIframe(signIframeUrl);
     return signIframeUrl;
   });
   const callContract = (data) => __async(void 0, null, function* () {
-    const iframeEncodedData = createEncodedData2(data);
-    const signIframeUrl = `${authUrl4}/mint/${iframeEncodedData}`;
-    const iframe = createIframe2(signIframeUrl);
+    const iframeEncodedData = createEncodedData(data);
+    const signIframeUrl = `${authUrl}/mint/${iframeEncodedData}`;
+    const iframe = createIframe(signIframeUrl);
     return signIframeUrl;
   });
   return {
@@ -486,9 +299,9 @@ var useTriaTransaction = () => {
   };
 };
 var TriaConnectProvider = ({ triaStaging = false }) => {
-  const [renderAuthIframe, setRenderAuthIframe] = (0, import_react6.useState)(false);
-  const [authIframeSrc, setAuthIframeSrc] = (0, import_react6.useState)("");
-  (0, import_react6.useEffect)(() => {
+  const [renderAuthIframe, setRenderAuthIframe] = (0, import_react2.useState)(false);
+  const [authIframeSrc, setAuthIframeSrc] = (0, import_react2.useState)("");
+  (0, import_react2.useEffect)(() => {
     const getQueryParam = (param) => {
       return new URLSearchParams(window.location.search).get(param);
     };
@@ -529,34 +342,34 @@ var Application = ({
   triaStaging = false,
   buttonPosition = { x: 100, y: 100 }
 }) => {
-  const [view, setView] = (0, import_react6.useState)("Home");
-  const [triaName, setTriaName] = (0, import_react6.useState)();
-  const [userAddress, setUserAddress] = (0, import_react6.useState)(null);
-  const [email, setEmail] = (0, import_react6.useState)("");
-  const [showWallet, setShowWallet] = (0, import_react6.useState)(false);
-  const [showOnboarding, setShowOnboarding] = (0, import_react6.useState)(false);
-  const [appDomain, setAppDomain] = (0, import_react6.useState)();
-  const [iframeURL, setIframeURL] = (0, import_react6.useState)();
-  const [accessToken, setAccessToken] = (0, import_react6.useState)();
-  const [authIFrameUrl, setAuthIFrameUrl] = (0, import_react6.useState)("");
+  const [view, setView] = (0, import_react2.useState)("Home");
+  const [triaName, setTriaName] = (0, import_react2.useState)();
+  const [userAddress, setUserAddress] = (0, import_react2.useState)(null);
+  const [email, setEmail] = (0, import_react2.useState)("");
+  const [showWallet, setShowWallet] = (0, import_react2.useState)(false);
+  const [showOnboarding, setShowOnboarding] = (0, import_react2.useState)(false);
+  const [appDomain, setAppDomain] = (0, import_react2.useState)();
+  const [iframeURL, setIframeURL] = (0, import_react2.useState)();
+  const [accessToken, setAccessToken] = (0, import_react2.useState)();
+  const [authIFrameUrl, setAuthIFrameUrl] = (0, import_react2.useState)("");
   const { account } = (0, import_connect.useAccount)();
-  const [stackui, setStackUi] = (0, import_react6.useState)(false);
-  const [wasOpen, setWasOpen] = (0, import_react6.useState)(false);
-  const [externalWallet, setExternalWallet] = (0, import_react6.useState)(false);
-  const [coords, setCoords] = (0, import_react6.useState)({ x: 0, y: 0 });
-  const [walletVisible, setWalletVisible] = (0, import_react6.useState)(false);
-  const [posX, setPosX] = (0, import_react6.useState)();
-  const [posY, setPosY] = (0, import_react6.useState)();
-  const [buttonPosX, setButtonPosX] = (0, import_react6.useState)(
+  const [stackui, setStackUi] = (0, import_react2.useState)(false);
+  const [wasOpen, setWasOpen] = (0, import_react2.useState)(false);
+  const [externalWallet, setExternalWallet] = (0, import_react2.useState)(false);
+  const [coords, setCoords] = (0, import_react2.useState)({ x: 0, y: 0 });
+  const [walletVisible, setWalletVisible] = (0, import_react2.useState)(false);
+  const [posX, setPosX] = (0, import_react2.useState)();
+  const [posY, setPosY] = (0, import_react2.useState)();
+  const [buttonPosX, setButtonPosX] = (0, import_react2.useState)(
     window.innerWidth - ((buttonPosition == null ? void 0 : buttonPosition.x) || 100)
   );
-  const [buttonPosY, setButtonPosY] = (0, import_react6.useState)(
+  const [buttonPosY, setButtonPosY] = (0, import_react2.useState)(
     window.innerHeight - ((buttonPosition == null ? void 0 : buttonPosition.y) || 100)
   );
-  const [currentTime, setCurrentTime] = (0, import_react6.useState)();
+  const [currentTime, setCurrentTime] = (0, import_react2.useState)();
   const buttonBoundRight = window.innerWidth - 134;
   const buttonBoundBottom = window.innerHeight - 134;
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     const handleWindowMouseMove = (e) => {
       setCoords({
         x: e.clientX,
@@ -568,7 +381,7 @@ var Application = ({
       window.removeEventListener("mousemove", handleWindowMouseMove);
     };
   }, []);
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     console.log(buttonPosX, buttonPosY);
   }, [buttonPosX, buttonPosY]);
   const handleStartDragging = () => {
@@ -622,14 +435,14 @@ var Application = ({
       }
     }
   };
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     if (!account && triaName) {
       console.log("Account is null, reloading the page");
       localStorage.setItem("hasReloaded", "true");
       window.location.reload();
     }
   }, [account, triaName]);
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     setInterval(() => {
       var _a, _b, _c;
       if (localStorage.getItem("tria.wallet.store") !== null) {
@@ -648,18 +461,18 @@ var Application = ({
       }
     }, 500);
   }, []);
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     setInterval(() => {
       setShowOnboarding(true);
     }, 1e3);
   }, []);
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     const item = localStorage.getItem("access_token");
     setAccessToken(item || "");
     setAppDomain(window.parent.origin);
   }, [triaName]);
   const fromDapp = true;
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     const encodedParams = btoa(
       JSON.stringify({
         triaName,
@@ -695,7 +508,7 @@ var Application = ({
       ) : setIframeURL(`https://wallet.tria.so/${encodedParams}`);
     }
   }, [triaName, userAddress]);
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     console.log("WALLET URL ---->", iframeURL);
   }, [iframeURL]);
   const nav_context_object = {
@@ -712,7 +525,7 @@ var Application = ({
     email,
     setEmail
   };
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     console.log("log from sdk ----->", dappName, logo);
     if (dappName && (dappName == null ? void 0 : dappName.length) > 0 && logo && (logo == null ? void 0 : logo.length) > 0) {
       {
@@ -724,12 +537,12 @@ var Application = ({
       }
     }
   }, [dappName, logo]);
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     if (uiType === "yes") {
       setStackUi(true);
     }
   }, [uiType]);
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     const handleClickOutside = (event) => {
       const iframeElement = document.getElementById("triaWallet");
       if (iframeElement && !iframeElement.contains(event.target)) {
@@ -741,11 +554,11 @@ var Application = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     const walletPosition = { posX, posY };
     localStorage.setItem("wallet.position", JSON.stringify(walletPosition));
   }, [posX, posY]);
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     if (primaryColor) {
       document.documentElement.style.setProperty(
         "--primary-color",
@@ -756,9 +569,9 @@ var Application = ({
   const { eventData } = (0, import_connect.useListenerCO)(
     triaStaging ? "https://auth-tria.vercel.app" : "https://auth.tria.so"
   );
-  const [openNewFrame, setOpenNewFrame] = (0, import_react6.useState)(false);
-  const [frameUrl, setFrameUrl] = (0, import_react6.useState)("");
-  (0, import_react6.useEffect)(() => {
+  const [openNewFrame, setOpenNewFrame] = (0, import_react2.useState)(false);
+  const [frameUrl, setFrameUrl] = (0, import_react2.useState)("");
+  (0, import_react2.useEffect)(() => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _i;
     console.log("sdk event data --> ", eventData);
     var url = "";
@@ -772,7 +585,7 @@ var Application = ({
       setFrameUrl(url);
     }
   }, [eventData]);
-  (0, import_react6.useEffect)(() => {
+  (0, import_react2.useEffect)(() => {
     var _a;
     console.log("sdk otp event data --> ", eventData, logo, dappName);
     let url = "";
@@ -1026,10 +839,6 @@ var src_default = Application;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   TriaConnectProvider,
-  useContractRead,
-  useContractWrite,
-  useSendTransaction,
-  useSignMessage,
   useTriaTransaction
 });
 //# sourceMappingURL=index.js.map
