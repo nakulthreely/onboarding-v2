@@ -37,13 +37,6 @@ declare const useContractRead: (params: params) => {
     read: () => Promise<void>;
 };
 
-declare const getDefaultWallets: ({ appName, projectId, chains }: {
-    appName: any;
-    projectId: any;
-    chains: any;
-}) => Promise<{
-    connectors: any[];
-}>;
 declare const useTriaTransaction: () => {
     sendTransaction: (sendDataFromDapp: any) => Promise<string>;
     signMessage: (message: any) => Promise<string>;
@@ -69,4 +62,4 @@ interface ApplicationProps {
 }
 declare const Application: React.FC<ApplicationProps>;
 
-export { TriaConnectProvider, Application as default, getDefaultWallets, useContractRead, useContractWrite, useSendTransaction, useSignMessage, useTriaTransaction };
+export { TriaConnectProvider, Application as default, useContractRead, useContractWrite, useSendTransaction, useSignMessage, useTriaTransaction };

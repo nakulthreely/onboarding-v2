@@ -17,15 +17,15 @@ export {
   useContractRead,
 } from './hooks'
 
-let wagmiCore: any
-let wagmi: any
-let wagmiChains: any
+// let wagmiCore: any
+// let wagmi: any
+// let wagmiChains: any
 
-async function loadWagmiCore() {
-  wagmiCore = await import('@wagmi/core')
-  wagmi = await import('wagmi')
-  wagmiChains = await import('@wagmi/core/chains')
-}
+// async function loadWagmiCore() {
+//   wagmiCore = await import('@wagmi/core')
+//   wagmi = await import('wagmi')
+//   wagmiChains = await import('@wagmi/core/chains')
+// }
 
 window.Buffer = window.Buffer || require('buffer').Buffer
 
@@ -43,39 +43,38 @@ window.Buffer = window.Buffer || require('buffer').Buffer
 // );
 
 //@ts-ignore
-export const getDefaultWallets = async ({ appName, projectId, chains }) => {
-  // Set up connectors
-  if (!wagmiCore && !wagmiChains && !wagmi) {
-    await loadWagmiCore()
-  }
-  const connectors = [
-    new wagmi.CoinbaseWalletConnector({
-      chains,
-      options: {
-        appName,
-        //@ts-ignore
-        shimDisconnect: true,
-      },
-    }),
-    new wagmi.WalletConnectConnector({
-      chains,
-      options: {
-        projectId,
-        //@ts-ignore
-        qrcode: true,
-        shimDisconnect: true,
-      },
-    }),
-    new wagmi.MetaMaskConnector({
-      chains,
-      options: {
-        shimDisconnect: true,
-        UNSTABLE_shimOnConnectSelectAccount: true,
-      },
-    }),
-  ]
-  return { connectors }
-}
+// export const getDefaultWallets = async ({ appName, projectId, chains }) => {
+//   if (!wagmiCore && !wagmiChains && !wagmi) {
+//     await loadWagmiCore()
+//   }
+//   const connectors = [
+//     new wagmi.CoinbaseWalletConnector({
+//       chains,
+//       options: {
+//         appName,
+//         //@ts-ignore
+//         shimDisconnect: true,
+//       },
+//     }),
+//     new wagmi.WalletConnectConnector({
+//       chains,
+//       options: {
+//         projectId,
+//         //@ts-ignore
+//         qrcode: true,
+//         shimDisconnect: true,
+//       },
+//     }),
+//     new wagmi.MetaMaskConnector({
+//       chains,
+//       options: {
+//         shimDisconnect: true,
+//         UNSTABLE_shimOnConnectSelectAccount: true,
+//       },
+//     }),
+//   ]
+//   return { connectors }
+// }
 
 // const { connectors } = getDefaultWallets({
 //   appName: "Customer App powered by Tria",
