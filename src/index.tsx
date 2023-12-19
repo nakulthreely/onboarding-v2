@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-// import { MetaMaskConnector } from "wagmi/connectors/metaMask";
-// import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-// import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import './index.css'
 import NavContext from './NavContext'
 import { AuthController } from '@tria-sdk/core'
@@ -10,22 +10,12 @@ import WalletCloseButton from './Components/WalletCloseButton'
 import { useAccount, useListenerCO } from '@tria-sdk/connect'
 import Draggable from 'react-draggable'
 import Wallets from './Components/ExternalWallets'
-export {
-  useSignMessage,
-  useSendTransaction,
-  useContractWrite,
-  useContractRead,
-} from './hooks'
-
-let wagmiCore: any
-let wagmi: any
-let wagmiChains: any
-
-async function loadWagmiCore() {
-  wagmiCore = await import('@wagmi/core')
-  wagmi = await import('wagmi')
-  wagmiChains = await import('@wagmi/core/chains')
-}
+// export {
+//   useSignMessage,
+//   useSendTransaction,
+//   useContractWrite,
+//   useContractRead,
+// } from './hooks'
 
 window.Buffer = window.Buffer || require('buffer').Buffer
 
@@ -43,13 +33,13 @@ window.Buffer = window.Buffer || require('buffer').Buffer
 // );
 
 //@ts-ignore
-export const getDefaultWallets = async ({ appName, projectId, chains }) => {
+export const getDefaultWallets = ({ appName, projectId, chains }) => {
   // Set up connectors
-  if (!wagmiCore && !wagmiChains && !wagmi) {
-    await loadWagmiCore()
-  }
+  // if (!wagmiCore && !wagmiChains && !wagmi) {
+  //   await loadWagmiCore()
+  // }
   const connectors = [
-    new wagmi.CoinbaseWalletConnector({
+    new CoinbaseWalletConnector({
       chains,
       options: {
         appName,
@@ -57,7 +47,7 @@ export const getDefaultWallets = async ({ appName, projectId, chains }) => {
         shimDisconnect: true,
       },
     }),
-    new wagmi.WalletConnectConnector({
+    new WalletConnectConnector({
       chains,
       options: {
         projectId,
@@ -66,7 +56,7 @@ export const getDefaultWallets = async ({ appName, projectId, chains }) => {
         shimDisconnect: true,
       },
     }),
-    new wagmi.MetaMaskConnector({
+    new MetaMaskConnector({
       chains,
       options: {
         shimDisconnect: true,
