@@ -30,7 +30,7 @@ import LoaderPage from './Pages/Loader'
 // import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import './index.css'
 import NavContext from './NavContext'
-import { IframeController } from './connect/controllers/iframe.controller'
+// import { IframeController } from './connect/controllers/iframe.controller'
 import { UserController, AuthController } from '@tria-sdk/core'
 import { TriaWalletButton } from './Components/TriaWalletButton'
 import WalletCloseButton from './Components/WalletCloseButton'
@@ -41,12 +41,12 @@ import Draggable from 'react-draggable'
 // import {useSendTransaction} from "./hooks/useSendTransaction";
 // import {useContractWrite} from "./hooks/useContractWrite";
 
-export {
-  useSignMessage,
-  useSendTransaction,
-  useContractWrite,
-  useContractRead,
-} from './hooks'
+// export {
+//   useSignMessage,
+//   useSendTransaction,
+//   useContractWrite,
+//   useContractRead,
+// } from './hooks'
 
 // export {useSignMessage,useSendTransaction,useContractWrite};
 
@@ -738,45 +738,47 @@ const Application: React.FC<ApplicationProps> = ({
         )}
 
         {triaName && !walletVisible && (
-          <Draggable
-            defaultPosition={{ x: buttonPosX, y: buttonPosY }}
-            onStart={handleStartDragging}
-            onStop={handleStopDragging}
-            // onDrag={handleMouseMove}
-            bounds={{
-              top: 0,
-              left: 0,
-              right: buttonBoundRight,
-              bottom: buttonBoundBottom,
-            }}
-            // style={{position:'fixed', left: x, top: y}}
-          >
-            <div
-              style={{
-                // display: 'flex',
-                // position: 'fixed',
-                // cursor:'move',
-                // flexDirection: 'row',
-                // justifyContent: 'center',
-                // alignItems: 'center',
-                // height: '60px',
-                // width: '60px',
-                // borderRadius: '100%',
-                // background: '#FFFFFF',
-                //  boxShadow: isPressed ? '0 0 10px 0 rgba(0,0,0,0.2)' : '0 0 20px 0 rgba(0,0,0,0.25)',
-                // transform: isPressed ? 'scale(0.80)' : 'scale(1)',
-                // transition: 'all 0.1s ease',
-                cursor: 'pointer',
-                zIndex: 9999,
+          <div style={{ zIndex: 9999 }}>
+            <Draggable
+              defaultPosition={{ x: buttonPosX, y: buttonPosY }}
+              onStart={handleStartDragging}
+              onStop={handleStopDragging}
+              // onDrag={handleMouseMove}
+              bounds={{
+                top: 0,
+                left: 0,
+                right: buttonBoundRight,
+                bottom: buttonBoundBottom,
               }}
-              // onClick={handleWalletButtonClick}
+              // style={{position:'fixed', left: x, top: y}}
             >
-              <TriaWalletButton
-                bgColor={primaryColor || '#A855F7'}
-                stackui={stackui}
-              />
-            </div>
-          </Draggable>
+              <div
+                style={{
+                  // display: 'flex',
+                  // position: 'fixed',
+                  // cursor:'move',
+                  // flexDirection: 'row',
+                  // justifyContent: 'center',
+                  // alignItems: 'center',
+                  // height: '60px',
+                  // width: '60px',
+                  // borderRadius: '100%',
+                  // background: '#FFFFFF',
+                  //  boxShadow: isPressed ? '0 0 10px 0 rgba(0,0,0,0.2)' : '0 0 20px 0 rgba(0,0,0,0.25)',
+                  // transform: isPressed ? 'scale(0.80)' : 'scale(1)',
+                  // transition: 'all 0.1s ease',
+                  cursor: 'pointer',
+                  zIndex: 9999,
+                }}
+                // onClick={handleWalletButtonClick}
+              >
+                <TriaWalletButton
+                  bgColor={primaryColor || '#A855F7'}
+                  stackui={stackui}
+                />
+              </div>
+            </Draggable>
+          </div>
         )}
       </NavContext.Provider>
       {/* </WagmiConfig> */}
