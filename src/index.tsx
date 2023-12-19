@@ -22,18 +22,18 @@ export {
 
 window.Buffer = window.Buffer || require('buffer').Buffer
 
-const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    base,
-    zora,
-    ...(process.env.REACT_APP_ENABLE_TESTNETS === "true" ? [goerli] : []),
-  ],
-  [publicProvider()]
-);
+// const { chains, publicClient, webSocketPublicClient } = configureChains(
+//   [
+//     mainnet,
+//     polygon,
+//     optimism,
+//     arbitrum,
+//     base,
+//     zora,
+//     ...(process.env.REACT_APP_ENABLE_TESTNETS === "true" ? [goerli] : []),
+//   ],
+//   [publicProvider()]
+// );
 
 //@ts-ignore
 export const getDefaultWallets = ({ appName, projectId, chains }) => {
@@ -67,23 +67,23 @@ export const getDefaultWallets = ({ appName, projectId, chains }) => {
   return { connectors };
 };
 
-const { connectors } = getDefaultWallets({
-  appName: "Customer App powered by Tria",
-  projectId: "bd38d3892c8fd8bc9dabf6fced0bd3c6",
-  chains,
-});
+// const { connectors } = getDefaultWallets({
+//   appName: "Customer App powered by Tria",
+//   projectId: "bd38d3892c8fd8bc9dabf6fced0bd3c6",
+//   chains,
+// });
 
 
 const authUrl = 'https://auth.tria.so'
 
 const authController = new AuthController('https://staging.tria.so')
 
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient,
-  webSocketPublicClient,
-});
+// const wagmiConfig = createConfig({
+//   autoConnect: true,
+//   connectors,
+//   publicClient,
+//   webSocketPublicClient,
+// });
 
 const createEncodedData = (data: any) => {
   const encodedParams = btoa(JSON.stringify(data))
@@ -539,7 +539,7 @@ const Application: React.FC<ApplicationProps> = ({
 
   return (
     <>
-      <WagmiConfig config={wagmiConfig}>
+      {/* <WagmiConfig config={wagmiConfig}> */}
         <NavContext.Provider value={nav_context_object}>
           {!triaName && showOnboarding && !externalWallet && (
             <>
@@ -737,7 +737,7 @@ const Application: React.FC<ApplicationProps> = ({
             </Draggable>
           )}
         </NavContext.Provider>
-      </WagmiConfig>
+      {/* </WagmiConfig> */}
     </>
   )
 }
