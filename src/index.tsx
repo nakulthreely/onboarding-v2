@@ -31,7 +31,7 @@ import LoaderPage from './Pages/Loader'
 import './index.css'
 import NavContext from './NavContext'
 // import { IframeController } from './connect/controllers/iframe.controller'
-import { UserController, AuthController } from '@tria-sdk/core'
+// import { UserController, AuthController } from '@tria-sdk/core'
 import { TriaWalletButton } from './Components/TriaWalletButton'
 import WalletCloseButton from './Components/WalletCloseButton'
 import { useAccount } from '@tria-sdk/connect'
@@ -107,7 +107,7 @@ window.Buffer = window.Buffer || require('buffer').Buffer
 // console.log("iframe", iframe);
 const authUrl = 'https://auth.tria.so'
 
-const authController = new AuthController('https://staging.tria.so')
+// const authController = new AuthController('https://staging.tria.so')
 
 // const wagmiConfig = createConfig({
 //   autoConnect: true,
@@ -533,7 +533,7 @@ const Application: React.FC<ApplicationProps> = ({
     setTriaName,
     dappName,
     logo,
-    authController,
+    // authController,
     setShowWallet,
     setShowOnboarding,
     showOnboarding,

@@ -62,9 +62,6 @@ var import_react = require("react");
 var NavContext = (0, import_react.createContext)();
 var NavContext_default = NavContext;
 
-// src/index.tsx
-var import_core = require("@tria-sdk/core");
-
 // src/Components/TriaWalletButton.tsx
 var import_jsx_runtime = require("react/jsx-runtime");
 var TriaWalletButton = ({ bgColor, stackui }) => {
@@ -174,7 +171,6 @@ var import_react_draggable = __toESM(require("react-draggable"));
 var import_jsx_runtime3 = require("react/jsx-runtime");
 window.Buffer = window.Buffer || require("buffer").Buffer;
 var authUrl = "https://auth.tria.so";
-var authController = new import_core.AuthController("https://staging.tria.so");
 var createEncodedData = (data) => {
   const encodedParams = btoa(JSON.stringify(data));
   return encodedParams;
@@ -447,7 +443,7 @@ var Application = ({
     setTriaName,
     dappName,
     logo,
-    authController,
+    // authController,
     setShowWallet,
     setShowOnboarding,
     showOnboarding,
