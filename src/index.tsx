@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './index.css'
 import NavContext from './NavContext'
-import { AuthController } from '@tria-sdk/core'
 import { TriaWalletButton } from './Components/TriaWalletButton'
 import WalletCloseButton from './Components/WalletCloseButton'
 import { useAccount, useListenerCO } from '@tria-sdk/connect'
@@ -11,8 +10,6 @@ import Wallets from './Components/ExternalWallets'
 window.Buffer = window.Buffer || require('buffer').Buffer
 
 const authUrl = 'https://auth.tria.so'
-
-const authController = new AuthController('https://staging.tria.so')
 
 const createEncodedData = (data: any) => {
   const encodedParams = btoa(JSON.stringify(data))
@@ -330,8 +327,8 @@ const Application: React.FC<ApplicationProps> = ({
     {
       triaStaging
         ? setIframeURL(
-            `https://staging-tria-wallet.vercel.app/${encodedParams}`
-          )
+          `https://staging-tria-wallet.vercel.app/${encodedParams}`
+        )
         : setIframeURL(`https://wallet.tria.so/${encodedParams}`)
     }
   }, [triaName, userAddress])
@@ -347,7 +344,6 @@ const Application: React.FC<ApplicationProps> = ({
     setTriaName,
     dappName,
     logo,
-    authController,
     setShowWallet,
     setShowOnboarding,
     showOnboarding,
@@ -361,11 +357,11 @@ const Application: React.FC<ApplicationProps> = ({
       {
         triaStaging
           ? setAuthIFrameUrl(
-              `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-            )
+            `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+          )
           : setAuthIFrameUrl(
-              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-            )
+            `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+          )
       }
     }
   }, [dappName, logo])
@@ -524,8 +520,11 @@ const Application: React.FC<ApplicationProps> = ({
                       <div className='w-[416px] h-[375px] px-5 py-4 rounded-2xl border border-violet-400 border-opacity-30 flex-col justify-center items-center gap-2 inline-flex'>
                         <div className=''>
                           <div className=''>
-                            <div>
+                            <div style={{
+                              overflow: "hidden"
+                            }}>
                               <iframe
+                                style={{ marginTop: "-2.3px", marginLeft: "-3px" }}
                                 src={
                                   !triaStaging
                                     ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
@@ -676,7 +675,7 @@ const Application: React.FC<ApplicationProps> = ({
               right: buttonBoundRight,
               bottom: buttonBoundBottom,
             }}
-            // style={{position:'fixed', left: x, top: y}}
+          // style={{position:'fixed', left: x, top: y}}
           >
             <div
               style={{
@@ -696,7 +695,7 @@ const Application: React.FC<ApplicationProps> = ({
                 cursor: 'pointer',
                 zIndex: 9999,
               }}
-              // onClick={handleWalletButtonClick}
+            // onClick={handleWalletButtonClick}
             >
               <TriaWalletButton
                 bgColor={primaryColor || '#A855F7'}

@@ -62,9 +62,6 @@ var import_react = require("react");
 var NavContext = (0, import_react.createContext)();
 var NavContext_default = NavContext;
 
-// src/index.tsx
-var import_core = require("@tria-sdk/core");
-
 // src/Components/TriaWalletButton.tsx
 var import_jsx_runtime = require("react/jsx-runtime");
 var TriaWalletButton = ({ bgColor, stackui }) => {
@@ -246,7 +243,6 @@ function Wallets() {
 var import_jsx_runtime4 = require("react/jsx-runtime");
 window.Buffer = window.Buffer || require("buffer").Buffer;
 var authUrl = "https://auth.tria.so";
-var authController = new import_core.AuthController("https://staging.tria.so");
 var createEncodedData = (data) => {
   const encodedParams = btoa(JSON.stringify(data));
   return encodedParams;
@@ -518,7 +514,6 @@ var Application = ({
     setTriaName,
     dappName,
     logo,
-    authController,
     setShowWallet,
     setShowOnboarding,
     showOnboarding,
@@ -592,9 +587,9 @@ var Application = ({
     if (((_a = eventData == null ? void 0 : eventData.message) == null ? void 0 : _a.type) == "otpLogin") {
       const encodedParams = btoa(JSON.stringify({ logo, dappName }));
       if (!triaStaging) {
-        url = `https://auth.tria.so/phoneEmailOtp/?dappName=${dappName}&dappLogo=${logo}`;
+        url = `https://auth.tria.so/phoneEmailOtp/?&dappName=${dappName}&dappLogo=${logo}`;
       } else {
-        url = `https://auth-tria.vercel.app/phoneEmailOtp/?dappName=${dappName}&dappLogo=${logo}`;
+        url = `https://auth-tria.vercel.app/phoneEmailOtp/?&dappName=${dappName}&dappLogo=${logo}`;
       }
       console.log("url---------->", url);
       setOpenNewFrame(true);
@@ -654,9 +649,12 @@ var Application = ({
         ] })
       ] }) }),
       /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "mt-auto", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "w-[416px] h-[375px] px-5 py-4 rounded-2xl border border-violet-400 border-opacity-30 flex-col justify-center items-center gap-2 inline-flex", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { style: {
+          overflow: "hidden"
+        }, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
           "iframe",
           {
+            style: { marginTop: "-2.3px", marginLeft: "-3px" },
             src: !triaStaging ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}` : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`,
             height: "205px",
             width: "100%"
