@@ -141,9 +141,9 @@ const Application: React.FC<ApplicationProps> = ({
   primaryColor = '#A855F7',
   supportedChains = initialChains,
   defaultChain = 'POLYGON',
-  darkMode = true,
   triaStaging = false,
   buttonPosition = { x: 100, y: 100 },
+  darkMode = true,
 }) => {
   const [view, setView] = useState('Home')
   const [triaName, setTriaName] = useState<string>()
@@ -327,8 +327,8 @@ const Application: React.FC<ApplicationProps> = ({
     {
       triaStaging
         ? setIframeURL(
-          `https://staging-tria-wallet.vercel.app/${encodedParams}`
-        )
+            `https://staging-tria-wallet.vercel.app/${encodedParams}`
+          )
         : setIframeURL(`https://wallet.tria.so/${encodedParams}`)
     }
   }, [triaName, userAddress])
@@ -357,11 +357,11 @@ const Application: React.FC<ApplicationProps> = ({
       {
         triaStaging
           ? setAuthIFrameUrl(
-            `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-          )
+              `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+            )
           : setAuthIFrameUrl(
-            `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-          )
+              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+            )
       }
     }
   }, [dappName, logo])
@@ -520,11 +520,16 @@ const Application: React.FC<ApplicationProps> = ({
                       <div className='w-[416px] h-[375px] px-5 py-4 rounded-2xl border border-violet-400 border-opacity-30 flex-col justify-center items-center gap-2 inline-flex'>
                         <div className=''>
                           <div className=''>
-                            <div style={{
-                              overflow: "hidden"
-                            }}>
+                            <div
+                              style={{
+                                overflow: 'hidden',
+                              }}
+                            >
                               <iframe
-                                style={{ marginTop: "-2.3px", marginLeft: "-3px" }}
+                                style={{
+                                  marginTop: '-2.3px',
+                                  marginLeft: '-3px',
+                                }}
                                 src={
                                   !triaStaging
                                     ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
@@ -603,18 +608,17 @@ const Application: React.FC<ApplicationProps> = ({
             id='triaWallet'
             style={{
               display: walletVisible ? 'block' : 'none',
-              justifyItems: 'space-between',
               backgroundColor: 'transparent',
               position: 'fixed',
+              zIndex: 9999,
+              borderRadius: '20px',
               top: posY,
               left: posX,
-              zIndex: 9999,
+              transition: 'all 1s ease',
             }}
           >
             <div
               style={{
-                marginBottom: '4px',
-                marginRight: '2px',
                 position: 'relative',
                 borderRadius: '20px',
               }}
@@ -625,20 +629,19 @@ const Application: React.FC<ApplicationProps> = ({
                   width: '312px',
                   height: '40px',
                   borderRadius: '20px',
-                  top: '-38px',
+                  top: '-33px',
                   display: 'flex',
                   alignItems: 'flex-end',
                   justifyContent: 'center',
                 }}
               >
-                {/* Content for WalletCloseButton */}
                 <div
                   onClick={() => {
                     setWalletVisible(false)
                   }}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', backgroundColor: 'transparent' }}
                 >
-                  <WalletCloseButton />
+                  <WalletCloseButton bgColor={'#FFFFFF'} />
                 </div>
               </div>
               <div
@@ -647,7 +650,16 @@ const Application: React.FC<ApplicationProps> = ({
                   width: '312px',
                   borderRadius: '20px',
                   overflow: 'hidden',
-                  backgroundColor: '#101010',
+
+                  boxShadow: `${
+                    darkMode
+                      ? `0px 0px 10px 1px #40404044`
+                      : `0px 0px 10px 1px #10101044`
+                  }`,
+                  borderColor: `${darkMode ? `#40404044` : `#10101044`}`,
+                  borderWidth: '2px',
+                  borderStyle: 'solid',
+                  padding: 0,
                 }}
               >
                 <iframe
@@ -655,9 +667,7 @@ const Application: React.FC<ApplicationProps> = ({
                   height='586'
                   src={iframeURL}
                   allow='clipboard-read; clipboard-write; publickey-credentials-get'
-                  style={{
-                    backgroundColor: '#101010',
-                  }}
+                  style={{ border: 0 }}
                 />
               </div>
             </div>
@@ -668,39 +678,20 @@ const Application: React.FC<ApplicationProps> = ({
             defaultPosition={{ x: buttonPosX, y: buttonPosY }}
             onStart={handleStartDragging}
             onStop={handleStopDragging}
-            // onDrag={handleMouseMove}
             bounds={{
               top: 0,
               left: 0,
               right: buttonBoundRight,
               bottom: buttonBoundBottom,
             }}
-          // style={{position:'fixed', left: x, top: y}}
           >
             <div
               style={{
-                // display: 'flex',
-                // position: 'fixed',
-                // cursor:'move',
-                // flexDirection: 'row',
-                // justifyContent: 'center',
-                // alignItems: 'center',
-                // height: '60px',
-                // width: '60px',
-                // borderRadius: '100%',
-                // background: '#FFFFFF',
-                //  boxShadow: isPressed ? '0 0 10px 0 rgba(0,0,0,0.2)' : '0 0 20px 0 rgba(0,0,0,0.25)',
-                // transform: isPressed ? 'scale(0.80)' : 'scale(1)',
-                // transition: 'all 0.1s ease',
                 cursor: 'pointer',
                 zIndex: 9999,
               }}
-            // onClick={handleWalletButtonClick}
             >
-              <TriaWalletButton
-                bgColor={primaryColor || '#A855F7'}
-                stackui={stackui}
-              />
+              <TriaWalletButton bgColor={primaryColor || '#A855F7'} />
             </div>
           </Draggable>
         )}
