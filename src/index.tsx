@@ -327,8 +327,8 @@ const Application: React.FC<ApplicationProps> = ({
     {
       triaStaging
         ? setIframeURL(
-            `https://staging-tria-wallet.vercel.app/${encodedParams}`
-          )
+          `https://staging-tria-wallet.vercel.app/${encodedParams}`
+        )
         : setIframeURL(`https://wallet.tria.so/${encodedParams}`)
     }
   }, [triaName, userAddress])
@@ -357,11 +357,11 @@ const Application: React.FC<ApplicationProps> = ({
       {
         triaStaging
           ? setAuthIFrameUrl(
-              `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-            )
+            `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+          )
           : setAuthIFrameUrl(
-              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-            )
+            `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+          )
       }
     }
   }, [dappName, logo])
@@ -432,7 +432,13 @@ const Application: React.FC<ApplicationProps> = ({
       setOpenNewFrame(true)
       setFrameUrl(url)
     }
+    //@ts-ignore
+    if (eventData?.message?.go_back === true) {
+      setOpenNewFrame(false)
+    }
   }, [eventData])
+
+
 
   useEffect(() => {
     console.log('sdk otp event data --> ', eventData, logo, dappName)
@@ -523,11 +529,12 @@ const Application: React.FC<ApplicationProps> = ({
                             <div
                               style={{
                                 overflow: 'hidden',
+                                borderRadius: '19px'
                               }}
                             >
                               <iframe
                                 style={{
-                                  marginTop: '-2.3px',
+                                  marginTop: '-0.2px',
                                   marginLeft: '-3px',
                                 }}
                                 src={
@@ -651,11 +658,10 @@ const Application: React.FC<ApplicationProps> = ({
                   borderRadius: '20px',
                   overflow: 'hidden',
 
-                  boxShadow: `${
-                    darkMode
+                  boxShadow: `${darkMode
                       ? `0px 0px 10px 1px #40404044`
                       : `0px 0px 10px 1px #10101044`
-                  }`,
+                    }`,
                   borderColor: `${darkMode ? `#40404044` : `#10101044`}`,
                   borderWidth: '2px',
                   borderStyle: 'solid',

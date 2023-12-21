@@ -846,13 +846,14 @@ var Application = ({
           "div",
           {
             style: {
-              overflow: "hidden"
+              overflow: "hidden",
+              borderRadius: "19px"
             },
             children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
               "iframe",
               {
                 style: {
-                  marginTop: "-2.3px",
+                  marginTop: "-0.2px",
                   marginLeft: "-3px"
                 },
                 src: !triaStaging ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}` : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`,
