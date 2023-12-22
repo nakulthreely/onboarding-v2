@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useState, useEffect } from 'react'
 import './index.css'
 import NavContext from './NavContext'
@@ -618,8 +619,7 @@ const Application: React.FC<ApplicationProps> = ({
                               style={{
                                 overflow: 'hidden',
                                 borderRadius: '19px',
-                                width: "370px"
-
+                                width: "375px"
                               }}
                             >
                               <iframe

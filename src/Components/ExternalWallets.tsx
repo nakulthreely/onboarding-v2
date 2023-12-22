@@ -5,52 +5,30 @@ import NavContext from '../NavContext';
 import { useConnect } from 'wagmi';
 
 
-
-interface Props {
-    setShowMetaMask:()=>void;
-  }
-
-  declare global {
-    interface Window {
-      ethereum?: any; // You can replace 'any' with a more specific type if available
-    }
-  }
-  
-  const Wallets: React.FC<Props> = ({ setShowMetaMask }) => {
+const Wallets = () => {
     // const [showWallet, setShowWallet] = useState(false);
     const { connect, connectors } = useConnect();
 
     console.log("Wallet page")
 
-
     const clickMetamask = async () => {
-      try {
-
-        if (!window.ethereum || !window.ethereum.isMetaMask) {
-            console.log("inside not metamask");
-            throw new Error("MetaMask not available");
-          }
-
         console.log("Clicked");
         const res = await connect({ connector: connectors[2] });
-        console.log("res",res);
-      } catch (err) {
-        console.log("err",err);
-        setShowMetaMask();
-      }
-    };     
+    };
 
     const clickWc = () => {
         console.log("Clicked")
         connect({ connector: connectors[1] })
     }
 
-      const containerStyles = {
+    const containerStyles = {
         display: 'inline-flex',
         alignSelf: 'stretch',
-        justifyContent: 'center',
+        justifyContent: 'start',
         alignItems: 'center',
-        width: "100%"
+        width: "100%",
+        gap: "18px",
+        marginLeft: "5px"
     };
 
     const buttonStyles = {
@@ -76,7 +54,8 @@ interface Props {
         borderRadius: '20px',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        display: 'flex'
+        display: 'flex',
+        gap: "2px"
     };
 
     const textStyles = {
@@ -143,7 +122,15 @@ interface Props {
                             </svg>
                         </div>
                         <div style={{ ...innerButtonStyles, paddingLeft: '8px' }}>
-                            <div style={textStyles}>Wallet connect</div>
+                            <div style={{
+                                textAlign: 'center',
+                                color: 'rgba(255, 255, 255, 0.8)',
+                                fontSize: '1rem',
+                                fontWeight: '500',
+                                fontFamily: 'Montserrat, sans-serif',
+                                lineHeight: '1.4',
+                                width: "105px"
+                            }}>Wallet connect</div>
                         </div>
                     </div>
                 </div>
