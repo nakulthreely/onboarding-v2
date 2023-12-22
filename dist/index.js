@@ -547,8 +547,8 @@ var Application = ({
   const [externalWallet, setExternalWallet] = (0, import_react2.useState)(false);
   const [coords, setCoords] = (0, import_react2.useState)({ x: 0, y: 0 });
   const [walletVisible, setWalletVisible] = (0, import_react2.useState)(false);
-  const [posX, setPosX] = (0, import_react2.useState)();
-  const [posY, setPosY] = (0, import_react2.useState)();
+  const [posX, setPosX] = (0, import_react2.useState)(window.innerWidth - 350);
+  const [posY, setPosY] = (0, import_react2.useState)(window.innerHeight - 600);
   const [buttonPosX, setButtonPosX] = (0, import_react2.useState)(
     window.innerWidth - ((buttonPosition == null ? void 0 : buttonPosition.x) || 100)
   );
@@ -625,10 +625,14 @@ var Application = ({
     }
   };
   (0, import_react2.useEffect)(() => {
+    var _a;
     if (!account && triaName) {
-      console.log("Account is null, reloading the page");
-      localStorage.setItem("hasReloaded", "true");
-      window.location.reload();
+      const currentTime2 = /* @__PURE__ */ new Date();
+      const lastReload = localStorage.getItem("hasReloaded");
+      if ((currentTime2 == null ? void 0 : currentTime2.getTime()) - parseFloat(lastReload || "0") > 200) {
+        localStorage.setItem("hasReloaded", (_a = currentTime2 == null ? void 0 : currentTime2.getTime()) == null ? void 0 : _a.toString());
+        window.location.reload();
+      }
     }
   }, [account, triaName]);
   (0, import_react2.useEffect)(() => {
@@ -639,6 +643,7 @@ var Application = ({
         setTriaName(
           (_a = JSON.parse(localStorage.getItem("tria.wallet.store") || "")) == null ? void 0 : _a.triaName
         );
+        setShowWallet(true);
         setUserAddress(
           (_c = (_b = JSON.parse(localStorage.getItem("tria.wallet.store") || "")) == null ? void 0 : _b.evm) == null ? void 0 : _c.address
         );

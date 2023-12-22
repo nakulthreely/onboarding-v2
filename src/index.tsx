@@ -161,8 +161,8 @@ const Application: React.FC<ApplicationProps> = ({
   const [externalWallet, setExternalWallet] = useState<boolean>(false)
   const [coords, setCoords] = useState({ x: 0, y: 0 })
   const [walletVisible, setWalletVisible] = useState<boolean>(false)
-  const [posX, setPosX] = useState<number>()
-  const [posY, setPosY] = useState<number>()
+  const [posX, setPosX] = useState<number>(window.innerWidth - 350)
+  const [posY, setPosY] = useState<number>(window.innerHeight - 600)
   const [buttonPosX, setButtonPosX] = useState(
     window.innerWidth - (buttonPosition?.x || 100)
   )
@@ -254,9 +254,12 @@ const Application: React.FC<ApplicationProps> = ({
 
   useEffect(() => {
     if (!account && triaName) {
-      console.log('Account is null, reloading the page')
-      localStorage.setItem('hasReloaded', 'true')
-      window.location.reload()
+      const currentTime = new Date()
+      const lastReload = localStorage.getItem('hasReloaded')
+      if (currentTime?.getTime() - parseFloat(lastReload || '0') > 200) {
+        localStorage.setItem('hasReloaded', currentTime?.getTime()?.toString())
+        window.location.reload()
+      }
     }
   }, [account, triaName])
 
@@ -268,6 +271,7 @@ const Application: React.FC<ApplicationProps> = ({
         setTriaName(
           JSON.parse(localStorage.getItem('tria.wallet.store') || '')?.triaName
         )
+        setShowWallet(true)
         setUserAddress(
           JSON.parse(localStorage.getItem('tria.wallet.store') || '')?.evm
             ?.address
