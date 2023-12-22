@@ -6,6 +6,8 @@ import WalletCloseButton from './Components/WalletCloseButton'
 import { useAccount, useListenerCO } from '@tria-sdk/connect'
 import Draggable from 'react-draggable'
 import Wallets from './Components/ExternalWallets'
+import MetamaskBarcode from './Components/MetamaskBarcode'
+import Back from './Components/SvgIcons/Back'
 
 window.Buffer = window.Buffer || require('buffer').Buffer
 
@@ -161,6 +163,7 @@ const Application: React.FC<ApplicationProps> = ({
   const [externalWallet, setExternalWallet] = useState<boolean>(false)
   const [coords, setCoords] = useState({ x: 0, y: 0 })
   const [walletVisible, setWalletVisible] = useState<boolean>(false)
+  const [showMetamask, setShowMetaMask] = useState<boolean>(false)
   const [posX, setPosX] = useState<number>(window.innerWidth - 350)
   const [posY, setPosY] = useState<number>(window.innerHeight - 600)
   const [buttonPosX, setButtonPosX] = useState(
@@ -436,6 +439,10 @@ const Application: React.FC<ApplicationProps> = ({
       setOpenNewFrame(true)
       setFrameUrl(url)
     }
+    //@ts-ignore
+    if (eventData?.message?.go_back === true) {
+      setOpenNewFrame(false)
+    }
   }, [eventData])
 
   useEffect(() => {
@@ -495,6 +502,15 @@ const Application: React.FC<ApplicationProps> = ({
               <div className='rounded-[20px] overflow-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
                 {openNewFrame === false ? (
                   <div className='w-[448px] rounded-2xl drop bg-[#101010] h-[840px] p-4 flex-col justify-between inline-flex scale-[0.7]'>
+                    {showMetamask && (
+                      <div
+                        className='absolute pt-4 pl-4 cursor-pointer'
+                        onClick={() => setShowMetaMask(false)}
+                      >
+                        {' '}
+                        <Back />
+                      </div>
+                    )}
                     <div
                       style={{ marginLeft: '-150px' }}
                       className='absolute top-0 '
@@ -522,39 +538,48 @@ const Application: React.FC<ApplicationProps> = ({
                     <div className='mt-auto'>
                       {/* <Logins /> */}
                       <div className='w-[416px] h-[375px] px-5 py-4 rounded-2xl border border-violet-400 border-opacity-30 flex-col justify-center items-center gap-2 inline-flex'>
-                        <div className=''>
+                        {showMetamask ? (
+                          <MetamaskBarcode />
+                        ) : (
                           <div className=''>
-                            <div
-                              style={{
-                                overflow: 'hidden',
-                              }}
-                            >
-                              <iframe
+                            <div className=''>
+                              <div
                                 style={{
-                                  marginTop: '-2.3px',
-                                  marginLeft: '-3px',
+                                  overflow: 'hidden',
+                                  borderRadius: '19px',
                                 }}
-                                src={
-                                  !triaStaging
-                                    ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
-                                    : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
-                                }
-                                height={'205px'}
-                                width='100%'
+                              >
+                                <iframe
+                                  style={{
+                                    marginTop: '-0.2px',
+                                    marginLeft: '-3px',
+                                  }}
+                                  src={
+                                    !triaStaging
+                                      ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
+                                      : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
+                                  }
+                                  height={'205px'}
+                                  width='100%'
+                                />
+                              </div>
+                              <div className='w-[376px]  py-3 justify-center items-center gap-2 inline-flex'>
+                                <div className='grow shrink basis-0 border-2 border-white border-opacity-10'></div>
+                                <div className='px-2 justify-center items-center flex'>
+                                  <div className="text-center text-white text-opacity-40 text-xs font-semibold font-['Montserrat'] uppercase leading-[14.40px]">
+                                    or
+                                  </div>
+                                </div>
+                                <div className='grow shrink basis-0  border-2 border-white border-opacity-10'></div>
+                              </div>
+                              <Wallets
+                                setShowMetaMask={() => {
+                                  setShowMetaMask(true)
+                                }}
                               />
                             </div>
-                            <div className='w-[376px]  py-3 justify-center items-center gap-2 inline-flex'>
-                              <div className='grow shrink basis-0 border-2 border-white border-opacity-10'></div>
-                              <div className='px-2 justify-center items-center flex'>
-                                <div className="text-center text-white text-opacity-40 text-xs font-semibold font-['Montserrat'] uppercase leading-[14.40px]">
-                                  or
-                                </div>
-                              </div>
-                              <div className='grow shrink basis-0  border-2 border-white border-opacity-10'></div>
-                            </div>
-                            <Wallets />
                           </div>
-                        </div>
+                        )}
                       </div>
                     </div>
                     <div>

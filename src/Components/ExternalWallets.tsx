@@ -4,17 +4,41 @@ import { useNavigate } from 'react-router-dom';
 import NavContext from '../NavContext';
 import { useConnect } from 'wagmi';
 
-export default function Wallets() {
+
+
+interface Props {
+    setShowMetaMask:()=>void;
+  }
+
+  declare global {
+    interface Window {
+      ethereum?: any; // You can replace 'any' with a more specific type if available
+    }
+  }
+  
+  const Wallets: React.FC<Props> = ({ setShowMetaMask }) => {
     // const [showWallet, setShowWallet] = useState(false);
     const { connect, connectors } = useConnect();
 
     console.log("Wallet page")
 
 
-    const clickMetamask = () => {
-        console.log("Clicked")
-        connect({ connector: connectors[2] })
-    }
+    const clickMetamask = async () => {
+      try {
+
+        if (!window.ethereum || !window.ethereum.isMetaMask) {
+            console.log("inside not metamask");
+            throw new Error("MetaMask not available");
+          }
+
+        console.log("Clicked");
+        const res = await connect({ connector: connectors[2] });
+        console.log("res",res);
+      } catch (err) {
+        console.log("err",err);
+        setShowMetaMask();
+      }
+    };     
 
     const clickWc = () => {
         console.log("Clicked")
@@ -103,3 +127,5 @@ export default function Wallets() {
         </div>
     )
 }
+
+export default Wallets;
