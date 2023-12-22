@@ -259,9 +259,9 @@ const Application: React.FC<ApplicationProps> = ({
   useEffect(() => {
     if (!account && triaName) {
       const currentTime = new Date()
-      const lastReload = localStorage.getItem('hasReloaded')
+      const lastReload = localStorage.getItem('lastReload')
       if (currentTime?.getTime() - parseFloat(lastReload || '0') > 200) {
-        localStorage.setItem('hasReloaded', currentTime?.getTime()?.toString())
+        localStorage.setItem('lastReload', currentTime?.getTime()?.toString())
         window.location.reload()
       }
     }
