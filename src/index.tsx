@@ -564,17 +564,37 @@ const Application: React.FC<ApplicationProps> = ({
                       fontFamily: 'Montserrat, sans-serif',
                     }}
                   >
+                    {showMetamask && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          paddingTop: "4px",
+                          paddingLeft: "4px",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => setShowMetaMask(false)}
+                      >
+                        {" "}
+                        <Back />
+                      </div>
+                    )}
                     <div
-                      style={{ marginLeft: '-150px', position: 'absolute', top: 0 }}
+                      style={{
+                        marginLeft: "-150px",
+                        position: "absolute",
+                        top: 0,
+                      }}
                     >
-                      {' '}
+                      {" "}
                     </div>
-                    <div style={{
-                      flexDirection: 'column',
-                      justifyContent: 'flex-start',
-                      gap: '8px', // Assuming 2px gap in Tailwind is equal to 8px in inline style
-                      display: 'flex'
-                    }} >
+                    <div
+                      style={{
+                        flexDirection: "column",
+                        justifyContent: "flex-start",
+                        gap: "8px", // Assuming 2px gap in Tailwind is equal to 8px in inline style
+                        display: "flex",
+                      }}
+                    >
                       <div>
                         <div style={{
                           width: '416px',
@@ -613,8 +633,11 @@ const Application: React.FC<ApplicationProps> = ({
                           display: 'inline-flex'
                         }}
                       >
-                        <div className=''>
-                          <div className=''>
+                          {showMetamask ? (
+                          <MetamaskBarcode />
+                        ) : (
+                        <div className="">
+                          <div className="">
                             <div
                               style={{
                                 overflow: 'hidden',
@@ -643,9 +666,13 @@ const Application: React.FC<ApplicationProps> = ({
                               </div>
                               <div style={{ flex: '1 1 0', height: '0px', border: '2px rgba(255, 255, 255, 0.10) solid' }}></div>
                             </div>
-                            <Wallets />
+                            <Wallets
+                                setShowMetaMask={() => {
+                                  setShowMetaMask(true);
+                                }}
+                              />
                           </div>
-                        </div>
+                        </div>)}
                       </div>
                     </div>
                     <div>

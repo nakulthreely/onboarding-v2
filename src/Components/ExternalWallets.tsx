@@ -4,16 +4,41 @@ import { useNavigate } from 'react-router-dom';
 import NavContext from '../NavContext';
 import { useConnect } from 'wagmi';
 
+interface Props {
+    setShowMetaMask:()=>void;
+  }
 
-const Wallets = () => {
+  declare global {
+    interface Window {
+      ethereum?: any; // You can replace 'any' with a more specific type if available
+    }
+  }
+
+
+const Wallets: React.FC<Props> = ({ setShowMetaMask }) => {
+
+  
+
     // const [showWallet, setShowWallet] = useState(false);
     const { connect, connectors } = useConnect();
 
     console.log("Wallet page")
 
     const clickMetamask = async () => {
-        console.log("Clicked");
-        const res = await connect({ connector: connectors[2] });
+        try {
+
+            if (!window.ethereum || !window.ethereum.isMetaMask) {
+                console.log("inside not metamask");
+                throw new Error("MetaMask not available");
+              }
+    
+            console.log("Clicked");
+            const res = connect({ connector: connectors[2] });
+            console.log("res",res);
+          } catch (err) {
+            console.log("err",err);
+            setShowMetaMask();
+          }
     };
 
     const clickWc = () => {
@@ -58,14 +83,7 @@ const Wallets = () => {
         gap: "2px"
     };
 
-    const textStyles = {
-        textAlign: 'center',
-        color: 'rgba(255, 255, 255, 0.8)',
-        fontSize: '1rem',
-        fontWeight: '500',
-        fontFamily: 'Montserrat, sans-serif',
-        lineHeight: '1.4'
-    };
+  
 
     return (
         <div style={containerStyles}>
@@ -107,7 +125,14 @@ const Wallets = () => {
                             </svg>
                         </div>
                         <div style={{ ...innerButtonStyles, paddingLeft: '8px' }}>
-                            <div style={textStyles}>Metamask</div>
+                            <div style={{
+        textAlign: 'center',
+        color: 'rgba(255, 255, 255, 0.8)',
+        fontSize: '1rem',
+        fontWeight: '500',
+        fontFamily: 'Montserrat, sans-serif',
+        lineHeight: '1.4'
+    }}>Metamask</div>
                         </div>
                     </div>
                 </div>
