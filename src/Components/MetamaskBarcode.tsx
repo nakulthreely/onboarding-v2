@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { QrGenerator } from "./Popup/QrGenerator";
+import "../index.css";
 
 export default function MetamaskBarcode() {
 
@@ -16,10 +17,9 @@ export default function MetamaskBarcode() {
       justifyContent: 'center',
       alignItems: 'center',
       gap: 4,
-      flex: 1,
       padding: '3',
       mixBlendMode: 'difference',
-      paddingLeft:"16px",
+      margin:"16px",
     }}
   >
     <div
@@ -30,6 +30,7 @@ export default function MetamaskBarcode() {
         justifyContent: 'center',
         alignItems: 'start',
         gap: '2',
+        fontFamily: 'Montserrat, sans-serif', 
       }}
     >
       <div
@@ -39,7 +40,7 @@ export default function MetamaskBarcode() {
           opacity: 0.8,
           fontSize: 'large',
           fontWeight: 'medium',
-          fontFamily: 'Montserrat',
+          fontFamily: 'Montserrat, sans-serif', // Use 'Montserrat' as the primary font and fallback to 'sans-serif'
           lineHeight: '1.6',
         }}
       >
@@ -80,6 +81,7 @@ export default function MetamaskBarcode() {
           justifyContent: 'center',
           alignItems: 'center',
           display: 'flex',
+          fontFamily: 'Montserrat, sans-serif',
         }}
       >
         <div
@@ -88,9 +90,9 @@ export default function MetamaskBarcode() {
             color: 'white',
             fontSize: 'medium',
             fontWeight: 'semibold',
-            fontFamily: 'Montserrat',
+            fontFamily: 'Montserrat, sans-serif', // Use 'Montserrat' as the primary font and fallback to 'sans-serif'
             lineHeight: 'tight',
-            padding:"4px 10px"
+            padding:"4px 10px",
           }}
         >
           Open app
@@ -106,14 +108,15 @@ export default function MetamaskBarcode() {
         display: 'inline-flex',
       }}
     >
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: 'center',marginTop:"8px" }}>
         <span
           style={{
             opacity: 0.7,
             fontSize: 'small',
             fontWeight: 'normal',
-            fontFamily: 'Montserrat',
-            lineHeight: '16.8px',
+            fontFamily: 'Montserrat, sans-serif',
+            lineHeight: '16.8px',  
+            color:"white"       
           }}
         >
           Don’t have a wallet?{' '}
@@ -123,10 +126,11 @@ export default function MetamaskBarcode() {
             opacity: 0.8,
             fontSize: 'small',
             fontWeight: 'medium',
-            fontFamily: 'Montserrat',
             textDecoration: 'underline',
             lineHeight: '16.8px',
             cursor: 'pointer',
+            fontFamily: 'Montserrat, sans-serif',
+            color:"white"   
           }}
           onClick={handleDownloadClick}
         >
@@ -137,39 +141,6 @@ export default function MetamaskBarcode() {
   </div>
 </>
 
-  // <>
-  //   <div className="self-stretch py-3 mix-blend-difference flex-col justify-center items-center gap-4 flex">
-  //     <div className="self-stretch h-[22px] flex-col justify-center items-start gap-2 flex">
-  //       <div className="text-center text-white text-opacity-80 text-lg font-medium font-['Montserrat'] leading-snug">
-  //         Connect a Wallet
-  //       </div>
-  //     </div>
-  //   </div>
-  //   <div className="w-[200px] h-[200px] relative">
-  //   <QrGenerator content={"https://metamask.io/download/"}/>
-  //   </div>
-  //   <div className="self-stretch  mt-3 flex-col justify-center items-center gap-4 flex">
-  //     <div className=" px-5 py-2 bg-gradient-to-r from-violet-400 to-indigo-500 rounded-[20px] justify-center items-center inline-flex cursor-pointer" onClick={handleDownloadClick}>
-  //       <div className="justify-center items-center flex">
-  //         <div className="text-center text-white text-base font-semibold font-['Montserrat'] leading-tight">
-  //           Open app
-  //         </div>
-  //       </div>
-  //     </div>
-  //     <div className="px-2 justify-start items-center inline-flex">
-  //       <div className="text-center">
-  //         <span className="text-zinc-500 text-opacity-70 text-sm font-normal font-['Montserrat'] leading-[16.80px]">
-  //           Don’t have a wallet?{" "}
-  //         </span>
-  //         <span
-  //           className="text-zinc-500 text-opacity-80 text-sm font-medium font-['Montserrat'] underline leading-[16.80px] cursor-pointer"
-  //           onClick={handleDownloadClick}
-  //         >
-  //           Download Metamask
-  //         </span>
-  //       </div>
-  //     </div>
-  //   </div>
-  // </>
+
   );
 }
