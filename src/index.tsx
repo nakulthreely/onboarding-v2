@@ -271,6 +271,8 @@ const Application: React.FC<ApplicationProps> = ({
     setInterval(() => {
       // console.log('account', account)
       if (localStorage.getItem('tria.wallet.store') !== null) {
+        const triaLogInEvent = new Event('TriaLogIn');
+        window.dispatchEvent(triaLogInEvent);
         setShowOnboarding(false)
         setTriaName(
           JSON.parse(localStorage.getItem('tria.wallet.store') || '')?.triaName
@@ -281,6 +283,8 @@ const Application: React.FC<ApplicationProps> = ({
             ?.address
         )
       } else if (localStorage.getItem('wagmi.connected') === 'true') {
+        const triaLogInEvent = new Event('TriaLogIn');
+        window.dispatchEvent(triaLogInEvent);
         setShowOnboarding(false)
         setExternalWallet(true)
       } else {
@@ -335,8 +339,8 @@ const Application: React.FC<ApplicationProps> = ({
     {
       triaStaging
         ? setIframeURL(
-            `https://staging-tria-wallet.vercel.app/${encodedParams}`
-          )
+          `https://staging-tria-wallet.vercel.app/${encodedParams}`
+        )
         : setIframeURL(`https://wallet.tria.so/${encodedParams}`)
     }
   }, [triaName, userAddress])
@@ -365,11 +369,11 @@ const Application: React.FC<ApplicationProps> = ({
       {
         triaStaging
           ? setAuthIFrameUrl(
-              `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-            )
+            `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+          )
           : setAuthIFrameUrl(
-              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-            )
+            `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+          )
       }
     }
   }, [dappName, logo])
@@ -537,7 +541,7 @@ const Application: React.FC<ApplicationProps> = ({
                 />
               </div>
             ) : (
-            <div
+              <div
                 style={{
                   borderRadius: '20px',
                   overflow: 'hidden',
@@ -633,46 +637,46 @@ const Application: React.FC<ApplicationProps> = ({
                           display: 'inline-flex'
                         }}
                       >
-                          {showMetamask ? (
+                        {showMetamask ? (
                           <MetamaskBarcode />
                         ) : (
-                        <div className="">
                           <div className="">
-                            <div
-                              style={{
-                                overflow: 'hidden',
-                                borderRadius: '19px',
-                                width: "375px"
-                              }}
-                            >
-                              <iframe
+                            <div className="">
+                              <div
                                 style={{
-                                  marginTop: '-0.2px',
-                                  marginLeft: '-3px',
+                                  overflow: 'hidden',
+                                  borderRadius: '19px',
+                                  width: "375px"
                                 }}
-                                src={
-                                  !triaStaging
-                                    ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
-                                    : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
-                                }
-                                height={'205px'}
-                                width='100%'
-                              />
-                            </div>
-                            <div style={{ width: '100%', height: '100%', paddingTop: '12px', paddingBottom: '12px', justifyContent: 'center', alignItems: 'center', gap: '8px', display: 'inline-flex' }}>
-                              <div style={{ flex: '1 1 0', height: '0px', border: '2px rgba(255, 255, 255, 0.10) solid' }}></div>
-                              <div style={{ paddingLeft: '8px', paddingRight: '8px', justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                                <div style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.40)', fontSize: '12px', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, textTransform: 'uppercase', lineHeight: '14.40px', wordWrap: 'break-word' }}>or</div>
+                              >
+                                <iframe
+                                  style={{
+                                    marginTop: '-0.2px',
+                                    marginLeft: '-3px',
+                                  }}
+                                  src={
+                                    !triaStaging
+                                      ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
+                                      : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
+                                  }
+                                  height={'205px'}
+                                  width='100%'
+                                />
                               </div>
-                              <div style={{ flex: '1 1 0', height: '0px', border: '2px rgba(255, 255, 255, 0.10) solid' }}></div>
-                            </div>
-                            <Wallets
+                              <div style={{ width: '100%', height: '100%', paddingTop: '12px', paddingBottom: '12px', justifyContent: 'center', alignItems: 'center', gap: '8px', display: 'inline-flex' }}>
+                                <div style={{ flex: '1 1 0', height: '0px', border: '2px rgba(255, 255, 255, 0.10) solid' }}></div>
+                                <div style={{ paddingLeft: '8px', paddingRight: '8px', justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                                  <div style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.40)', fontSize: '12px', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, textTransform: 'uppercase', lineHeight: '14.40px', wordWrap: 'break-word' }}>or</div>
+                                </div>
+                                <div style={{ flex: '1 1 0', height: '0px', border: '2px rgba(255, 255, 255, 0.10) solid' }}></div>
+                              </div>
+                              <Wallets
                                 setShowMetaMask={() => {
                                   setShowMetaMask(true);
                                 }}
                               />
-                          </div>
-                        </div>)}
+                            </div>
+                          </div>)}
                       </div>
                     </div>
                     <div>
@@ -692,7 +696,7 @@ const Application: React.FC<ApplicationProps> = ({
                             alignItems: 'center',
                             display: 'flex',
                             width: '416px',
-                            gap:"4px"
+                            gap: "4px"
                           }}
                         >
                           <div style={{
@@ -751,7 +755,7 @@ const Application: React.FC<ApplicationProps> = ({
                   />
                 )}
               </div>
-              
+
             )}
           </>
         )}
@@ -803,11 +807,10 @@ const Application: React.FC<ApplicationProps> = ({
                   borderRadius: '20px',
                   overflow: 'hidden',
 
-                  boxShadow: `${
-                    darkMode
+                  boxShadow: `${darkMode
                       ? `0px 0px 10px 1px #40404044`
                       : `0px 0px 10px 1px #10101044`
-                  }`,
+                    }`,
                   borderColor: `${darkMode ? `#40404044` : `#10101044`}`,
                   borderWidth: '2px',
                   borderStyle: 'solid',
