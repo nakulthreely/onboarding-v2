@@ -233,7 +233,7 @@ const Application: React.FC<ApplicationProps> = ({
         coords.y - 134 > 0 ? setPosY(coords.y - 134) : setPosY(20)
       }
     }
-    if (now.getTime() - (currentTime || 0) < 200) {
+    if (now.getTime() - (currentTime || 0) < 250) {
       handleWalletButtonClick()
       setButtonPosX(coords.x - (coords.x - buttonPosX))
       setButtonPosY(coords.y - (coords.y - buttonPosY))
