@@ -215,13 +215,23 @@ const Application: React.FC<ApplicationProps> = ({
       setPosY(window.innerHeight - 586)
     } else if (window.innerWidth - coords.x < 312) {
       setPosX(window.innerWidth - 312)
-      setPosY(coords.y)
+      {
+        coords.y - 134 > 0 ? setPosY(coords.y - 134) : setPosY(20)
+      }
     } else if (window.innerHeight - coords.y < 586) {
-      setPosX(coords.x)
+      {
+        coords.x - 134 > 0 ? setPosX(coords.x - 134) : setPosX(10)
+      }
+
       setPosY(window.innerHeight - 586)
     } else {
-      setPosX(coords.x)
-      setPosY(coords.y)
+      {
+        coords.x - 134 > 0 ? setPosX(coords.x - 134) : setPosX(10)
+      }
+
+      {
+        coords.y - 134 > 0 ? setPosY(coords.y - 134) : setPosY(20)
+      }
     }
     if (now.getTime() - (currentTime || 0) < 200) {
       handleWalletButtonClick()
@@ -271,8 +281,8 @@ const Application: React.FC<ApplicationProps> = ({
     setInterval(() => {
       // console.log('account', account)
       if (localStorage.getItem('tria.wallet.store') !== null) {
-        const triaLogInEvent = new Event('TriaLogIn');
-        window.dispatchEvent(triaLogInEvent);
+        const triaLogInEvent = new Event('TriaLogIn')
+        window.dispatchEvent(triaLogInEvent)
         setShowOnboarding(false)
         setTriaName(
           JSON.parse(localStorage.getItem('tria.wallet.store') || '')?.triaName
@@ -283,8 +293,8 @@ const Application: React.FC<ApplicationProps> = ({
             ?.address
         )
       } else if (localStorage.getItem('wagmi.connected') === 'true') {
-        const triaLogInEvent = new Event('TriaLogIn');
-        window.dispatchEvent(triaLogInEvent);
+        const triaLogInEvent = new Event('TriaLogIn')
+        window.dispatchEvent(triaLogInEvent)
         setShowOnboarding(false)
         setExternalWallet(true)
       } else {
@@ -339,8 +349,8 @@ const Application: React.FC<ApplicationProps> = ({
     {
       triaStaging
         ? setIframeURL(
-          `https://staging-tria-wallet.vercel.app/${encodedParams}`
-        )
+            `https://staging-tria-wallet.vercel.app/${encodedParams}`
+          )
         : setIframeURL(`https://wallet.tria.so/${encodedParams}`)
     }
   }, [triaName, userAddress])
@@ -369,11 +379,11 @@ const Application: React.FC<ApplicationProps> = ({
       {
         triaStaging
           ? setAuthIFrameUrl(
-            `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-          )
+              `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+            )
           : setAuthIFrameUrl(
-            `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-          )
+              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+            )
       }
     }
   }, [dappName, logo])
@@ -488,22 +498,22 @@ const Application: React.FC<ApplicationProps> = ({
     justifyContent: 'center',
     alignItems: 'center',
     gap: '16px',
-    display: 'inline-flex'
-  };
+    display: 'inline-flex',
+  }
 
   const innerDivStyles = {
     width: '95px',
     position: 'relative',
     backgroundColor: '#XXXXXX', // Replace XXXXXX with the appropriate color value for bg-stone-950
     borderRadius: '67.31px',
-    boxShadow: '0px 0px 8px 2px rgba(100, 100, 100, 0.2)'
-  };
+    boxShadow: '0px 0px 8px 2px rgba(100, 100, 100, 0.2)',
+  }
 
   const imgStyles = {
     width: '100%',
     height: '100%',
-    objectFit: 'cover'
-  };
+    objectFit: 'cover',
+  }
 
   const absoluteDivStyles = {
     width: '14.66px',
@@ -513,8 +523,8 @@ const Application: React.FC<ApplicationProps> = ({
     position: 'absolute',
     backgroundColor: '#XXXXXX', // Replace XXXXXX with the appropriate color value for bg-lime-400
     borderRadius: '50%',
-    filter: 'blur(40.71px)'
-  };
+    filter: 'blur(40.71px)',
+  }
 
   return (
     <>
@@ -549,7 +559,7 @@ const Application: React.FC<ApplicationProps> = ({
                   top: '50%',
                   left: '50%',
                   transform: 'translate(-50%, -50%)',
-                  fontFamily: 'Montserrat, sans-serif'
+                  fontFamily: 'Montserrat, sans-serif',
                 }}
               >
                 {openNewFrame === false ? (
@@ -571,50 +581,72 @@ const Application: React.FC<ApplicationProps> = ({
                     {showMetamask && (
                       <div
                         style={{
-                          position: "absolute",
-                          paddingTop: "4px",
-                          paddingLeft: "4px",
-                          cursor: "pointer",
+                          position: 'absolute',
+                          paddingTop: '4px',
+                          paddingLeft: '4px',
+                          cursor: 'pointer',
                         }}
                         onClick={() => setShowMetaMask(false)}
                       >
-                        {" "}
+                        {' '}
                         <Back />
                       </div>
                     )}
                     <div
                       style={{
-                        marginLeft: "-150px",
-                        position: "absolute",
+                        marginLeft: '-150px',
+                        position: 'absolute',
                         top: 0,
                       }}
                     >
-                      {" "}
+                      {' '}
                     </div>
                     <div
                       style={{
-                        flexDirection: "column",
-                        justifyContent: "flex-start",
-                        gap: "8px", // Assuming 2px gap in Tailwind is equal to 8px in inline style
-                        display: "flex",
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
+                        gap: '8px', // Assuming 2px gap in Tailwind is equal to 8px in inline style
+                        display: 'flex',
                       }}
                     >
                       <div>
-                        <div style={{
-                          width: '416px',
-                          height: '39.50px',
-                          justifyContent: 'flex-end',
-                          alignItems: 'flex-start',
-                          display: 'inline-flex'
-                        }}
+                        <div
+                          style={{
+                            width: '416px',
+                            height: '39.50px',
+                            justifyContent: 'flex-end',
+                            alignItems: 'flex-start',
+                            display: 'inline-flex',
+                          }}
                         ></div>
                         <div style={containerStyles}>
                           <div style={innerDivStyles}>
-                            <img src={logo} alt="Logo" style={imgStyles} />
+                            <img src={logo} alt='Logo' style={imgStyles} />
                             <div style={absoluteDivStyles}></div>
                           </div>
-                          <div style={{ alignSelf: 'stretch', paddingTop: '12px', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: '16px', display: 'flex' }}>
-                            <div style={{ alignSelf: 'stretch', textAlign: 'center', color: 'white', opacity: '0.8', fontSize: '1.125rem', fontWeight: '500', fontFamily: 'Montserrat, sans-serif', lineHeight: '1.6' }}>
+                          <div
+                            style={{
+                              alignSelf: 'stretch',
+                              paddingTop: '12px',
+                              flexDirection: 'column',
+                              justifyContent: 'center',
+                              alignItems: 'flex-start',
+                              gap: '16px',
+                              display: 'flex',
+                            }}
+                          >
+                            <div
+                              style={{
+                                alignSelf: 'stretch',
+                                textAlign: 'center',
+                                color: 'white',
+                                opacity: '0.8',
+                                fontSize: '1.125rem',
+                                fontWeight: '500',
+                                fontFamily: 'Montserrat, sans-serif',
+                                lineHeight: '1.6',
+                              }}
+                            >
                               Log in with {dappName}
                             </div>
                           </div>
@@ -634,19 +666,19 @@ const Application: React.FC<ApplicationProps> = ({
                           justifyContent: 'center',
                           alignItems: 'center',
                           gap: '8px', // Adjusted gap as gap-2 in Tailwind
-                          display: 'inline-flex'
+                          display: 'inline-flex',
                         }}
                       >
                         {showMetamask ? (
                           <MetamaskBarcode />
                         ) : (
-                          <div className="">
-                            <div className="">
+                          <div className=''>
+                            <div className=''>
                               <div
                                 style={{
                                   overflow: 'hidden',
                                   borderRadius: '19px',
-                                  width: "375px"
+                                  width: '375px',
                                 }}
                               >
                                 <iframe
@@ -663,32 +695,81 @@ const Application: React.FC<ApplicationProps> = ({
                                   width='100%'
                                 />
                               </div>
-                              <div style={{ width: '100%', height: '100%', paddingTop: '12px', paddingBottom: '12px', justifyContent: 'center', alignItems: 'center', gap: '8px', display: 'inline-flex' }}>
-                                <div style={{ flex: '1 1 0', height: '0px', border: '2px rgba(255, 255, 255, 0.10) solid' }}></div>
-                                <div style={{ paddingLeft: '8px', paddingRight: '8px', justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                                  <div style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.40)', fontSize: '12px', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, textTransform: 'uppercase', lineHeight: '14.40px', wordWrap: 'break-word' }}>or</div>
+                              <div
+                                style={{
+                                  width: '100%',
+                                  height: '100%',
+                                  paddingTop: '12px',
+                                  paddingBottom: '12px',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  gap: '8px',
+                                  display: 'inline-flex',
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    flex: '1 1 0',
+                                    height: '0px',
+                                    border:
+                                      '2px rgba(255, 255, 255, 0.10) solid',
+                                  }}
+                                ></div>
+                                <div
+                                  style={{
+                                    paddingLeft: '8px',
+                                    paddingRight: '8px',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    display: 'flex',
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      textAlign: 'center',
+                                      color: 'rgba(255, 255, 255, 0.40)',
+                                      fontSize: '12px',
+                                      fontFamily: 'Montserrat, sans-serif',
+                                      fontWeight: 600,
+                                      textTransform: 'uppercase',
+                                      lineHeight: '14.40px',
+                                      wordWrap: 'break-word',
+                                    }}
+                                  >
+                                    or
+                                  </div>
                                 </div>
-                                <div style={{ flex: '1 1 0', height: '0px', border: '2px rgba(255, 255, 255, 0.10) solid' }}></div>
+                                <div
+                                  style={{
+                                    flex: '1 1 0',
+                                    height: '0px',
+                                    border:
+                                      '2px rgba(255, 255, 255, 0.10) solid',
+                                  }}
+                                ></div>
                               </div>
                               <Wallets
                                 setShowMetaMask={() => {
-                                  setShowMetaMask(true);
+                                  setShowMetaMask(true)
                                 }}
                               />
                             </div>
-                          </div>)}
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div>
-                      <div style={{
-                        width: '416px',
-                        height: '43px',
-                        paddingTop: '3px', // Adjusted padding as py-3 in Tailwind
-                        borderRadius: '44px', // Equivalent to rounded-[44px] in Tailwind
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        display: 'inline-flex'
-                      }}>
+                      <div
+                        style={{
+                          width: '416px',
+                          height: '43px',
+                          paddingTop: '3px', // Adjusted padding as py-3 in Tailwind
+                          borderRadius: '44px', // Equivalent to rounded-[44px] in Tailwind
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          display: 'inline-flex',
+                        }}
+                      >
                         <div
                           style={{
                             height: '19px',
@@ -696,15 +777,17 @@ const Application: React.FC<ApplicationProps> = ({
                             alignItems: 'center',
                             display: 'flex',
                             width: '416px',
-                            gap: "4px"
+                            gap: '4px',
                           }}
                         >
-                          <div style={{
-                            width: '19px',
-                            height: '19px',
-                            position: 'relative',
-                            borderRadius: '5px'
-                          }} />
+                          <div
+                            style={{
+                              width: '19px',
+                              height: '19px',
+                              position: 'relative',
+                              borderRadius: '5px',
+                            }}
+                          />
                           <svg
                             width='19'
                             height='19'
@@ -732,14 +815,16 @@ const Application: React.FC<ApplicationProps> = ({
                               </clipPath>
                             </defs>
                           </svg>
-                          <div style={{
-                            textAlign: 'center',
-                            color: 'rgba(128, 128, 128, 0.40)', // Equivalent to text-zinc-500, text-opacity-40 in Tailwind
-                            fontSize: '0.875rem', // Equivalent to text-sm in Tailwind
-                            fontWeight: '600', // Equivalent to font-semibold in Tailwind
-                            fontFamily: 'Montserrat, sans-serif',
-                            lineHeight: '1.8'
-                          }}>
+                          <div
+                            style={{
+                              textAlign: 'center',
+                              color: 'rgba(128, 128, 128, 0.40)', // Equivalent to text-zinc-500, text-opacity-40 in Tailwind
+                              fontSize: '0.875rem', // Equivalent to text-sm in Tailwind
+                              fontWeight: '600', // Equivalent to font-semibold in Tailwind
+                              fontFamily: 'Montserrat, sans-serif',
+                              lineHeight: '1.8',
+                            }}
+                          >
                             Powered by Tria
                           </div>
                         </div>
@@ -755,7 +840,6 @@ const Application: React.FC<ApplicationProps> = ({
                   />
                 )}
               </div>
-
             )}
           </>
         )}
@@ -807,10 +891,11 @@ const Application: React.FC<ApplicationProps> = ({
                   borderRadius: '20px',
                   overflow: 'hidden',
 
-                  boxShadow: `${darkMode
+                  boxShadow: `${
+                    darkMode
                       ? `0px 0px 10px 1px #40404044`
                       : `0px 0px 10px 1px #10101044`
-                    }`,
+                  }`,
                   borderColor: `${darkMode ? `#40404044` : `#10101044`}`,
                   borderWidth: '2px',
                   borderStyle: 'solid',
@@ -828,7 +913,7 @@ const Application: React.FC<ApplicationProps> = ({
             </div>
           </div>
         )}
-        {triaName && !walletVisible && (
+        {triaName && (
           <Draggable
             defaultPosition={{ x: buttonPosX, y: buttonPosY }}
             onStart={handleStartDragging}
@@ -844,13 +929,7 @@ const Application: React.FC<ApplicationProps> = ({
               style={{
                 cursor: 'pointer',
                 zIndex: 9999,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '100px',
-                height: '100px',
-                borderRadius: '50px',
-                overflow: 'hidden',
+                opacity: `${walletVisible ? 0 : 1}`,
               }}
             >
               <TriaWalletButton bgColor={primaryColor || '#A855F7'} />
