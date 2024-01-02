@@ -718,6 +718,13 @@ const Application: React.FC<ApplicationProps> = ({
               style={{
                 cursor: 'pointer',
                 zIndex: 9999,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100px',
+                height: '100px',
+                borderRadius: '50px',
+                overflow: 'hidden',
               }}
             >
               <TriaWalletButton bgColor={primaryColor || '#A855F7'} />
