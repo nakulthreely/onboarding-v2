@@ -11,14 +11,13 @@ const qrCode = new QRCodeStyling({
   width: 200,
   height: 200,
   image:
-    "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=029",
+    "https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg",
   dotsOptions: {
     color: "black",
     type: "rounded"
   },
   imageOptions: {
     crossOrigin: "anonymous",
-    margin: 20
   }
 });
 

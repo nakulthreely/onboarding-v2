@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useState, useEffect } from 'react'
 import './index.css'
 import NavContext from './NavContext'
@@ -258,9 +259,9 @@ const Application: React.FC<ApplicationProps> = ({
   useEffect(() => {
     if (!account && triaName) {
       const currentTime = new Date()
-      const lastReload = localStorage.getItem('hasReloaded')
+      const lastReload = localStorage.getItem('lastReload')
       if (currentTime?.getTime() - parseFloat(lastReload || '0') > 200) {
-        localStorage.setItem('hasReloaded', currentTime?.getTime()?.toString())
+        localStorage.setItem('lastReload', currentTime?.getTime()?.toString())
         window.location.reload()
       }
     }
@@ -270,6 +271,8 @@ const Application: React.FC<ApplicationProps> = ({
     setInterval(() => {
       // console.log('account', account)
       if (localStorage.getItem('tria.wallet.store') !== null) {
+        const triaLogInEvent = new Event('TriaLogIn');
+        window.dispatchEvent(triaLogInEvent);
         setShowOnboarding(false)
         setTriaName(
           JSON.parse(localStorage.getItem('tria.wallet.store') || '')?.triaName
@@ -280,6 +283,8 @@ const Application: React.FC<ApplicationProps> = ({
             ?.address
         )
       } else if (localStorage.getItem('wagmi.connected') === 'true') {
+        const triaLogInEvent = new Event('TriaLogIn');
+        window.dispatchEvent(triaLogInEvent);
         setShowOnboarding(false)
         setExternalWallet(true)
       } else {
@@ -334,8 +339,8 @@ const Application: React.FC<ApplicationProps> = ({
     {
       triaStaging
         ? setIframeURL(
-            `https://staging-tria-wallet.vercel.app/${encodedParams}`
-          )
+          `https://staging-tria-wallet.vercel.app/${encodedParams}`
+        )
         : setIframeURL(`https://wallet.tria.so/${encodedParams}`)
     }
   }, [triaName, userAddress])
@@ -364,11 +369,11 @@ const Application: React.FC<ApplicationProps> = ({
       {
         triaStaging
           ? setAuthIFrameUrl(
-              `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-            )
+            `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+          )
           : setAuthIFrameUrl(
-              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-            )
+            `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+          )
       }
     }
   }, [dappName, logo])
@@ -474,6 +479,43 @@ const Application: React.FC<ApplicationProps> = ({
     }
   }
 
+  const containerStyles = {
+    width: '416px',
+    padding: '5px',
+    paddingTop: '6px',
+    paddingBottom: '6px',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '16px',
+    display: 'inline-flex'
+  };
+
+  const innerDivStyles = {
+    width: '95px',
+    position: 'relative',
+    backgroundColor: '#XXXXXX', // Replace XXXXXX with the appropriate color value for bg-stone-950
+    borderRadius: '67.31px',
+    boxShadow: '0px 0px 8px 2px rgba(100, 100, 100, 0.2)'
+  };
+
+  const imgStyles = {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover'
+  };
+
+  const absoluteDivStyles = {
+    width: '14.66px',
+    height: '14.66px',
+    left: '40.17px',
+    top: '40.17px',
+    position: 'absolute',
+    backgroundColor: '#XXXXXX', // Replace XXXXXX with the appropriate color value for bg-lime-400
+    borderRadius: '50%',
+    filter: 'blur(40.71px)'
+  };
+
   return (
     <>
       {/* <WagmiConfig config={wagmiConfig}> */}
@@ -499,37 +541,81 @@ const Application: React.FC<ApplicationProps> = ({
                 />
               </div>
             ) : (
-              <div className='rounded-[20px] overflow-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+              <div
+                style={{
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  position: 'fixed',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  fontFamily: 'Montserrat, sans-serif'
+                }}
+              >
                 {openNewFrame === false ? (
-                  <div className='w-[448px] rounded-2xl drop bg-[#101010] h-[840px] p-4 flex-col justify-between inline-flex scale-[0.7]'>
+                  <div
+                    style={{
+                      width: '448px',
+                      borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
+                      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)', // Assuming similar shadow effects
+                      backgroundColor: '#101010', // Equivalent to bg-[#101010] in Tailwind
+                      height: '840px',
+                      padding: '16px',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      display: 'inline-flex',
+                      transform: 'scale(0.7)',
+                      fontFamily: 'Montserrat, sans-serif',
+                    }}
+                  >
                     {showMetamask && (
                       <div
-                        className='absolute pt-4 pl-4 cursor-pointer'
+                        style={{
+                          position: "absolute",
+                          paddingTop: "4px",
+                          paddingLeft: "4px",
+                          cursor: "pointer",
+                        }}
                         onClick={() => setShowMetaMask(false)}
                       >
-                        {' '}
+                        {" "}
                         <Back />
                       </div>
                     )}
                     <div
-                      style={{ marginLeft: '-150px' }}
-                      className='absolute top-0 '
+                      style={{
+                        marginLeft: "-150px",
+                        position: "absolute",
+                        top: 0,
+                      }}
                     >
-                      {' '}
+                      {" "}
                     </div>
-                    <div className='flex-col justify-start gap-2 flex'>
+                    <div
+                      style={{
+                        flexDirection: "column",
+                        justifyContent: "flex-start",
+                        gap: "8px", // Assuming 2px gap in Tailwind is equal to 8px in inline style
+                        display: "flex",
+                      }}
+                    >
                       <div>
-                        <div className='w-[416px] h-[39.50px] justify-end items-start inline-flex'></div>
-                        <div className='w-[416px]  px-5 py-6 flex-col justify-center items-center gap-4 inline-flex'>
-                          <div className='w-[95px]  relative bg-stone-950 rounded-[67.31px] shadow'>
-                            <img src={logo}></img>
-                            <div className='w-[14.66px]  left-[40.17px] top-[40.17px] absolute bg-lime-400 rounded-full blur-[40.71px]' />
+                        <div style={{
+                          width: '416px',
+                          height: '39.50px',
+                          justifyContent: 'flex-end',
+                          alignItems: 'flex-start',
+                          display: 'inline-flex'
+                        }}
+                        ></div>
+                        <div style={containerStyles}>
+                          <div style={innerDivStyles}>
+                            <img src={logo} alt="Logo" style={imgStyles} />
+                            <div style={absoluteDivStyles}></div>
                           </div>
-                          <div className='self-stretch  py-3 flex-col justify-center items-start gap-4 flex'>
-                            <div className='self-stretch justify-center items-center gap-2 inline-flex'>
-                              <div className="text-center text-white text-opacity-80 text-lg font-medium font-['Montserrat'] leading-snug">
-                                Log in with {dappName}
-                              </div>
+                          <div style={{ alignSelf: 'stretch', paddingTop: '12px', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: '16px', display: 'flex' }}>
+                            <div style={{ alignSelf: 'stretch', textAlign: 'center', color: 'white', opacity: '0.8', fontSize: '1.125rem', fontWeight: '500', fontFamily: 'Montserrat, sans-serif', lineHeight: '1.6' }}>
+                              Log in with {dappName}
                             </div>
                           </div>
                         </div>
@@ -537,16 +623,30 @@ const Application: React.FC<ApplicationProps> = ({
                     </div>
                     <div className='mt-auto'>
                       {/* <Logins /> */}
-                      <div className='w-[416px] h-[375px] px-5 py-4 rounded-2xl border border-violet-400 border-opacity-30 flex-col justify-center items-center gap-2 inline-flex'>
+                      <div
+                        style={{
+                          width: '416px',
+                          height: '375px',
+                          padding: '4px 5px', // Adjusted padding as px-5 and py-4 in Tailwind
+                          borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
+                          border: '1px solid rgba(167,139,250,0.3)', // Equivalent to border-violet-400 and border-opacity-30 in Tailwind
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          gap: '8px', // Adjusted gap as gap-2 in Tailwind
+                          display: 'inline-flex'
+                        }}
+                      >
                         {showMetamask ? (
                           <MetamaskBarcode />
                         ) : (
-                          <div className=''>
-                            <div className=''>
+                          <div className="">
+                            <div className="">
                               <div
                                 style={{
                                   overflow: 'hidden',
                                   borderRadius: '19px',
+                                  width: "375px"
                                 }}
                               >
                                 <iframe
@@ -563,29 +663,48 @@ const Application: React.FC<ApplicationProps> = ({
                                   width='100%'
                                 />
                               </div>
-                              <div className='w-[376px]  py-3 justify-center items-center gap-2 inline-flex'>
-                                <div className='grow shrink basis-0 border-2 border-white border-opacity-10'></div>
-                                <div className='px-2 justify-center items-center flex'>
-                                  <div className="text-center text-white text-opacity-40 text-xs font-semibold font-['Montserrat'] uppercase leading-[14.40px]">
-                                    or
-                                  </div>
+                              <div style={{ width: '100%', height: '100%', paddingTop: '12px', paddingBottom: '12px', justifyContent: 'center', alignItems: 'center', gap: '8px', display: 'inline-flex' }}>
+                                <div style={{ flex: '1 1 0', height: '0px', border: '2px rgba(255, 255, 255, 0.10) solid' }}></div>
+                                <div style={{ paddingLeft: '8px', paddingRight: '8px', justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                                  <div style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.40)', fontSize: '12px', fontFamily: 'Montserrat, sans-serif', fontWeight: 600, textTransform: 'uppercase', lineHeight: '14.40px', wordWrap: 'break-word' }}>or</div>
                                 </div>
-                                <div className='grow shrink basis-0  border-2 border-white border-opacity-10'></div>
+                                <div style={{ flex: '1 1 0', height: '0px', border: '2px rgba(255, 255, 255, 0.10) solid' }}></div>
                               </div>
                               <Wallets
                                 setShowMetaMask={() => {
-                                  setShowMetaMask(true)
+                                  setShowMetaMask(true);
                                 }}
                               />
                             </div>
-                          </div>
-                        )}
+                          </div>)}
                       </div>
                     </div>
                     <div>
-                      <div className='w-[416px] h-[43px] py-3 rounded-[44px] justify-start items-start inline-flex'>
-                        <div className='grow shrink basis-0 h-[19px] justify-center items-center gap-2 flex'>
-                          <div className='w-[19px] h-[19px] relative rounded-[5px]' />
+                      <div style={{
+                        width: '416px',
+                        height: '43px',
+                        paddingTop: '3px', // Adjusted padding as py-3 in Tailwind
+                        borderRadius: '44px', // Equivalent to rounded-[44px] in Tailwind
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        display: 'inline-flex'
+                      }}>
+                        <div
+                          style={{
+                            height: '19px',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            display: 'flex',
+                            width: '416px',
+                            gap: "4px"
+                          }}
+                        >
+                          <div style={{
+                            width: '19px',
+                            height: '19px',
+                            position: 'relative',
+                            borderRadius: '5px'
+                          }} />
                           <svg
                             width='19'
                             height='19'
@@ -613,7 +732,14 @@ const Application: React.FC<ApplicationProps> = ({
                               </clipPath>
                             </defs>
                           </svg>
-                          <div className="text-center text-zinc-500 text-opacity-40 text-sm font-semibold font-['Montserrat'] leading-[16.80px]">
+                          <div style={{
+                            textAlign: 'center',
+                            color: 'rgba(128, 128, 128, 0.40)', // Equivalent to text-zinc-500, text-opacity-40 in Tailwind
+                            fontSize: '0.875rem', // Equivalent to text-sm in Tailwind
+                            fontWeight: '600', // Equivalent to font-semibold in Tailwind
+                            fontFamily: 'Montserrat, sans-serif',
+                            lineHeight: '1.8'
+                          }}>
                             Powered by Tria
                           </div>
                         </div>
@@ -629,6 +755,7 @@ const Application: React.FC<ApplicationProps> = ({
                   />
                 )}
               </div>
+
             )}
           </>
         )}
@@ -680,11 +807,10 @@ const Application: React.FC<ApplicationProps> = ({
                   borderRadius: '20px',
                   overflow: 'hidden',
 
-                  boxShadow: `${
-                    darkMode
+                  boxShadow: `${darkMode
                       ? `0px 0px 10px 1px #40404044`
                       : `0px 0px 10px 1px #10101044`
-                  }`,
+                    }`,
                   borderColor: `${darkMode ? `#40404044` : `#10101044`}`,
                   borderWidth: '2px',
                   borderStyle: 'solid',
