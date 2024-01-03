@@ -123,6 +123,7 @@ interface ApplicationProps {
   darkMode?: boolean
   triaStaging?: boolean
   buttonPosition?: { x?: number; y?: number }
+  triaWalletHeight?: number
 }
 
 const initialChains = [
@@ -147,6 +148,7 @@ const Application: React.FC<ApplicationProps> = ({
   triaStaging = false,
   buttonPosition = { x: 100, y: 100 },
   darkMode = true,
+  triaWalletHeight = 586,
 }) => {
   const [view, setView] = useState('Home')
   const [triaName, setTriaName] = useState<string>()
@@ -903,8 +905,8 @@ const Application: React.FC<ApplicationProps> = ({
                 }}
               >
                 <iframe
-                  width='312'
-                  height='586'
+                  width={`${0.533 * triaWalletHeight}`}
+                  height={`${triaWalletHeight}`}
                   src={iframeURL}
                   allow='clipboard-read; clipboard-write; publickey-credentials-get'
                   style={{ border: 0 }}
