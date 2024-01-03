@@ -123,6 +123,7 @@ interface ApplicationProps {
   darkMode?: boolean
   triaStaging?: boolean
   buttonPosition?: { x?: number; y?: number }
+  authHorizontal?: string
 }
 
 const initialChains = [
@@ -139,7 +140,7 @@ const initialChains = [
 const Application: React.FC<ApplicationProps> = ({
   dappName,
   dappDomain,
-  uiType,
+  uiType = "default",
   logo,
   primaryColor = '#A855F7',
   supportedChains = initialChains,
@@ -147,6 +148,7 @@ const Application: React.FC<ApplicationProps> = ({
   triaStaging = false,
   buttonPosition = { x: 100, y: 100 },
   darkMode = true,
+  authHorizontal = "50%"
 }) => {
   const [view, setView] = useState('Home')
   const [triaName, setTriaName] = useState<string>()
@@ -349,8 +351,8 @@ const Application: React.FC<ApplicationProps> = ({
     {
       triaStaging
         ? setIframeURL(
-            `https://staging-tria-wallet.vercel.app/${encodedParams}`
-          )
+          `https://staging-tria-wallet.vercel.app/${encodedParams}`
+        )
         : setIframeURL(`https://wallet.tria.so/${encodedParams}`)
     }
   }, [triaName, userAddress])
@@ -379,11 +381,11 @@ const Application: React.FC<ApplicationProps> = ({
       {
         triaStaging
           ? setAuthIFrameUrl(
-              `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-            )
+            `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+          )
           : setAuthIFrameUrl(
-              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-            )
+            `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+          )
       }
     }
   }, [dappName, logo])
@@ -532,14 +534,14 @@ const Application: React.FC<ApplicationProps> = ({
       <NavContext.Provider value={nav_context_object}>
         {!triaName && showOnboarding && !externalWallet && (
           <>
-            {uiType !== 'yes' ? (
+            {uiType === 'default' ? (
               <div
                 style={{
                   borderRadius: '20px',
                   overflow: 'hidden',
                   position: 'fixed',
                   top: '50%',
-                  left: '50%',
+                  left: authHorizontal,
                   transform: 'translate(-50%, -50%)',
                 }}
               >
@@ -550,297 +552,428 @@ const Application: React.FC<ApplicationProps> = ({
                   allow='publickey-credentials-get'
                 />
               </div>
-            ) : (
-              <div
-                style={{
-                  borderRadius: '20px',
-                  overflow: 'hidden',
-                  position: 'fixed',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  fontFamily: 'Montserrat, sans-serif',
-                }}
-              >
+            ) : uiType === "fusionX" ?
+              <div>
                 {openNewFrame === false ? (
-                  <div
-                    style={{
-                      width: '448px',
-                      borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
-                      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)', // Assuming similar shadow effects
-                      backgroundColor: '#101010', // Equivalent to bg-[#101010] in Tailwind
-                      height: '840px',
-                      padding: '16px',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      display: 'inline-flex',
-                      transform: 'scale(0.7)',
-                      fontFamily: 'Montserrat, sans-serif',
-                    }}
-                  >
-                    {showMetamask && (
-                      <div
-                        style={{
-                          position: 'absolute',
-                          paddingTop: '4px',
-                          paddingLeft: '4px',
-                          cursor: 'pointer',
-                        }}
-                        onClick={() => setShowMetaMask(false)}
-                      >
-                        {' '}
-                        <Back />
-                      </div>
-                    )}
-                    <div
-                      style={{
-                        marginLeft: '-150px',
-                        position: 'absolute',
-                        top: 0,
-                      }}
-                    >
-                      {' '}
-                    </div>
-                    <div
-                      style={{
-                        flexDirection: 'column',
-                        justifyContent: 'flex-start',
-                        gap: '8px', // Assuming 2px gap in Tailwind is equal to 8px in inline style
+                  <div style={{
+                    position: "fixed",
+                    backgroundColor: "#101409",
+                    height: "500px",
+                    width: "900px",
+                    borderRadius: 10,
+                    border: '1px rgba(255, 255, 255, 0.15) solid',
+                    backdropFilter: 'blur(20.80px)',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    display: 'flex'
+                  }}>
+                    <img style={{ width: '48%', borderRadius: 10 }} alt="astronaut_png" src="https://i.postimg.cc/Y9v0M7T7/Image-Placeholder.png" />
+                    <div style={{
+                      marginLeft: "45px",
+                      marginTop: "50px"
+                    }}>
+                      <div style={{
+                        color: '#AAFF00', fontSize: 51, fontFamily: 'Montserrat, sans-serif', fontWeight: '550', textTransform: 'capitalize', wordWrap: 'break-word', marginLeft: "-3px"
+                      }}> Connect Wallet </div>
+                      <div style={{ color: 'white', fontSize: 19, fontFamily: 'Montserrat, sans-serif', fontWeight: '200', wordWrap: 'break-word', marginTop: '10px' }}>Choose a wallet you want to connect</div>
+
+                      <div style={{
+                        marginTop: "-5px",
                         display: 'flex',
-                      }}
-                    >
-                      <div>
+                        flexDirection: 'column',
+                        gap: "15px",
+                        width: '370px',
+                        height: '205px',
+                        borderRadius: '20px',
+                        transform: 'scale(0.8)',
+                        marginLeft: "-36px"
+                      }}>
+                        <iframe style={{
+                          border: "none",
+                          borderRadius: "20px",
+                        }} height={'205px'} width='100%' src={`https://auth.tria.so/socialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`}> </iframe>
+
+                      </div>
+                      <div style={{
+                        marginLeft: '-30px',
+                        transform: "scale(0.8)"
+                      }}>
                         <div
                           style={{
-                            width: '416px',
-                            height: '39.50px',
-                            justifyContent: 'flex-end',
-                            alignItems: 'flex-start',
+                            width: '90%',
+                            height: '100%',
+                            paddingTop: '12px',
+                            paddingBottom: '12px',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            gap: '8px',
                             display: 'inline-flex',
+                            marginTop: "-10px"
                           }}
-                        ></div>
-                        <div style={containerStyles}>
-                          <div style={innerDivStyles}>
-                            <img src={logo} alt='Logo' style={imgStyles} />
-                            <div style={absoluteDivStyles}></div>
-                          </div>
+                        >
                           <div
                             style={{
-                              alignSelf: 'stretch',
-                              paddingTop: '12px',
-                              flexDirection: 'column',
+                              flex: '1 1 0',
+                              height: '0px',
+                              border:
+                                '2px rgba(255, 255, 255, 0.10) solid',
+                            }}
+                          ></div>
+                          <div
+                            style={{
+                              paddingLeft: '8px',
+                              paddingRight: '8px',
                               justifyContent: 'center',
-                              alignItems: 'flex-start',
-                              gap: '16px',
+                              alignItems: 'center',
                               display: 'flex',
                             }}
                           >
                             <div
                               style={{
-                                alignSelf: 'stretch',
                                 textAlign: 'center',
-                                color: 'white',
-                                opacity: '0.8',
-                                fontSize: '1.125rem',
-                                fontWeight: '500',
+                                color: 'rgba(255, 255, 255, 0.40)',
+                                fontSize: '12px',
                                 fontFamily: 'Montserrat, sans-serif',
-                                lineHeight: '1.6',
+                                fontWeight: 600,
+                                textTransform: 'uppercase',
+                                lineHeight: '14.40px',
+                                wordWrap: 'break-word',
                               }}
                             >
-                              Log in with {dappName}
+                              or
+                            </div>
+                          </div>
+                          <div
+                            style={{
+                              flex: '1 1 0',
+                              height: '0px',
+                              border:
+                                '2px rgba(255, 255, 255, 0.10) solid',
+                            }}
+                          ></div>
+                        </div>
+                        <Wallets
+                          setShowMetaMask={() => {
+                            setShowMetaMask(true)
+                          }}
+                        />
+                      </div>
+
+                    </div>
+                  </div>) : (
+                  <div
+                    style={{
+                      borderRadius: '20px',
+                      overflow: 'hidden',
+                      position: 'fixed',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      fontFamily: 'Montserrat, sans-serif',
+                    }}
+                  >
+                    <iframe
+                      width='314'
+                      height='586'
+                      src={frameUrl}
+                      allow='publickey-credentials-get'
+                    />
+                  </div>
+
+                )}
+              </div>
+              : (
+                <div
+                  style={{
+                    borderRadius: '20px',
+                    overflow: 'hidden',
+                    position: 'fixed',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    fontFamily: 'Montserrat, sans-serif',
+                  }}
+                >
+                  {openNewFrame === false ? (
+                    <div
+                      style={{
+                        width: '448px',
+                        borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
+                        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)', // Assuming similar shadow effects
+                        backgroundColor: '#101010', // Equivalent to bg-[#101010] in Tailwind
+                        height: '840px',
+                        padding: '16px',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        display: 'inline-flex',
+                        transform: 'scale(0.7)',
+                        fontFamily: 'Montserrat, sans-serif',
+                      }}
+                    >
+                      {showMetamask && (
+                        <div
+                          style={{
+                            position: 'absolute',
+                            paddingTop: '4px',
+                            paddingLeft: '4px',
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => setShowMetaMask(false)}
+                        >
+                          {' '}
+                          <Back />
+                        </div>
+                      )}
+                      <div
+                        style={{
+                          marginLeft: '-150px',
+                          position: 'absolute',
+                          top: 0,
+                        }}
+                      >
+                        {' '}
+                      </div>
+                      <div
+                        style={{
+                          flexDirection: 'column',
+                          justifyContent: 'flex-start',
+                          gap: '8px', // Assuming 2px gap in Tailwind is equal to 8px in inline style
+                          display: 'flex',
+                        }}
+                      >
+                        <div>
+                          <div
+                            style={{
+                              width: '416px',
+                              height: '39.50px',
+                              justifyContent: 'flex-end',
+                              alignItems: 'flex-start',
+                              display: 'inline-flex',
+                            }}
+                          ></div>
+                          <div style={containerStyles}>
+                            <div style={innerDivStyles}>
+                              <img src={logo} alt='Logo' style={imgStyles} />
+                              <div style={absoluteDivStyles}></div>
+                            </div>
+                            <div
+                              style={{
+                                alignSelf: 'stretch',
+                                paddingTop: '12px',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'flex-start',
+                                gap: '16px',
+                                display: 'flex',
+                              }}
+                            >
+                              <div
+                                style={{
+                                  alignSelf: 'stretch',
+                                  textAlign: 'center',
+                                  color: 'white',
+                                  opacity: '0.8',
+                                  fontSize: '1.125rem',
+                                  fontWeight: '500',
+                                  fontFamily: 'Montserrat, sans-serif',
+                                  lineHeight: '1.6',
+                                }}
+                              >
+                                Log in with {dappName}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className='mt-auto'>
-                      {/* <Logins /> */}
-                      <div
-                        style={{
-                          width: '416px',
-                          height: '375px',
-                          padding: '4px 5px', // Adjusted padding as px-5 and py-4 in Tailwind
-                          borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
-                          border: '1px solid rgba(167,139,250,0.3)', // Equivalent to border-violet-400 and border-opacity-30 in Tailwind
-                          flexDirection: 'column',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          gap: '8px', // Adjusted gap as gap-2 in Tailwind
-                          display: 'inline-flex',
-                        }}
-                      >
-                        {showMetamask ? (
-                          <MetamaskBarcode />
-                        ) : (
-                          <div className=''>
+                      <div className='mt-auto'>
+                        {/* <Logins /> */}
+                        <div
+                          style={{
+                            width: '416px',
+                            height: '375px',
+                            padding: '4px 5px', // Adjusted padding as px-5 and py-4 in Tailwind
+                            borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
+                            border: '1px solid rgba(167,139,250,0.3)', // Equivalent to border-violet-400 and border-opacity-30 in Tailwind
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            gap: '8px', // Adjusted gap as gap-2 in Tailwind
+                            display: 'inline-flex',
+                          }}
+                        >
+                          {showMetamask ? (
+                            <MetamaskBarcode />
+                          ) : (
                             <div className=''>
-                              <div
-                                style={{
-                                  overflow: 'hidden',
-                                  borderRadius: '19px',
-                                  width: '375px',
-                                }}
-                              >
-                                <iframe
-                                  style={{
-                                    marginTop: '-0.2px',
-                                    marginLeft: '-3px',
-                                  }}
-                                  src={
-                                    !triaStaging
-                                      ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
-                                      : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
-                                  }
-                                  height={'205px'}
-                                  width='100%'
-                                />
-                              </div>
-                              <div
-                                style={{
-                                  width: '100%',
-                                  height: '100%',
-                                  paddingTop: '12px',
-                                  paddingBottom: '12px',
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                  gap: '8px',
-                                  display: 'inline-flex',
-                                }}
-                              >
+                              <div className=''>
                                 <div
                                   style={{
-                                    flex: '1 1 0',
-                                    height: '0px',
-                                    border:
-                                      '2px rgba(255, 255, 255, 0.10) solid',
+                                    overflow: 'hidden',
+                                    borderRadius: '19px',
+                                    width: '375px',
                                   }}
-                                ></div>
+                                >
+                                  <iframe
+                                    style={{
+                                      marginTop: '-0.2px',
+                                      marginLeft: '-3px',
+                                    }}
+                                    src={
+                                      !triaStaging
+                                        ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
+                                        : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
+                                    }
+                                    height={'205px'}
+                                    width='100%'
+                                  />
+                                </div>
                                 <div
                                   style={{
-                                    paddingLeft: '8px',
-                                    paddingRight: '8px',
+                                    width: '100%',
+                                    height: '100%',
+                                    paddingTop: '12px',
+                                    paddingBottom: '12px',
                                     justifyContent: 'center',
                                     alignItems: 'center',
-                                    display: 'flex',
+                                    gap: '8px',
+                                    display: 'inline-flex',
                                   }}
                                 >
                                   <div
                                     style={{
-                                      textAlign: 'center',
-                                      color: 'rgba(255, 255, 255, 0.40)',
-                                      fontSize: '12px',
-                                      fontFamily: 'Montserrat, sans-serif',
-                                      fontWeight: 600,
-                                      textTransform: 'uppercase',
-                                      lineHeight: '14.40px',
-                                      wordWrap: 'break-word',
+                                      flex: '1 1 0',
+                                      height: '0px',
+                                      border:
+                                        '2px rgba(255, 255, 255, 0.10) solid',
+                                    }}
+                                  ></div>
+                                  <div
+                                    style={{
+                                      paddingLeft: '8px',
+                                      paddingRight: '8px',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      display: 'flex',
                                     }}
                                   >
-                                    or
+                                    <div
+                                      style={{
+                                        textAlign: 'center',
+                                        color: 'rgba(255, 255, 255, 0.40)',
+                                        fontSize: '12px',
+                                        fontFamily: 'Montserrat, sans-serif',
+                                        fontWeight: 600,
+                                        textTransform: 'uppercase',
+                                        lineHeight: '14.40px',
+                                        wordWrap: 'break-word',
+                                      }}
+                                    >
+                                      or
+                                    </div>
                                   </div>
+                                  <div
+                                    style={{
+                                      flex: '1 1 0',
+                                      height: '0px',
+                                      border:
+                                        '2px rgba(255, 255, 255, 0.10) solid',
+                                    }}
+                                  ></div>
                                 </div>
-                                <div
-                                  style={{
-                                    flex: '1 1 0',
-                                    height: '0px',
-                                    border:
-                                      '2px rgba(255, 255, 255, 0.10) solid',
+                                <Wallets
+                                  setShowMetaMask={() => {
+                                    setShowMetaMask(true)
                                   }}
-                                ></div>
+                                />
                               </div>
-                              <Wallets
-                                setShowMetaMask={() => {
-                                  setShowMetaMask(true)
-                                }}
-                              />
                             </div>
-                          </div>
-                        )}
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <div>
-                      <div
-                        style={{
-                          width: '416px',
-                          height: '43px',
-                          paddingTop: '3px', // Adjusted padding as py-3 in Tailwind
-                          borderRadius: '44px', // Equivalent to rounded-[44px] in Tailwind
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          display: 'inline-flex',
-                        }}
-                      >
+                      <div>
                         <div
                           style={{
-                            height: '19px',
+                            width: '416px',
+                            height: '43px',
+                            paddingTop: '3px', // Adjusted padding as py-3 in Tailwind
+                            borderRadius: '44px', // Equivalent to rounded-[44px] in Tailwind
                             justifyContent: 'center',
                             alignItems: 'center',
-                            display: 'flex',
-                            width: '416px',
-                            gap: '4px',
+                            display: 'inline-flex',
                           }}
                         >
                           <div
                             style={{
-                              width: '19px',
                               height: '19px',
-                              position: 'relative',
-                              borderRadius: '5px',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              display: 'flex',
+                              width: '416px',
+                              gap: '4px',
                             }}
-                          />
-                          <svg
-                            width='19'
-                            height='19'
-                            viewBox='0 0 19 19'
-                            fill='none'
-                            xmlns='http://www.w3.org/2000/svg'
                           >
-                            <g clip-path='url(#clip0_240_3997)'>
-                              <path
-                                fill-rule='evenodd'
-                                clip-rule='evenodd'
-                                d='M19 0H0V19H19V0ZM10.079 5.60869V8.07896L14.1585 6.47031V8.29788C14.1585 8.68991 13.9298 9.04048 13.5854 9.17628L10.079 10.559V8.73509C10.0767 8.34551 9.84853 7.99783 9.5059 7.86274L6.57263 6.70603C6.22823 6.57021 5.99951 6.21964 5.99951 5.82761V4.00003L10.079 5.60869ZM10.079 10.5699V11.0459H10.0848V16.2081H8.404V12.3894L6.57263 11.6672C6.22823 11.5314 5.99951 11.1809 5.99951 10.7888V8.96124L10.079 10.5699Z'
-                                fill='#808080'
-                                fill-opacity='0.4'
-                              />
-                            </g>
-                            <defs>
-                              <clipPath id='clip0_240_3997'>
-                                <rect
-                                  width='19'
-                                  height='19'
-                                  rx='5'
-                                  fill='white'
+                            <div
+                              style={{
+                                width: '19px',
+                                height: '19px',
+                                position: 'relative',
+                                borderRadius: '5px',
+                              }}
+                            />
+                            <svg
+                              width='19'
+                              height='19'
+                              viewBox='0 0 19 19'
+                              fill='none'
+                              xmlns='http://www.w3.org/2000/svg'
+                            >
+                              <g clip-path='url(#clip0_240_3997)'>
+                                <path
+                                  fill-rule='evenodd'
+                                  clip-rule='evenodd'
+                                  d='M19 0H0V19H19V0ZM10.079 5.60869V8.07896L14.1585 6.47031V8.29788C14.1585 8.68991 13.9298 9.04048 13.5854 9.17628L10.079 10.559V8.73509C10.0767 8.34551 9.84853 7.99783 9.5059 7.86274L6.57263 6.70603C6.22823 6.57021 5.99951 6.21964 5.99951 5.82761V4.00003L10.079 5.60869ZM10.079 10.5699V11.0459H10.0848V16.2081H8.404V12.3894L6.57263 11.6672C6.22823 11.5314 5.99951 11.1809 5.99951 10.7888V8.96124L10.079 10.5699Z'
+                                  fill='#808080'
+                                  fill-opacity='0.4'
                                 />
-                              </clipPath>
-                            </defs>
-                          </svg>
-                          <div
-                            style={{
-                              textAlign: 'center',
-                              color: 'rgba(128, 128, 128, 0.40)', // Equivalent to text-zinc-500, text-opacity-40 in Tailwind
-                              fontSize: '0.875rem', // Equivalent to text-sm in Tailwind
-                              fontWeight: '600', // Equivalent to font-semibold in Tailwind
-                              fontFamily: 'Montserrat, sans-serif',
-                              lineHeight: '1.8',
-                            }}
-                          >
-                            Powered by Tria
+                              </g>
+                              <defs>
+                                <clipPath id='clip0_240_3997'>
+                                  <rect
+                                    width='19'
+                                    height='19'
+                                    rx='5'
+                                    fill='white'
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                            <div
+                              style={{
+                                textAlign: 'center',
+                                color: 'rgba(128, 128, 128, 0.40)', // Equivalent to text-zinc-500, text-opacity-40 in Tailwind
+                                fontSize: '0.875rem', // Equivalent to text-sm in Tailwind
+                                fontWeight: '600', // Equivalent to font-semibold in Tailwind
+                                fontFamily: 'Montserrat, sans-serif',
+                                lineHeight: '1.8',
+                              }}
+                            >
+                              Powered by Tria
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  <iframe
-                    width='314'
-                    height='586'
-                    src={frameUrl}
-                    allow='publickey-credentials-get'
-                  />
-                )}
-              </div>
-            )}
+                  ) : (
+                    <iframe
+                      width='314'
+                      height='586'
+                      src={frameUrl}
+                      allow='publickey-credentials-get'
+                    />
+                  )}
+                </div>
+              )}
           </>
         )}
         {showWallet && triaName && userAddress && (
@@ -891,11 +1024,10 @@ const Application: React.FC<ApplicationProps> = ({
                   borderRadius: '20px',
                   overflow: 'hidden',
 
-                  boxShadow: `${
-                    darkMode
-                      ? `0px 0px 10px 1px #40404044`
-                      : `0px 0px 10px 1px #10101044`
-                  }`,
+                  boxShadow: `${darkMode
+                    ? `0px 0px 10px 1px #40404044`
+                    : `0px 0px 10px 1px #10101044`
+                    }`,
                   borderColor: `${darkMode ? `#40404044` : `#10101044`}`,
                   borderWidth: '2px',
                   borderStyle: 'solid',
