@@ -552,7 +552,7 @@ const Application: React.FC<ApplicationProps> = ({
                   allow='publickey-credentials-get'
                 />
               </div>
-            ) : uiType === "fusionX" ?
+            ) : uiType === "wide" ?
               <div>
                 {openNewFrame === false ? (
                   <div style={{
