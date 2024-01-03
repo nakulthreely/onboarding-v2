@@ -37,7 +37,7 @@ const Wallets: React.FC<Props> = ({ setShowMetaMask }) => {
             console.log("res",res);
           } catch (err) {
             console.log("err",err);
-            setShowMetaMask();
+            connect({ connector: connectors[1] })
           }
     };
 
