@@ -123,7 +123,7 @@ interface ApplicationProps {
   darkMode?: boolean
   triaStaging?: boolean
   buttonPosition?: { x?: number; y?: number }
-  triaWalletHeight?: number
+  authHorizontal?: string
 }
 
 const initialChains = [
@@ -140,7 +140,7 @@ const initialChains = [
 const Application: React.FC<ApplicationProps> = ({
   dappName,
   dappDomain,
-  uiType,
+  uiType = 'default',
   logo,
   primaryColor = '#A855F7',
   supportedChains = initialChains,
@@ -148,7 +148,7 @@ const Application: React.FC<ApplicationProps> = ({
   triaStaging = false,
   buttonPosition = { x: 100, y: 100 },
   darkMode = true,
-  triaWalletHeight = 586,
+  authHorizontal = '50%',
 }) => {
   const [view, setView] = useState('Home')
   const [triaName, setTriaName] = useState<string>()
@@ -196,9 +196,11 @@ const Application: React.FC<ApplicationProps> = ({
     console.log(buttonPosX, buttonPosY)
   }, [buttonPosX, buttonPosY])
 
+  const [dragPosStart, setDragPosStart] = useState({ x: 0, y: 0 })
   const handleStartDragging = () => {
     var now = new Date()
     setCurrentTime(now.getTime())
+    setDragPosStart({ x: coords.x, y: coords.y })
     // alert(now.getTime())
   }
 
@@ -235,7 +237,7 @@ const Application: React.FC<ApplicationProps> = ({
         coords.y - 134 > 0 ? setPosY(coords.y - 134) : setPosY(20)
       }
     }
-    if (now.getTime() - (currentTime || 0) < 250) {
+    if (coords.x - dragPosStart.x < 10 && coords.y - dragPosStart.y < 10) {
       handleWalletButtonClick()
       setButtonPosX(coords.x - (coords.x - buttonPosX))
       setButtonPosY(coords.y - (coords.y - buttonPosY))
@@ -534,14 +536,14 @@ const Application: React.FC<ApplicationProps> = ({
       <NavContext.Provider value={nav_context_object}>
         {!triaName && showOnboarding && !externalWallet && (
           <>
-            {uiType !== 'yes' ? (
+            {uiType === 'default' ? (
               <div
                 style={{
                   borderRadius: '20px',
                   overflow: 'hidden',
                   position: 'fixed',
                   top: '50%',
-                  left: '50%',
+                  left: authHorizontal,
                   transform: 'translate(-50%, -50%)',
                 }}
               >
@@ -551,6 +553,174 @@ const Application: React.FC<ApplicationProps> = ({
                   src={authIFrameUrl}
                   allow='publickey-credentials-get'
                 />
+              </div>
+            ) : uiType === 'wide' ? (
+              <div>
+                {openNewFrame === false ? (
+                  <div
+                    style={{
+                      position: 'fixed',
+                      backgroundColor: '#101409',
+                      height: '500px',
+                      width: '900px',
+                      borderRadius: 10,
+                      border: '1px rgba(255, 255, 255, 0.15) solid',
+                      backdropFilter: 'blur(20.80px)',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      display: 'flex',
+                    }}
+                  >
+                    <img
+                      style={{ width: '48%', borderRadius: 10 }}
+                      alt='astronaut_png'
+                      src='https://i.postimg.cc/Y9v0M7T7/Image-Placeholder.png'
+                    />
+                    <div
+                      style={{
+                        marginLeft: '45px',
+                        marginTop: '50px',
+                      }}
+                    >
+                      <div
+                        style={{
+                          color: '#AAFF00',
+                          fontSize: 51,
+                          fontFamily: 'Montserrat, sans-serif',
+                          fontWeight: '550',
+                          textTransform: 'capitalize',
+                          wordWrap: 'break-word',
+                          marginLeft: '-3px',
+                        }}
+                      >
+                        {' '}
+                        Connect Wallet{' '}
+                      </div>
+                      <div
+                        style={{
+                          color: 'white',
+                          fontSize: 19,
+                          fontFamily: 'Montserrat, sans-serif',
+                          fontWeight: '200',
+                          wordWrap: 'break-word',
+                          marginTop: '10px',
+                        }}
+                      >
+                        Choose a wallet you want to connect
+                      </div>
+
+                      <div
+                        style={{
+                          marginTop: '-5px',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '15px',
+                          width: '370px',
+                          height: '205px',
+                          borderRadius: '20px',
+                          transform: 'scale(0.8)',
+                          marginLeft: '-36px',
+                        }}
+                      >
+                        <iframe
+                          style={{
+                            border: 'none',
+                            borderRadius: '20px',
+                          }}
+                          height={'205px'}
+                          width='100%'
+                          src={`https://auth.tria.so/socialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`}
+                        >
+                          {' '}
+                        </iframe>
+                      </div>
+                      <div
+                        style={{
+                          marginLeft: '-30px',
+                          transform: 'scale(0.8)',
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: '90%',
+                            height: '100%',
+                            paddingTop: '12px',
+                            paddingBottom: '12px',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            gap: '8px',
+                            display: 'inline-flex',
+                            marginTop: '-10px',
+                          }}
+                        >
+                          <div
+                            style={{
+                              flex: '1 1 0',
+                              height: '0px',
+                              border: '2px rgba(255, 255, 255, 0.10) solid',
+                            }}
+                          ></div>
+                          <div
+                            style={{
+                              paddingLeft: '8px',
+                              paddingRight: '8px',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              display: 'flex',
+                            }}
+                          >
+                            <div
+                              style={{
+                                textAlign: 'center',
+                                color: 'rgba(255, 255, 255, 0.40)',
+                                fontSize: '12px',
+                                fontFamily: 'Montserrat, sans-serif',
+                                fontWeight: 600,
+                                textTransform: 'uppercase',
+                                lineHeight: '14.40px',
+                                wordWrap: 'break-word',
+                              }}
+                            >
+                              or
+                            </div>
+                          </div>
+                          <div
+                            style={{
+                              flex: '1 1 0',
+                              height: '0px',
+                              border: '2px rgba(255, 255, 255, 0.10) solid',
+                            }}
+                          ></div>
+                        </div>
+                        <Wallets
+                          setShowMetaMask={() => {
+                            setShowMetaMask(true)
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    style={{
+                      borderRadius: '20px',
+                      overflow: 'hidden',
+                      position: 'fixed',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      fontFamily: 'Montserrat, sans-serif',
+                    }}
+                  >
+                    <iframe
+                      width='314'
+                      height='586'
+                      src={frameUrl}
+                      allow='publickey-credentials-get'
+                    />
+                  </div>
+                )}
               </div>
             ) : (
               <div
@@ -905,8 +1075,8 @@ const Application: React.FC<ApplicationProps> = ({
                 }}
               >
                 <iframe
-                  width={`${0.533 * triaWalletHeight}`}
-                  height={`${triaWalletHeight}`}
+                  width='312'
+                  height='586'
                   src={iframeURL}
                   allow='clipboard-read; clipboard-write; publickey-credentials-get'
                   style={{ border: 0 }}
