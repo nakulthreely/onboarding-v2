@@ -215,22 +215,22 @@ const Application: React.FC<ApplicationProps> = ({
       window.innerWidth - coords.x < 312 &&
       window.innerHeight - coords.y < 586
     ) {
-      setPosX(window.innerWidth - 312)
+      setPosX(window.innerWidth - 332)
       setPosY(window.innerHeight - 586)
     } else if (window.innerWidth - coords.x < 312) {
-      setPosX(window.innerWidth - 312)
+      setPosX(window.innerWidth - 332)
       {
-        coords.y - 134 > 0 ? setPosY(coords.y - 134) : setPosY(20)
+        coords.y - 134 > 0 ? setPosY(coords.y - 134) : setPosY(10)
       }
     } else if (window.innerHeight - coords.y < 586) {
       {
-        coords.x - 134 > 0 ? setPosX(coords.x - 134) : setPosX(10)
+        coords.x - 134 > 0 ? setPosX(coords.x - 134) : setPosX(20)
       }
 
       setPosY(window.innerHeight - 586)
     } else {
       {
-        coords.x - 134 > 0 ? setPosX(coords.x - 134) : setPosX(10)
+        coords.x - 134 > 0 ? setPosX(coords.x - 134) : setPosX(20)
       }
 
       {
