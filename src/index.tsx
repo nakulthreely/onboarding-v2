@@ -122,8 +122,10 @@ interface ApplicationProps {
   defaultChain?: string
   darkMode?: boolean
   triaStaging?: boolean
-  buttonPosition?: { x?: number; y?: number }
+  buttonPosition?: { x?: string; y?: string }
   authHorizontal?: string
+  positionType?: 'fixed' | 'absolute'
+  walletButtonDraggable?: boolean
 }
 
 const initialChains = [
@@ -146,9 +148,11 @@ const Application: React.FC<ApplicationProps> = ({
   supportedChains = initialChains,
   defaultChain = 'POLYGON',
   triaStaging = false,
-  buttonPosition = { x: 100, y: 100 },
+  buttonPosition = { x: '10vw', y: '10vh' },
   darkMode = true,
   authHorizontal = '50%',
+  positionType = 'fixed',
+  walletButtonDraggable = false,
 }) => {
   const [view, setView] = useState('Home')
   const [triaName, setTriaName] = useState<string>()
@@ -170,11 +174,19 @@ const Application: React.FC<ApplicationProps> = ({
   const [posX, setPosX] = useState<number>(window.innerWidth - 350)
   const [posY, setPosY] = useState<number>(window.innerHeight - 600)
   const [buttonPosX, setButtonPosX] = useState(
-    window.innerWidth - (buttonPosition?.x || 100)
+    window.innerWidth -
+      ((parseFloat(buttonPosition?.x?.slice(0, -2)) / 100) *
+        window.innerWidth || 100)
   )
   const [buttonPosY, setButtonPosY] = useState(
-    window.innerHeight - (buttonPosition?.y || 100)
+    window.innerHeight -
+      ((parseFloat(buttonPosition?.y?.slice(0, -2)) / 100) *
+        window.innerHeight || 100)
   )
+  useEffect(() => {
+    console.log('x --->', buttonPosX)
+    console.log('y --->', buttonPosY)
+  }, [buttonPosX, buttonPosY])
   const [currentTime, setCurrentTime] = useState<number>()
   const buttonBoundRight = window.innerWidth - 134
   const buttonBoundBottom = window.innerHeight - 134
@@ -541,7 +553,7 @@ const Application: React.FC<ApplicationProps> = ({
                 style={{
                   borderRadius: '20px',
                   overflow: 'hidden',
-                  position: 'fixed',
+                  position: positionType,
                   top: '50%',
                   left: authHorizontal,
                   transform: 'translate(-50%, -50%)',
@@ -559,7 +571,7 @@ const Application: React.FC<ApplicationProps> = ({
                 {openNewFrame === false ? (
                   <div
                     style={{
-                      position: 'fixed',
+                      position: positionType,
                       backgroundColor: '#101409',
                       height: '500px',
                       width: '900px',
@@ -706,7 +718,7 @@ const Application: React.FC<ApplicationProps> = ({
                     style={{
                       borderRadius: '20px',
                       overflow: 'hidden',
-                      position: 'fixed',
+                      position: positionType,
                       top: '50%',
                       left: '50%',
                       transform: 'translate(-50%, -50%)',
@@ -727,7 +739,7 @@ const Application: React.FC<ApplicationProps> = ({
                 style={{
                   borderRadius: '20px',
                   overflow: 'hidden',
-                  position: 'fixed',
+                  position: positionType,
                   top: '50%',
                   left: '50%',
                   transform: 'translate(-50%, -50%)',
@@ -1021,7 +1033,7 @@ const Application: React.FC<ApplicationProps> = ({
             style={{
               display: walletVisible ? 'block' : 'none',
               backgroundColor: 'transparent',
-              position: 'fixed',
+              position: positionType,
               zIndex: 9999,
               borderRadius: '20px',
               top: posY,
@@ -1085,7 +1097,7 @@ const Application: React.FC<ApplicationProps> = ({
             </div>
           </div>
         )}
-        {triaName && (
+        {triaName && positionType === 'fixed' && walletButtonDraggable && (
           <Draggable
             defaultPosition={{ x: buttonPosX, y: buttonPosY }}
             onStart={handleStartDragging}
@@ -1107,6 +1119,20 @@ const Application: React.FC<ApplicationProps> = ({
               <TriaWalletButton bgColor={primaryColor || '#A855F7'} />
             </div>
           </Draggable>
+        )}
+        {triaName && !walletButtonDraggable && (
+          <div
+            style={{
+              cursor: 'pointer',
+              zIndex: 9999,
+              opacity: `${walletVisible ? 0 : 1}`,
+              position: positionType,
+              bottom: buttonPosition?.y,
+              right: buttonPosition?.x,
+            }}
+          >
+            <TriaWalletButton bgColor={primaryColor || '#A855F7'} />
+          </div>
         )}
       </NavContext.Provider>
       {/* </WagmiConfig> */}
