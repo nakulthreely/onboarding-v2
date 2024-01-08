@@ -175,13 +175,13 @@ const Application: React.FC<ApplicationProps> = ({
   const [posY, setPosY] = useState<number>(window.innerHeight - 600)
   const [buttonPosX, setButtonPosX] = useState(
     window.innerWidth -
-      ((parseFloat(buttonPosition?.x?.slice(0, -2)) / 100) *
-        window.innerWidth || 100)
+    ((parseFloat(buttonPosition?.x?.slice(0, -2)) / 100) *
+      window.innerWidth || 100)
   )
   const [buttonPosY, setButtonPosY] = useState(
     window.innerHeight -
-      ((parseFloat(buttonPosition?.y?.slice(0, -2)) / 100) *
-        window.innerHeight || 100)
+    ((parseFloat(buttonPosition?.y?.slice(0, -2)) / 100) *
+      window.innerHeight || 100)
   )
   useEffect(() => {
     console.log('x --->', buttonPosX)
@@ -365,8 +365,8 @@ const Application: React.FC<ApplicationProps> = ({
     {
       triaStaging
         ? setIframeURL(
-            `https://staging-tria-wallet.vercel.app/${encodedParams}`
-          )
+          `https://staging-tria-wallet.vercel.app/${encodedParams}`
+        )
         : setIframeURL(`https://wallet.tria.so/${encodedParams}`)
     }
   }, [triaName, userAddress])
@@ -395,11 +395,11 @@ const Application: React.FC<ApplicationProps> = ({
       {
         triaStaging
           ? setAuthIFrameUrl(
-              `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&darkMode=${darkMode}`
-            )
+            `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&darkMode=${darkMode}`
+          )
           : setAuthIFrameUrl(
-              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-            )
+            `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+          )
       }
     }
   }, [dappName, logo])
@@ -748,11 +748,23 @@ const Application: React.FC<ApplicationProps> = ({
               >
                 {openNewFrame === false ? (
                   <div
-                    style={{
+                    style={darkMode ? {
                       width: '448px',
                       borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
                       boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)', // Assuming similar shadow effects
-                      backgroundColor: '#101010', // Equivalent to bg-[#101010] in Tailwind
+                      backgroundColor: '#101010',
+                      height: '840px',
+                      padding: '16px',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      display: 'inline-flex',
+                      transform: 'scale(0.7)',
+                      fontFamily: 'Montserrat, sans-serif',
+                    } : {
+                      width: '448px',
+                      borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
+                      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)', // Assuming similar shadow effects
+                      backgroundColor: 'white',
                       height: '840px',
                       padding: '16px',
                       flexDirection: 'column',
@@ -820,10 +832,19 @@ const Application: React.FC<ApplicationProps> = ({
                             }}
                           >
                             <div
-                              style={{
+                              style={darkMode ? {
                                 alignSelf: 'stretch',
                                 textAlign: 'center',
                                 color: 'white',
+                                opacity: '0.8',
+                                fontSize: '1.125rem',
+                                fontWeight: '500',
+                                fontFamily: 'Montserrat, sans-serif',
+                                lineHeight: '1.6',
+                              } : {
+                                alignSelf: 'stretch',
+                                textAlign: 'center',
+                                color: 'black',
                                 opacity: '0.8',
                                 fontSize: '1.125rem',
                                 fontWeight: '500',
@@ -863,6 +884,7 @@ const Application: React.FC<ApplicationProps> = ({
                                   overflow: 'hidden',
                                   borderRadius: '19px',
                                   width: '375px',
+                                  marginLeft: '14px'
                                 }}
                               >
                                 <iframe
@@ -872,11 +894,12 @@ const Application: React.FC<ApplicationProps> = ({
                                   }}
                                   src={
                                     !triaStaging
-                                      ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
-                                      : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`
+                                      ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}`
+                                      : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}`
                                   }
                                   height={'205px'}
                                   width='100%'
+                                  loading='eager'
                                 />
                               </div>
                               <div
@@ -889,6 +912,8 @@ const Application: React.FC<ApplicationProps> = ({
                                   alignItems: 'center',
                                   gap: '8px',
                                   display: 'inline-flex',
+                                  paddingLeft: '14px', // additional
+                                  paddingRight: '20px' // additional
                                 }}
                               >
                                 <div
@@ -934,8 +959,9 @@ const Application: React.FC<ApplicationProps> = ({
                               </div>
                               <Wallets
                                 setShowMetaMask={() => {
-                                  setShowMetaMask(true)
+                                  setShowMetaMask(true)         
                                 }}
+                                darkMode = { darkMode }
                               />
                             </div>
                           </div>
@@ -1079,11 +1105,10 @@ const Application: React.FC<ApplicationProps> = ({
                   borderRadius: '20px',
                   overflow: 'hidden',
 
-                  boxShadow: `${
-                    darkMode
-                      ? `0px 0px 10px 1px #40404044`
-                      : `0px 0px 10px 1px #10101044`
-                  }`,
+                  boxShadow: `${darkMode
+                    ? `0px 0px 10px 1px #40404044`
+                    : `0px 0px 10px 1px #10101044`
+                    }`,
                   borderColor: `${darkMode ? `#40404044` : `#10101044`}`,
                   borderWidth: '2px',
                   borderStyle: 'solid',

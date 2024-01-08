@@ -5,19 +5,19 @@ import NavContext from '../NavContext';
 import { useConnect } from 'wagmi';
 
 interface Props {
-    setShowMetaMask:()=>void;
-  }
+    setShowMetaMask: () => void;
+}
 
-  declare global {
+declare global {
     interface Window {
-      ethereum?: any; // You can replace 'any' with a more specific type if available
+        ethereum?: any; // You can replace 'any' with a more specific type if available
     }
-  }
+}
 
 
-const Wallets: React.FC<Props> = ({ setShowMetaMask }) => {
+const Wallets: React.FC<Props> = ({ setShowMetaMask, darkMode } : any) => {
 
-  
+
 
     // const [showWallet, setShowWallet] = useState(false);
     const { connect, connectors } = useConnect();
@@ -30,15 +30,15 @@ const Wallets: React.FC<Props> = ({ setShowMetaMask }) => {
             if (!window.ethereum || !window.ethereum.isMetaMask) {
                 console.log("inside not metamask");
                 throw new Error("MetaMask not available");
-              }
-    
+            }
+
             console.log("Clicked");
             const res = connect({ connector: connectors[2] });
-            console.log("res",res);
-          } catch (err) {
-            console.log("err",err);
-            connect({ connector: connectors[1] })
-          }
+            console.log("res", res);
+        } catch (err) {
+            console.log("err", err);
+            setShowMetaMask();
+        }
     };
 
     const clickWc = () => {
@@ -53,7 +53,7 @@ const Wallets: React.FC<Props> = ({ setShowMetaMask }) => {
         alignItems: 'center',
         width: "100%",
         gap: "18px",
-        marginLeft: "5px"
+        marginLeft: "23px"
     };
 
     const buttonStyles = {
@@ -83,7 +83,7 @@ const Wallets: React.FC<Props> = ({ setShowMetaMask }) => {
         gap: "2px"
     };
 
-  
+
 
     return (
         <div style={containerStyles}>
@@ -125,14 +125,21 @@ const Wallets: React.FC<Props> = ({ setShowMetaMask }) => {
                             </svg>
                         </div>
                         <div style={{ ...innerButtonStyles, paddingLeft: '8px' }}>
-                            <div style={{
-        textAlign: 'center',
-        color: 'rgba(255, 255, 255, 0.8)',
-        fontSize: '1rem',
-        fontWeight: '500',
-        fontFamily: 'Montserrat, sans-serif',
-        lineHeight: '1.4'
-    }}>Metamask</div>
+                            <div style={darkMode ? {
+                                textAlign: 'center',
+                                color: 'rgba(255, 255, 255, 0.8)',
+                                fontSize: '1rem',
+                                fontWeight: '500',
+                                fontFamily: 'Montserrat, sans-serif',
+                                lineHeight: '1.4'
+                            } : {
+                                textAlign: 'center',
+                                color: 'black',
+                                fontSize: '1rem',
+                                fontWeight: '500',
+                                fontFamily: 'Montserrat, sans-serif',
+                                lineHeight: '1.4'
+                            }}>Metamask</div>
                         </div>
                     </div>
                 </div>
@@ -147,14 +154,23 @@ const Wallets: React.FC<Props> = ({ setShowMetaMask }) => {
                             </svg>
                         </div>
                         <div style={{ ...innerButtonStyles, paddingLeft: '8px' }}>
-                            <div style={{
+                            <div style={darkMode ? {
                                 textAlign: 'center',
                                 color: 'rgba(255, 255, 255, 0.8)',
                                 fontSize: '1rem',
                                 fontWeight: '500',
                                 fontFamily: 'Montserrat, sans-serif',
                                 lineHeight: '1.4',
-                                width: "105px"
+                                width: "125px"
+                            } : {
+                                textAlign: 'center',
+                                color: 'black',
+                                fontSize: '1rem',
+                                fontWeight: '500',
+                                fontFamily: 'Montserrat, sans-serif',
+                                lineHeight: '1.4',
+                                width: "125px"
+
                             }}>Wallet connect</div>
                         </div>
                     </div>
