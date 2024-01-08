@@ -1065,7 +1065,11 @@ const Application: React.FC<ApplicationProps> = ({
                   }}
                   style={{ cursor: 'pointer', backgroundColor: 'transparent' }}
                 >
-                  <WalletCloseButton bgColor={'#FFFFFF'} />
+                  <WalletCloseButton
+                    bgColor={'#FFFFFF'}
+                    primaryColor={darkMode ? '#101010' : '#FFF'}
+                    fontColor={darkMode ? '#FAFAFA' : '#101010CC'}
+                  />
                 </div>
               </div>
               <div
