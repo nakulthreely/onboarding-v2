@@ -485,10 +485,10 @@ const Application: React.FC<ApplicationProps> = ({
       //@ts-ignore
       if (!triaStaging) {
         //@ts-ignore
-        url = `https://auth.tria.so/phoneEmailOtp/?&dappName=${dappName}&dappLogo=${logo}`
+        url = `https://auth.tria.so/phoneEmailOtp/?&dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}`
       } else {
         //@ts-ignore
-        url = `https://auth-tria.vercel.app/phoneEmailOtp/?&dappName=${dappName}&dappLogo=${logo}`
+        url = `https://auth-tria.vercel.app/phoneEmailOtp/?&dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}`
       }
       console.log('url---------->', url)
       setOpenNewFrame(true)
