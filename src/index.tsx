@@ -126,6 +126,8 @@ interface ApplicationProps {
   authHorizontal?: string
   positionType?: 'fixed' | 'absolute'
   walletButtonDraggable?: boolean
+  clientId?: string
+  defaultCountryCode?: string
 }
 
 const initialChains = [
@@ -153,6 +155,8 @@ const Application: React.FC<ApplicationProps> = ({
   authHorizontal = '50%',
   positionType = 'fixed',
   walletButtonDraggable = false,
+  clientId = "",
+  defaultCountryCode = ""
 }) => {
   const [view, setView] = useState('Home')
   const [triaName, setTriaName] = useState<string>()
@@ -395,7 +399,7 @@ const Application: React.FC<ApplicationProps> = ({
       {
         triaStaging
           ? setAuthIFrameUrl(
-            `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&darkMode=${darkMode}`
+            `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&darkMode=${darkMode}&clientId=${clientId}`
           )
           : setAuthIFrameUrl(
             `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
@@ -488,7 +492,7 @@ const Application: React.FC<ApplicationProps> = ({
         url = `https://auth.tria.so/phoneEmailOtp/?&dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}`
       } else {
         //@ts-ignore
-        url = `https://auth-tria.vercel.app/phoneEmailOtp/?&dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}`
+        url = `https://auth-tria.vercel.app/phoneEmailOtp/?&dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}&defaultCountryCode=${defaultCountryCode}`
       }
       console.log('url---------->', url)
       setOpenNewFrame(true)
@@ -895,7 +899,7 @@ const Application: React.FC<ApplicationProps> = ({
                                   src={
                                     !triaStaging
                                       ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}`
-                                      : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}`
+                                      : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}&clientId=${clientId}`
                                   }
                                   height={'205px'}
                                   width='100%'
