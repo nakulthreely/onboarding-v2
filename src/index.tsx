@@ -1165,7 +1165,7 @@ const Application: React.FC<ApplicationProps> = ({
             </div>
           </Draggable>
         )}
-        {triaName && !walletButtonDraggable && (
+        {!walletVisible && triaName && !walletButtonDraggable && (
           <div
             style={{
               cursor: 'pointer',
