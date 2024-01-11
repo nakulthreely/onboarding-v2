@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 import React, { useState, useEffect } from 'react'
 import './index.css'
 import NavContext from './NavContext'
@@ -155,8 +155,8 @@ const Application: React.FC<ApplicationProps> = ({
   authHorizontal = '50%',
   positionType = 'fixed',
   walletButtonDraggable = false,
-  clientId = "",
-  defaultCountryCode = ""
+  clientId = '',
+  defaultCountryCode = '',
 }) => {
   const [view, setView] = useState('Home')
   const [triaName, setTriaName] = useState<string>()
@@ -179,13 +179,13 @@ const Application: React.FC<ApplicationProps> = ({
   const [posY, setPosY] = useState<number>(window.innerHeight - 600)
   const [buttonPosX, setButtonPosX] = useState(
     window.innerWidth -
-    ((parseFloat(buttonPosition?.x?.slice(0, -2)) / 100) *
-      window.innerWidth || 100)
+      ((parseFloat(buttonPosition?.x?.slice(0, -2) || '') / 100) *
+        window.innerWidth || 100)
   )
   const [buttonPosY, setButtonPosY] = useState(
     window.innerHeight -
-    ((parseFloat(buttonPosition?.y?.slice(0, -2)) / 100) *
-      window.innerHeight || 100)
+      ((parseFloat(buttonPosition?.y?.slice(0, -2) || '') / 100) *
+        window.innerHeight || 100)
   )
   useEffect(() => {
     console.log('x --->', buttonPosX)
@@ -253,7 +253,10 @@ const Application: React.FC<ApplicationProps> = ({
         coords.y - 134 > 0 ? setPosY(coords.y - 134) : setPosY(20)
       }
     }
-    if (coords.x - dragPosStart.x < 10 && coords.y - dragPosStart.y < 10) {
+    if (
+      Math.abs(coords.x - dragPosStart.x) < 10 &&
+      Math.abs(coords.y - dragPosStart.y) < 10
+    ) {
       handleWalletButtonClick()
       setButtonPosX(coords.x - (coords.x - buttonPosX))
       setButtonPosY(coords.y - (coords.y - buttonPosY))
@@ -369,8 +372,8 @@ const Application: React.FC<ApplicationProps> = ({
     {
       triaStaging
         ? setIframeURL(
-          `https://staging-tria-wallet.vercel.app/${encodedParams}`
-        )
+            `https://staging-tria-wallet.vercel.app/${encodedParams}`
+          )
         : setIframeURL(`https://wallet.tria.so/${encodedParams}`)
     }
   }, [triaName, userAddress])
@@ -399,11 +402,11 @@ const Application: React.FC<ApplicationProps> = ({
       {
         triaStaging
           ? setAuthIFrameUrl(
-            `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&darkMode=${darkMode}&clientId=${clientId}`
-          )
+              `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&darkMode=${darkMode}&clientId=${clientId}`
+            )
           : setAuthIFrameUrl(
-            `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
-          )
+              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+            )
       }
     }
   }, [dappName, logo])
@@ -752,31 +755,35 @@ const Application: React.FC<ApplicationProps> = ({
               >
                 {openNewFrame === false ? (
                   <div
-                    style={darkMode ? {
-                      width: '448px',
-                      borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
-                      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)', // Assuming similar shadow effects
-                      backgroundColor: '#101010',
-                      height: '840px',
-                      padding: '16px',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      display: 'inline-flex',
-                      transform: 'scale(0.7)',
-                      fontFamily: 'Montserrat, sans-serif',
-                    } : {
-                      width: '448px',
-                      borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
-                      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)', // Assuming similar shadow effects
-                      backgroundColor: 'white',
-                      height: '840px',
-                      padding: '16px',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      display: 'inline-flex',
-                      transform: 'scale(0.7)',
-                      fontFamily: 'Montserrat, sans-serif',
-                    }}
+                    style={
+                      darkMode
+                        ? {
+                            width: '448px',
+                            borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
+                            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)', // Assuming similar shadow effects
+                            backgroundColor: '#101010',
+                            height: '840px',
+                            padding: '16px',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            display: 'inline-flex',
+                            transform: 'scale(0.7)',
+                            fontFamily: 'Montserrat, sans-serif',
+                          }
+                        : {
+                            width: '448px',
+                            borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
+                            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)', // Assuming similar shadow effects
+                            backgroundColor: 'white',
+                            height: '840px',
+                            padding: '16px',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            display: 'inline-flex',
+                            transform: 'scale(0.7)',
+                            fontFamily: 'Montserrat, sans-serif',
+                          }
+                    }
                   >
                     {showMetamask && (
                       <div
@@ -836,25 +843,29 @@ const Application: React.FC<ApplicationProps> = ({
                             }}
                           >
                             <div
-                              style={darkMode ? {
-                                alignSelf: 'stretch',
-                                textAlign: 'center',
-                                color: 'white',
-                                opacity: '0.8',
-                                fontSize: '1.125rem',
-                                fontWeight: '500',
-                                fontFamily: 'Montserrat, sans-serif',
-                                lineHeight: '1.6',
-                              } : {
-                                alignSelf: 'stretch',
-                                textAlign: 'center',
-                                color: 'black',
-                                opacity: '0.8',
-                                fontSize: '1.125rem',
-                                fontWeight: '500',
-                                fontFamily: 'Montserrat, sans-serif',
-                                lineHeight: '1.6',
-                              }}
+                              style={
+                                darkMode
+                                  ? {
+                                      alignSelf: 'stretch',
+                                      textAlign: 'center',
+                                      color: 'white',
+                                      opacity: '0.8',
+                                      fontSize: '1.125rem',
+                                      fontWeight: '500',
+                                      fontFamily: 'Montserrat, sans-serif',
+                                      lineHeight: '1.6',
+                                    }
+                                  : {
+                                      alignSelf: 'stretch',
+                                      textAlign: 'center',
+                                      color: 'black',
+                                      opacity: '0.8',
+                                      fontSize: '1.125rem',
+                                      fontWeight: '500',
+                                      fontFamily: 'Montserrat, sans-serif',
+                                      lineHeight: '1.6',
+                                    }
+                              }
                             >
                               Log in with {dappName}
                             </div>
@@ -888,7 +899,7 @@ const Application: React.FC<ApplicationProps> = ({
                                   overflow: 'hidden',
                                   borderRadius: '19px',
                                   width: '375px',
-                                  marginLeft: '14px'
+                                  marginLeft: '14px',
                                 }}
                               >
                                 <iframe
@@ -917,7 +928,7 @@ const Application: React.FC<ApplicationProps> = ({
                                   gap: '8px',
                                   display: 'inline-flex',
                                   paddingLeft: '14px', // additional
-                                  paddingRight: '20px' // additional
+                                  paddingRight: '20px', // additional
                                 }}
                               >
                                 <div
@@ -963,9 +974,9 @@ const Application: React.FC<ApplicationProps> = ({
                               </div>
                               <Wallets
                                 setShowMetaMask={() => {
-                                  setShowMetaMask(true)         
+                                  setShowMetaMask(true)
                                 }}
-                                darkMode = { darkMode }
+                                darkMode={darkMode}
                               />
                             </div>
                           </div>
@@ -1109,10 +1120,11 @@ const Application: React.FC<ApplicationProps> = ({
                   borderRadius: '20px',
                   overflow: 'hidden',
 
-                  boxShadow: `${darkMode
-                    ? `0px 0px 10px 1px #40404044`
-                    : `0px 0px 10px 1px #10101044`
-                    }`,
+                  boxShadow: `${
+                    darkMode
+                      ? `0px 0px 10px 1px #40404044`
+                      : `0px 0px 10px 1px #10101044`
+                  }`,
                   borderColor: `${darkMode ? `#40404044` : `#10101044`}`,
                   borderWidth: '2px',
                   borderStyle: 'solid',
@@ -1163,6 +1175,7 @@ const Application: React.FC<ApplicationProps> = ({
               bottom: buttonPosition?.y,
               right: buttonPosition?.x,
             }}
+            onClick={handleWalletButtonClick}
           >
             <TriaWalletButton bgColor={primaryColor || '#A855F7'} />
           </div>
