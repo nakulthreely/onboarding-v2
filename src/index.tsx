@@ -128,6 +128,8 @@ interface ApplicationProps {
   walletButtonDraggable?: boolean
   clientId?: string
   defaultCountryCode?: string
+  customWalletButton?: boolean
+  customWalletVisible?: boolean
 }
 
 const initialChains = [
@@ -157,6 +159,8 @@ const Application: React.FC<ApplicationProps> = ({
   walletButtonDraggable = false,
   clientId = '',
   defaultCountryCode = '',
+  customWalletButton = false,
+  customWalletVisible = true,
 }) => {
   const [view, setView] = useState('Home')
   const [triaName, setTriaName] = useState<string>()
@@ -1068,118 +1072,131 @@ const Application: React.FC<ApplicationProps> = ({
             )}
           </>
         )}
-        {showWallet && triaName && userAddress && (
-          <div
-            id='triaWallet'
-            style={{
-              display: walletVisible ? 'block' : 'none',
-              backgroundColor: 'transparent',
-              position: positionType,
-              zIndex: 9999,
-              borderRadius: '20px',
-              top: posY,
-              left: posX,
-              transition: 'all 1s ease',
-            }}
-          >
+        {(showWallet || (customWalletButton && customWalletVisible)) &&
+          triaName &&
+          userAddress && (
             <div
+              id='triaWallet'
               style={{
-                position: 'relative',
+                display: walletVisible ? 'block' : 'none',
+                backgroundColor: 'transparent',
+                position: positionType,
+                zIndex: 9999,
                 borderRadius: '20px',
+                top: posY,
+                left: posX,
+                transition: 'all 1s ease',
               }}
             >
               <div
                 style={{
-                  position: 'absolute',
-                  width: '312px',
-                  height: '40px',
+                  position: 'relative',
                   borderRadius: '20px',
-                  top: '-33px',
-                  display: 'flex',
-                  alignItems: 'flex-end',
-                  justifyContent: 'center',
                 }}
               >
+                {!customWalletButton && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      width: '312px',
+                      height: '40px',
+                      borderRadius: '20px',
+                      top: '-33px',
+                      display: 'flex',
+                      alignItems: 'flex-end',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <div
+                      onClick={() => {
+                        setWalletVisible(false)
+                      }}
+                      style={{
+                        cursor: 'pointer',
+                        backgroundColor: 'transparent',
+                      }}
+                    >
+                      <WalletCloseButton
+                        bgColor={'#FFFFFF'}
+                        primaryColor={darkMode ? '#101010' : '#FFF'}
+                        fontColor={darkMode ? '#FAFAFA' : '#101010CC'}
+                      />
+                    </div>
+                  </div>
+                )}
                 <div
-                  onClick={() => {
-                    setWalletVisible(false)
+                  style={{
+                    height: '586px',
+                    width: '312px',
+                    borderRadius: '20px',
+                    overflow: 'hidden',
+
+                    boxShadow: `${
+                      darkMode
+                        ? `0px 0px 10px 1px #40404044`
+                        : `0px 0px 10px 1px #10101044`
+                    }`,
+                    borderColor: `${darkMode ? `#40404044` : `#10101044`}`,
+                    borderWidth: '2px',
+                    borderStyle: 'solid',
+                    padding: 0,
                   }}
-                  style={{ cursor: 'pointer', backgroundColor: 'transparent' }}
                 >
-                  <WalletCloseButton
-                    bgColor={'#FFFFFF'}
-                    primaryColor={darkMode ? '#101010' : '#FFF'}
-                    fontColor={darkMode ? '#FAFAFA' : '#101010CC'}
+                  <iframe
+                    width='312'
+                    height='586'
+                    src={iframeURL}
+                    allow='clipboard-read; clipboard-write; publickey-credentials-get'
+                    style={{ border: 0 }}
                   />
                 </div>
               </div>
+            </div>
+          )}
+        {triaName &&
+          positionType === 'fixed' &&
+          walletButtonDraggable &&
+          !customWalletButton && (
+            <Draggable
+              defaultPosition={{ x: buttonPosX, y: buttonPosY }}
+              onStart={handleStartDragging}
+              onStop={handleStopDragging}
+              bounds={{
+                top: 0,
+                left: 0,
+                right: buttonBoundRight,
+                bottom: buttonBoundBottom,
+              }}
+            >
               <div
                 style={{
-                  height: '586px',
-                  width: '312px',
-                  borderRadius: '20px',
-                  overflow: 'hidden',
-
-                  boxShadow: `${
-                    darkMode
-                      ? `0px 0px 10px 1px #40404044`
-                      : `0px 0px 10px 1px #10101044`
-                  }`,
-                  borderColor: `${darkMode ? `#40404044` : `#10101044`}`,
-                  borderWidth: '2px',
-                  borderStyle: 'solid',
-                  padding: 0,
+                  cursor: 'pointer',
+                  zIndex: 9999,
+                  opacity: `${walletVisible ? 0 : 1}`,
                 }}
               >
-                <iframe
-                  width='312'
-                  height='586'
-                  src={iframeURL}
-                  allow='clipboard-read; clipboard-write; publickey-credentials-get'
-                  style={{ border: 0 }}
-                />
+                <TriaWalletButton bgColor={primaryColor || '#A855F7'} />
               </div>
-            </div>
-          </div>
-        )}
-        {triaName && positionType === 'fixed' && walletButtonDraggable && (
-          <Draggable
-            defaultPosition={{ x: buttonPosX, y: buttonPosY }}
-            onStart={handleStartDragging}
-            onStop={handleStopDragging}
-            bounds={{
-              top: 0,
-              left: 0,
-              right: buttonBoundRight,
-              bottom: buttonBoundBottom,
-            }}
-          >
+            </Draggable>
+          )}
+        {!walletVisible &&
+          !customWalletButton &&
+          triaName &&
+          !walletButtonDraggable && (
             <div
               style={{
                 cursor: 'pointer',
                 zIndex: 9999,
                 opacity: `${walletVisible ? 0 : 1}`,
+                position: positionType,
+                bottom: buttonPosition?.y,
+                right: buttonPosition?.x,
               }}
+              onClick={handleWalletButtonClick}
             >
               <TriaWalletButton bgColor={primaryColor || '#A855F7'} />
             </div>
-          </Draggable>
-        )}
-        {!walletVisible && triaName && !walletButtonDraggable && (
-          <div
-            style={{
-              cursor: 'pointer',
-              zIndex: 9999,
-              opacity: `${walletVisible ? 0 : 1}`,
-              position: positionType,
-              bottom: buttonPosition?.y,
-              right: buttonPosition?.x,
-            }}
-            onClick={handleWalletButtonClick}
-          >
-            <TriaWalletButton bgColor={primaryColor || '#A855F7'} />
-          </div>
-        )}
+          )}
       </NavContext.Provider>
       {/* </WagmiConfig> */}
     </>
