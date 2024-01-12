@@ -1072,87 +1072,88 @@ const Application: React.FC<ApplicationProps> = ({
             )}
           </>
         )}
-        {(showWallet || (customWalletButton && customWalletVisible)) &&
-          triaName &&
-          userAddress && (
+        {showWallet && triaName && userAddress && (
+          <div
+            id='triaWallet'
+            style={{
+              display:
+                walletVisible || (customWalletButton && customWalletVisible)
+                  ? 'block'
+                  : 'none',
+              backgroundColor: 'transparent',
+              position: positionType,
+              zIndex: 9999,
+              borderRadius: '20px',
+              top: posY,
+              left: posX,
+              transition: 'all 1s ease',
+            }}
+          >
             <div
-              id='triaWallet'
               style={{
-                display: walletVisible ? 'block' : 'none',
-                backgroundColor: 'transparent',
-                position: positionType,
-                zIndex: 9999,
+                position: 'relative',
                 borderRadius: '20px',
-                top: posY,
-                left: posX,
-                transition: 'all 1s ease',
               }}
             >
-              <div
-                style={{
-                  position: 'relative',
-                  borderRadius: '20px',
-                }}
-              >
-                {!customWalletButton && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      width: '312px',
-                      height: '40px',
-                      borderRadius: '20px',
-                      top: '-33px',
-                      display: 'flex',
-                      alignItems: 'flex-end',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <div
-                      onClick={() => {
-                        setWalletVisible(false)
-                      }}
-                      style={{
-                        cursor: 'pointer',
-                        backgroundColor: 'transparent',
-                      }}
-                    >
-                      <WalletCloseButton
-                        bgColor={'#FFFFFF'}
-                        primaryColor={darkMode ? '#101010' : '#FFF'}
-                        fontColor={darkMode ? '#FAFAFA' : '#101010CC'}
-                      />
-                    </div>
-                  </div>
-                )}
+              {!customWalletButton && (
                 <div
                   style={{
-                    height: '586px',
+                    position: 'absolute',
                     width: '312px',
+                    height: '40px',
                     borderRadius: '20px',
-                    overflow: 'hidden',
-
-                    boxShadow: `${
-                      darkMode
-                        ? `0px 0px 10px 1px #40404044`
-                        : `0px 0px 10px 1px #10101044`
-                    }`,
-                    borderColor: `${darkMode ? `#40404044` : `#10101044`}`,
-                    borderWidth: '2px',
-                    borderStyle: 'solid',
-                    padding: 0,
+                    top: '-33px',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    justifyContent: 'center',
                   }}
                 >
-                  <iframe
-                    width='312'
-                    height='586'
-                    src={iframeURL}
-                    allow='clipboard-read; clipboard-write; publickey-credentials-get'
-                    style={{ border: 0 }}
-                  />
+                  <div
+                    onClick={() => {
+                      setWalletVisible(false)
+                    }}
+                    style={{
+                      cursor: 'pointer',
+                      backgroundColor: 'transparent',
+                    }}
+                  >
+                    <WalletCloseButton
+                      bgColor={'#FFFFFF'}
+                      primaryColor={darkMode ? '#101010' : '#FFF'}
+                      fontColor={darkMode ? '#FAFAFA' : '#101010CC'}
+                    />
+                  </div>
                 </div>
+              )}
+              <div
+                style={{
+                  height: '586px',
+                  width: '312px',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+
+                  boxShadow: `${
+                    darkMode
+                      ? `0px 0px 10px 1px #40404044`
+                      : `0px 0px 10px 1px #10101044`
+                  }`,
+                  borderColor: `${darkMode ? `#40404044` : `#10101044`}`,
+                  borderWidth: '2px',
+                  borderStyle: 'solid',
+                  padding: 0,
+                }}
+              >
+                <iframe
+                  width='312'
+                  height='586'
+                  src={iframeURL}
+                  allow='clipboard-read; clipboard-write; publickey-credentials-get'
+                  style={{ border: 0 }}
+                />
               </div>
             </div>
-          )}
+          </div>
+        )}
         {triaName &&
           positionType === 'fixed' &&
           walletButtonDraggable &&
