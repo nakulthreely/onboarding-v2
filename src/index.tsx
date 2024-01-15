@@ -9,7 +9,8 @@ import Draggable from 'react-draggable'
 import Wallets from './Components/ExternalWallets'
 import MetamaskBarcode from './Components/MetamaskBarcode'
 import Back from './Components/SvgIcons/Back'
-
+import {saveWalletAnalytics} from './utils';
+  
 window.Buffer = window.Buffer || require('buffer').Buffer
 
 const authUrl = 'https://auth.tria.so'
@@ -334,6 +335,26 @@ const Application: React.FC<ApplicationProps> = ({
       setShowOnboarding(true)
     }, 1000)
   }, [])
+
+  useEffect(() => {
+    const storeExternalWalletData = async () => {
+      if (externalWallet) {
+        try {
+          const wagmiStore = localStorage.getItem("wagmi.store");
+          const walletType = localStorage.getItem("wagmi.wallet");
+          const parsedStoreData = wagmiStore ? JSON.parse(wagmiStore) : null;
+          const parsedWalletType = walletType ? JSON.parse(walletType) : null;
+          const walletAddress = parsedStoreData?.state?.data?.account;
+          console.log("walletAddress---->", walletAddress);
+          await saveWalletAnalytics(walletAddress, clientId,parsedWalletType);
+        } catch (err) {
+          console.log("err", err);
+        }
+      }
+    }; 
+    storeExternalWalletData();
+  }, [externalWallet])
+
 
   useEffect(() => {
     const item = localStorage.getItem('access_token')

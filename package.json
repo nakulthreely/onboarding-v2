@@ -1,6 +1,6 @@
 {
   "name": "@tria-sdk/authenticate",
-  "version": "1.4.69",
+  "version": "1.4.75",
   "description": "",
   "main": "dist/index.js",
   "types": "dist,index.d.ts",
