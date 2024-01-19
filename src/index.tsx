@@ -9,8 +9,8 @@ import Draggable from 'react-draggable'
 import Wallets from './Components/ExternalWallets'
 import MetamaskBarcode from './Components/MetamaskBarcode'
 import Back from './Components/SvgIcons/Back'
-import {saveWalletAnalytics} from './utils';
-  
+import { saveWalletAnalytics } from './utils';
+
 window.Buffer = window.Buffer || require('buffer').Buffer
 
 const authUrl = 'https://auth.tria.so'
@@ -184,13 +184,13 @@ const Application: React.FC<ApplicationProps> = ({
   const [posY, setPosY] = useState<number>(window.innerHeight - 600)
   const [buttonPosX, setButtonPosX] = useState(
     window.innerWidth -
-      ((parseFloat(buttonPosition?.x?.slice(0, -2) || '') / 100) *
-        window.innerWidth || 100)
+    ((parseFloat(buttonPosition?.x?.slice(0, -2) || '') / 100) *
+      window.innerWidth || 100)
   )
   const [buttonPosY, setButtonPosY] = useState(
     window.innerHeight -
-      ((parseFloat(buttonPosition?.y?.slice(0, -2) || '') / 100) *
-        window.innerHeight || 100)
+    ((parseFloat(buttonPosition?.y?.slice(0, -2) || '') / 100) *
+      window.innerHeight || 100)
   )
   useEffect(() => {
     console.log('x --->', buttonPosX)
@@ -346,12 +346,12 @@ const Application: React.FC<ApplicationProps> = ({
           const parsedWalletType = walletType ? JSON.parse(walletType) : null;
           const walletAddress = parsedStoreData?.state?.data?.account;
           console.log("walletAddress---->", walletAddress);
-          await saveWalletAnalytics(walletAddress, clientId,parsedWalletType);
+          await saveWalletAnalytics(walletAddress, clientId, parsedWalletType);
         } catch (err) {
           console.log("err", err);
         }
       }
-    }; 
+    };
     storeExternalWalletData();
   }, [externalWallet])
 
@@ -397,8 +397,8 @@ const Application: React.FC<ApplicationProps> = ({
     {
       triaStaging
         ? setIframeURL(
-            `https://staging-tria-wallet.vercel.app/${encodedParams}`
-          )
+          `https://staging-tria-wallet.vercel.app/${encodedParams}`
+        )
         : setIframeURL(`https://wallet.tria.so/${encodedParams}`)
     }
   }, [triaName, userAddress])
@@ -427,11 +427,11 @@ const Application: React.FC<ApplicationProps> = ({
       {
         triaStaging
           ? setAuthIFrameUrl(
-              `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&darkMode=${darkMode}&clientId=${clientId}`
-            )
+            `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&darkMode=${darkMode}&clientId=${clientId}`
+          )
           : setAuthIFrameUrl(
-              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&clientId=${clientId}`
-            )
+            `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&clientId=${clientId}`
+          )
       }
     }
   }, [dappName, logo])
@@ -574,6 +574,13 @@ const Application: React.FC<ApplicationProps> = ({
     filter: 'blur(40.71px)',
   }
 
+  const handleIframeLoad = () => {
+    const iframe = document.getElementById('wideIframe');
+    if (iframe) {
+      iframe.style.visibility = 'visible';
+    }
+  };
+
   return (
     <>
       {/* <WagmiConfig config={wagmiConfig}> */}
@@ -671,7 +678,10 @@ const Application: React.FC<ApplicationProps> = ({
                           style={{
                             border: 'none',
                             borderRadius: '20px',
+                            visibility: 'hidden'
                           }}
+                          id="wideIframe"
+                          onLoad={handleIframeLoad}
                           height={'205px'}
                           width='100%'
                           src={`https://auth.tria.so/socialLoginIframe/?dappName=${dappName}&dappLogo=${logo}`}
@@ -784,31 +794,31 @@ const Application: React.FC<ApplicationProps> = ({
                     style={
                       darkMode
                         ? {
-                            width: '448px',
-                            borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
-                            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)', // Assuming similar shadow effects
-                            backgroundColor: '#101010',
-                            height: '840px',
-                            padding: '16px',
-                            flexDirection: 'column',
-                            justifyContent: 'space-between',
-                            display: 'inline-flex',
-                            transform: 'scale(0.7)',
-                            fontFamily: 'Montserrat, sans-serif',
-                          }
+                          width: '448px',
+                          borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
+                          boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)', // Assuming similar shadow effects
+                          backgroundColor: '#101010',
+                          height: '840px',
+                          padding: '16px',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between',
+                          display: 'inline-flex',
+                          transform: 'scale(0.7)',
+                          fontFamily: 'Montserrat, sans-serif',
+                        }
                         : {
-                            width: '448px',
-                            borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
-                            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)', // Assuming similar shadow effects
-                            backgroundColor: 'white',
-                            height: '840px',
-                            padding: '16px',
-                            flexDirection: 'column',
-                            justifyContent: 'space-between',
-                            display: 'inline-flex',
-                            transform: 'scale(0.7)',
-                            fontFamily: 'Montserrat, sans-serif',
-                          }
+                          width: '448px',
+                          borderRadius: '20px', // Equivalent to rounded-2xl in Tailwind
+                          boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)', // Assuming similar shadow effects
+                          backgroundColor: 'white',
+                          height: '840px',
+                          padding: '16px',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between',
+                          display: 'inline-flex',
+                          transform: 'scale(0.7)',
+                          fontFamily: 'Montserrat, sans-serif',
+                        }
                     }
                   >
                     {showMetamask && (
@@ -872,25 +882,25 @@ const Application: React.FC<ApplicationProps> = ({
                               style={
                                 darkMode
                                   ? {
-                                      alignSelf: 'stretch',
-                                      textAlign: 'center',
-                                      color: 'white',
-                                      opacity: '0.8',
-                                      fontSize: '1.125rem',
-                                      fontWeight: '500',
-                                      fontFamily: 'Montserrat, sans-serif',
-                                      lineHeight: '1.6',
-                                    }
+                                    alignSelf: 'stretch',
+                                    textAlign: 'center',
+                                    color: 'white',
+                                    opacity: '0.8',
+                                    fontSize: '1.125rem',
+                                    fontWeight: '500',
+                                    fontFamily: 'Montserrat, sans-serif',
+                                    lineHeight: '1.6',
+                                  }
                                   : {
-                                      alignSelf: 'stretch',
-                                      textAlign: 'center',
-                                      color: 'black',
-                                      opacity: '0.8',
-                                      fontSize: '1.125rem',
-                                      fontWeight: '500',
-                                      fontFamily: 'Montserrat, sans-serif',
-                                      lineHeight: '1.6',
-                                    }
+                                    alignSelf: 'stretch',
+                                    textAlign: 'center',
+                                    color: 'black',
+                                    opacity: '0.8',
+                                    fontSize: '1.125rem',
+                                    fontWeight: '500',
+                                    fontFamily: 'Montserrat, sans-serif',
+                                    lineHeight: '1.6',
+                                  }
                               }
                             >
                               Log in with {dappName}
@@ -1154,11 +1164,10 @@ const Application: React.FC<ApplicationProps> = ({
                   borderRadius: '20px',
                   overflow: 'hidden',
 
-                  boxShadow: `${
-                    darkMode
+                  boxShadow: `${darkMode
                       ? `0px 0px 10px 1px #40404044`
                       : `0px 0px 10px 1px #10101044`
-                  }`,
+                    }`,
                   borderColor: `${darkMode ? `#40404044` : `#10101044`}`,
                   borderWidth: '2px',
                   borderStyle: 'solid',
