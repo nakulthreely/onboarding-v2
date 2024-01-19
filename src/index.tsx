@@ -430,7 +430,7 @@ const Application: React.FC<ApplicationProps> = ({
               `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&darkMode=${darkMode}&clientId=${clientId}`
             )
           : setAuthIFrameUrl(
-              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&clientId=${clientId}`
             )
       }
     }
@@ -934,7 +934,7 @@ const Application: React.FC<ApplicationProps> = ({
                                   }}
                                   src={
                                     !triaStaging
-                                      ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}`
+                                      ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}&clientId=${clientId}`
                                       : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}&clientId=${clientId}`
                                   }
                                   height={'205px'}
