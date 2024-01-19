@@ -741,6 +741,7 @@ const Application: React.FC<ApplicationProps> = ({
                           setShowMetaMask={() => {
                             setShowMetaMask(true)
                           }}
+                          darkMode={darkMode}
                         />
                       </div>
                     </div>
