@@ -345,8 +345,9 @@ const Application: React.FC<ApplicationProps> = ({
           const parsedStoreData = wagmiStore ? JSON.parse(wagmiStore) : null;
           const parsedWalletType = walletType ? JSON.parse(walletType) : null;
           const walletAddress = parsedStoreData?.state?.data?.account;
-          console.log("walletAddress---->", walletAddress);
-          await saveWalletAnalytics(walletAddress, clientId, parsedWalletType);
+          const baseUrl = triaStaging ? "https://staging.tria.so":"https://prod.tria.so"
+          console.log("walletAddress---->", walletAddress,"base url--->",baseUrl);
+          await saveWalletAnalytics(baseUrl,walletAddress, clientId, parsedWalletType);
         } catch (err) {
           console.log("err", err);
         }

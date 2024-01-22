@@ -1,6 +1,5 @@
-const baseUrl = 'https://prod.tria.so';
 
-export const saveWalletAnalytics = async(walletAddress:string,clientId:string,walletType:string) => {
+export const saveWalletAnalytics = async(baseUrl:string,walletAddress:string,clientId:string,walletType:string) => {
     console.log("walletAddress", walletAddress, clientId, `${baseUrl}/api/v2/user/saveWalletAnalytics`);
 
     try {
