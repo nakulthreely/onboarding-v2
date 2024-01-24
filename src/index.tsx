@@ -192,8 +192,7 @@ const Application: React.FC<ApplicationProps> = ({
       ((parseFloat(buttonPosition?.y?.slice(0, -2) || '') / 100) *
         window.innerHeight || 100)
   )
-  const [innerWalletVisible, setInnerWalletVisible] =
-    useState(customWalletVisible)
+
   useEffect(() => {
     console.log('x --->', buttonPosX)
     console.log('y --->', buttonPosY)
@@ -464,7 +463,6 @@ const Application: React.FC<ApplicationProps> = ({
       if (iframeElement && !iframeElement.contains(event.target)) {
         // The click is outside the iframe
         setWalletVisible(false)
-        setInnerWalletVisible(false)
       }
     }
 
@@ -1148,10 +1146,7 @@ const Application: React.FC<ApplicationProps> = ({
             id='triaWallet'
             style={{
               display:
-                walletVisible ||
-                (customWalletButton &&
-                  customWalletVisible &&
-                  innerWalletVisible)
+                walletVisible || (customWalletButton && customWalletVisible)
                   ? 'block'
                   : 'none',
               backgroundColor: 'transparent',
