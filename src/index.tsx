@@ -166,6 +166,7 @@ const Application: React.FC<ApplicationProps> = ({
   const [view, setView] = useState('Home')
   const [triaName, setTriaName] = useState<string>()
   const [userAddress, setUserAddress] = useState(null)
+  const [userNonEvmAddress, setUserNonEvmAddress] = useState([])
   const [email, setEmail] = useState('')
   const [showWallet, setShowWallet] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(false)
@@ -194,8 +195,8 @@ const Application: React.FC<ApplicationProps> = ({
   )
 
   useEffect(() => {
-    console.log('x --->', buttonPosX)
-    console.log('y --->', buttonPosY)
+    // console.log('x --->', buttonPosX)
+    // console.log('y --->', buttonPosY)
   }, [buttonPosX, buttonPosY])
   const [currentTime, setCurrentTime] = useState<number>()
   const buttonBoundRight = window.innerWidth - 134
@@ -214,10 +215,6 @@ const Application: React.FC<ApplicationProps> = ({
     }
   }, [])
 
-  useEffect(() => {
-    console.log(buttonPosX, buttonPosY)
-  }, [buttonPosX, buttonPosY])
-
   const [dragPosStart, setDragPosStart] = useState({ x: 0, y: 0 })
   const handleStartDragging = () => {
     var now = new Date()
@@ -228,9 +225,6 @@ const Application: React.FC<ApplicationProps> = ({
 
   const handleStopDragging = () => {
     var now = new Date()
-    console.log(coords)
-    console.log(window.innerWidth)
-    console.log(window.innerHeight)
 
     // console.log(first)
     if (
@@ -321,6 +315,9 @@ const Application: React.FC<ApplicationProps> = ({
           JSON.parse(localStorage.getItem('tria.wallet.store') || '')?.evm
             ?.address
         )
+        setUserNonEvmAddress(
+          JSON.parse(localStorage.getItem('tria.wallet.store') || '')?.nonEvm
+        )
       } else if (localStorage.getItem('wagmi.connected') === 'true') {
         const triaLogInEvent = new Event('TriaLogIn')
         window.dispatchEvent(triaLogInEvent)
@@ -349,12 +346,7 @@ const Application: React.FC<ApplicationProps> = ({
           const baseUrl = triaStaging
             ? 'https://staging.tria.so'
             : 'https://prod.tria.so'
-          console.log(
-            'walletAddress---->',
-            walletAddress,
-            'base url--->',
-            baseUrl
-          )
+
           await saveWalletAnalytics(
             baseUrl,
             walletAddress,
@@ -382,6 +374,7 @@ const Application: React.FC<ApplicationProps> = ({
       JSON.stringify({
         triaName,
         userAddress,
+        userNonEvmAddress,
         appDomain,
         darkMode,
         logo,
@@ -393,20 +386,7 @@ const Application: React.FC<ApplicationProps> = ({
         supportedChains,
       })
     )
-    console.log(
-      encodedParams,
-      userAddress,
-      triaName,
-      accessToken,
-      logo,
-      appDomain,
-      darkMode,
-      primaryColor,
-      fromDapp,
-      dappName,
-      defaultChain,
-      supportedChains
-    )
+
     {
       triaStaging
         ? setIframeURL(
@@ -414,11 +394,7 @@ const Application: React.FC<ApplicationProps> = ({
           )
         : setIframeURL(`https://wallet.tria.so/${encodedParams}`)
     }
-  }, [triaName, userAddress])
-
-  useEffect(() => {
-    console.log('WALLET URL ---->', iframeURL)
-  }, [iframeURL])
+  }, [triaName, userAddress, userNonEvmAddress])
 
   const nav_context_object = {
     view,
@@ -435,7 +411,7 @@ const Application: React.FC<ApplicationProps> = ({
   }
 
   useEffect(() => {
-    console.log('log from sdk ----->', dappName, logo)
+    // console.log('log from sdk ----->', dappName, logo)
     if (dappName && dappName?.length > 0 && logo && logo?.length > 0) {
       {
         triaStaging
@@ -524,7 +500,7 @@ const Application: React.FC<ApplicationProps> = ({
   const [frameUrl, setFrameUrl] = useState('')
 
   useEffect(() => {
-    console.log('sdk event data --> ', eventData)
+    // console.log('sdk event data --> ', eventData)
     var url = ''
     //@ts-ignore
     if (eventData?.message?.accountExists === false) {
@@ -546,7 +522,7 @@ const Application: React.FC<ApplicationProps> = ({
   }, [eventData])
 
   useEffect(() => {
-    console.log('sdk otp event data --> ', eventData, logo, dappName)
+    // console.log('sdk otp event data --> ', eventData, logo, dappName)
     let url = ''
     //@ts-ignore
     if (eventData?.message?.type == 'otpLogin') {
@@ -559,7 +535,7 @@ const Application: React.FC<ApplicationProps> = ({
         //@ts-ignore
         url = `https://auth-tria.vercel.app/phoneEmailOtp/?&dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}&defaultCountryCode=${defaultCountryCode}`
       }
-      console.log('url---------->', url)
+      // console.log('url---------->', url)
       setOpenNewFrame(true)
       setFrameUrl(url)
     }
