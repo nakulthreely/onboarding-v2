@@ -761,11 +761,7 @@ const Application: React.FC<ApplicationProps> = ({
                             }}
                           ></div>
                         </div>
-                        <Wallets
-                          setShowMetaMask={() => {
-                            setShowMetaMask(true)
-                          }}
-                          darkMode={darkMode}
+                        <Wallets darkMode={darkMode}
                         />
                       </div>
                     </div>

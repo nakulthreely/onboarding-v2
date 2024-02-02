@@ -4,9 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import NavContext from '../NavContext';
 import { useConnect } from 'wagmi';
 
-interface Props {
-    setShowMetaMask: () => void;
-}
 
 declare global {
     interface Window {
@@ -15,7 +12,7 @@ declare global {
 }
 
 
-const Wallets: React.FC<Props> = ({ setShowMetaMask, darkMode } : any) => {
+const Wallets = ({ darkMode } : any) => {
 
 
 
@@ -37,7 +34,7 @@ const Wallets: React.FC<Props> = ({ setShowMetaMask, darkMode } : any) => {
             console.log("res", res);
         } catch (err) {
             console.log("err", err);
-            setShowMetaMask();
+            connect({ connector: connectors[1] })
         }
     };
 
