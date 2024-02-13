@@ -83,9 +83,20 @@ export const useTriaTransaction = () => {
   };
 };
 
-export const TriaConnectProvider = ({ triaStaging = false }) => {
+export const TriaConnectProvider = ({
+  triaStaging = false,
+  litStaging = false,
+}) => {
   const [renderAuthIframe, setRenderAuthIframe] = useState(false);
-  const [authIframeSrc, setAuthIframeSrc] = useState<string>("");
+
+  // authenticate url. ensure that only one flag is added otherwise defaults to prod url
+  let authIframeSrc = "https://auth.tria.so/verified";
+  if (litStaging && !triaStaging) {
+    authIframeSrc = "https://auth-tria-lit.vercel.app/verified"; // New URL based on the litAuthenticate flag
+  } else if (triaStaging && !litStaging) {
+    authIframeSrc = "https://auth-tria.vercel.app/verified";
+  }
+
   useEffect(() => {
     // Function to get the value of a URL parameter
     const getQueryParam = (param: string) => {
@@ -95,11 +106,6 @@ export const TriaConnectProvider = ({ triaStaging = false }) => {
     // Check if the URL parameter is as expected
     const isVerified = getQueryParam("verified") === "true";
     setRenderAuthIframe(isVerified);
-    {
-      triaStaging
-        ? setAuthIframeSrc("https://auth-tria.vercel.app/verified")
-        : setAuthIframeSrc("https://auth.tria.so/verified");
-    }
   }, []);
   return (
     <>
@@ -424,9 +430,9 @@ const Application: React.FC<ApplicationProps> = ({
   useEffect(() => {
     // console.log('log from sdk ----->', dappName, logo)
     if (dappName && dappName?.length > 0 && logo && logo?.length > 0) {
-      let authIframeUrl = `${baseAuthUrl}/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&clientId=${clientId}`;
+      let iframeUrl = `${baseAuthUrl}/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&clientId=${clientId}`;
       if (triaStaging || litStaging) {
-        authIFrameUrl = authIFrameUrl + `&darkMode=${darkMode}`;
+        iframeUrl = iframeUrl + `&darkMode=${darkMode}`;
       }
       setAuthIFrameUrl(authIFrameUrl);
     }
