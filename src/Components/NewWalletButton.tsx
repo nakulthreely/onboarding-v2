@@ -291,7 +291,7 @@ const NewWalletButton = ({ bgColor }) => {
             y2="47.4405"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#7D40FF" />
+            <stop stop-color={bgColor} />
             <stop offset="1" stop-color="#1E1E1E" stop-opacity="0" />
           </linearGradient>
           <linearGradient
