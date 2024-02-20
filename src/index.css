@@ -614,22 +614,80 @@ font-size: 10px;
     U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-@keyframes rotate-glow {
+/* @keyframes rotate-glow {
   0%,
   100% {
-    filter: drop-shadow(0 0 8px var(--glow-color));
+    filter: drop-shadow(0 0 4px var(--glow-color));
   }
   25% {
-    filter: drop-shadow(0 8px 8px var(--glow-color));
+    filter: drop-shadow(0 4px 4px var(--glow-color));
   }
   50% {
-    filter: drop-shadow(8px 0 8px var(--glow-color));
+    filter: drop-shadow(4px 0 4px var(--glow-color));
   }
   75% {
-    filter: drop-shadow(0 -8px 8px var(--glow-color));
+    filter: drop-shadow(0 -4px 4px var(--glow-color));
   }
 }
 
 .svg-glow svg {
   animation: rotate-glow 5s infinite linear;
+} */
+
+.rotating-glow-container {
+  --gradient-color: #7d40ff;
+  --offset: 5px;
+  display: flex; /* Use Flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  background: linear-gradient(160deg, #383838 0%, #000000 100%);
+  border-radius: 20px;
+  position: relative;
+  height: 73px; /* SVG height */
+  width: 72px; /* SVG width */
+  max-width: 100%;
+  overflow: hidden;
+  box-shadow: 0 0 10px 3px var(--gradient-color); /* Static glow effect */
+}
+
+/* Conic gradient for rotating glow */
+.rotating-glow-container::before {
+  content: "";
+  background: conic-gradient(
+    transparent 270deg,
+    var(--gradient-color),
+    transparent
+  );
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Increase the size for a wider glow */
+  width: 120%; /* Wider than the element itself */
+  height: 120%; /* Maintain aspect ratio for circular effect */
+  transform: translate(-50%, -50%) scale(1); /* Adjust scale for desired size */
+  animation: rotate 2s linear infinite;
+}
+
+/* Overlay to maintain border and look */
+.rotating-glow-container::after {
+  content: "";
+  background: inherit;
+  border-radius: inherit;
+  position: absolute;
+  inset: var(--offset);
+  height: calc(100% - 2 * var(--offset));
+  width: calc(100% - 2 * var(--offset));
+}
+
+.rotating-glow-container svg {
+  z-index: 10;
+}
+
+@keyframes rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0turn);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(1turn);
+  }
 }
