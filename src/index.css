@@ -635,7 +635,6 @@ font-size: 10px;
 } */
 
 .rotating-glow-container {
-  --gradient-color: #7d40ff;
   --offset: 5px;
   display: flex; /* Use Flexbox */
   justify-content: center; /* Center horizontally */
@@ -647,7 +646,7 @@ font-size: 10px;
   width: 72px; /* SVG width */
   max-width: 100%;
   overflow: hidden;
-  box-shadow: 0 0 10px 3px var(--gradient-color); /* Static glow effect */
+  box-shadow: 0 0 10px 3px var(--gradient-shadow-color); /* Static glow effect */
 }
 
 /* Conic gradient for rotating glow */

@@ -1,12 +1,24 @@
 //@ts-ignore
 const NewWalletButton = ({ bgColor }) => {
+  const hexToRgba = (hex: string, opacity: number) => {
+    hex = hex.replace("#", "");
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+  };
+
+  const rgbaColor = hexToRgba(bgColor, 1);
+  const rgbaShadowColor = hexToRgba(bgColor, 0.4);
+
   const buttonStyle = {
     width: "145px",
     height: "135px",
   };
   const containerStyle = {
     display: "flex",
-    "--glow-color": bgColor, // Set the CSS variable to use in the animation
+    "--gradient-color": rgbaColor,
+    "--gradient-shadow-color": rgbaShadowColor,
   };
   return (
     <div
