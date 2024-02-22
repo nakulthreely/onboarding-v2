@@ -405,7 +405,7 @@ const Application: React.FC<ApplicationProps> = ({
     );
 
     {
-      triaStaging
+      triaStaging || litStaging
         ? setIframeURL(
             `https://tria-wallet-tria-triahq.vercel.app/${encodedParams}`
           )
