@@ -114,23 +114,26 @@ export const TriaConnectProvider = ({ triaStaging = false }) => {
 }
 
 interface ApplicationProps {
-  dappName?: string
-  dappDomain?: string
-  uiType?: string
-  logo?: string
-  primaryColor?: string
-  supportedChains?: []
-  defaultChain?: string
-  darkMode?: boolean
-  triaStaging?: boolean
-  buttonPosition?: { x?: string; y?: string }
-  authHorizontal?: string
-  positionType?: 'fixed' | 'absolute'
-  walletButtonDraggable?: boolean
-  clientId?: string
-  defaultCountryCode?: string
-  customWalletButton?: boolean
-  customWalletVisible?: boolean
+  dappName?: string;
+  dappDomain?: string;
+  uiType?: string;
+  logo?: string;
+  primaryColor?: string;
+  supportedChains?: [];
+  defaultChain?: string;
+  darkMode?: boolean;
+  triaStaging?: boolean;
+  buttonPosition?: { x?: string; y?: string };
+  authHorizontal?: string;
+  positionType?: "fixed" | "absolute";
+  walletButtonDraggable?: boolean;
+  defaultCountryCode?: string;
+  customWalletButton?: boolean;
+  customWalletVisible?: boolean;
+  analyticsKeys : {
+    clientId: string;
+    projectId: string;
+  }
 }
 
 const initialChains = [
@@ -158,8 +161,11 @@ const Application: React.FC<ApplicationProps> = ({
   authHorizontal = '50%',
   positionType = 'fixed',
   walletButtonDraggable = false,
-  clientId = '',
-  defaultCountryCode = '',
+  analyticsKeys = {
+    clientId: '',
+    projectId: ''
+  },
+  defaultCountryCode = "",
   customWalletButton = false,
   customWalletVisible = true,
 }) => {
@@ -196,6 +202,7 @@ const Application: React.FC<ApplicationProps> = ({
     console.log('x --->', buttonPosX)
     console.log('y --->', buttonPosY)
   }, [buttonPosX, buttonPosY])
+  const encodedAnalyticsKeys= createEncodedData(analyticsKeys);
   const [currentTime, setCurrentTime] = useState<number>()
   const buttonBoundRight = window.innerWidth - 134
   const buttonBoundBottom = window.innerHeight - 134
@@ -345,13 +352,14 @@ const Application: React.FC<ApplicationProps> = ({
           const parsedStoreData = wagmiStore ? JSON.parse(wagmiStore) : null;
           const parsedWalletType = walletType ? JSON.parse(walletType) : null;
           const walletAddress = parsedStoreData?.state?.data?.account;
-          console.log("walletAddress---->", walletAddress);
-          await saveWalletAnalytics(walletAddress, clientId,parsedWalletType);
+          const baseUrl = triaStaging ? "https://staging.tria.so":"https://prod.tria.so"
+          console.log("walletAddress---->", walletAddress,"base url--->",baseUrl);
+          await saveWalletAnalytics(baseUrl,walletAddress, encodedAnalyticsKeys, parsedWalletType);
         } catch (err) {
           console.log("err", err);
         }
       }
-    }; 
+    };
     storeExternalWalletData();
   }, [externalWallet])
 
@@ -427,10 +435,10 @@ const Application: React.FC<ApplicationProps> = ({
       {
         triaStaging
           ? setAuthIFrameUrl(
-              `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&darkMode=${darkMode}&clientId=${clientId}`
+              `https://auth-tria.vercel.app/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&darkMode=${darkMode}&clientId=${encodedAnalyticsKeys}`
             )
           : setAuthIFrameUrl(
-              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}`
+              `https://auth.tria.so/?dappName=${dappName}&dappLogo=${logo}&stackui=${uiType}&dappDomain=${dappDomain}&clientId=${encodedAnalyticsKeys}`
             )
       }
     }
@@ -934,8 +942,8 @@ const Application: React.FC<ApplicationProps> = ({
                                   }}
                                   src={
                                     !triaStaging
-                                      ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}`
-                                      : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}&clientId=${clientId}`
+                                      ? `https://auth.tria.so/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}&clientId=${encodedAnalyticsKeys}`
+                                      : `https://auth-tria.vercel.app/SocialLoginIframe/?dappName=${dappName}&dappLogo=${logo}&darkMode=${darkMode}&clientId=${encodedAnalyticsKeys}`
                                   }
                                   height={'205px'}
                                   width='100%'
